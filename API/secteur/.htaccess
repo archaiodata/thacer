@@ -1,0 +1,8 @@
+Options +Indexes
+
+<Files *>
+AuthType Basic
+AuthName "Please enter your username and password."
+AuthUserFile .htpasswd
+Require valid-user
+</Files>
