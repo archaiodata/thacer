@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'TheMap',
+  name: 'TheMap'
 }
 </script>
 
