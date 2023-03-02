@@ -8,14 +8,14 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: TheMap,
+      component: TheMap
     },
     {
       path: '/ceramic',
       name: 'about',
-      component: TheCeramic,
-    },
-  ],
+      component: TheCeramic
+    }
+  ]
 })
 
 export default router
