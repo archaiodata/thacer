@@ -35,8 +35,13 @@
 </template>
 
 <script>
+import { thacerMap } from '@/assets/js/thacer-map'
+
 export default {
-  name: 'TheMap'
+  name: 'TheMap',
+  mounted() {
+    thacerMap()
+  }
 }
 </script>
 
