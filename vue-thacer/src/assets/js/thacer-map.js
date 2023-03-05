@@ -1,56 +1,60 @@
 export function thacerMap() {
+  /* global L */
   L.mapbox.accessToken =
     'pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA'
 
-  var bounds = [
+  let bounds = [
     [40.5, 24.4], // Southwest coordinates
     [40.9, 24.9] // Northeast coordinates
   ]
 
-  var satellite = L.mapbox.tileLayer('mapbox.satellite'),
-    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      attribution: 'Imagery © <a href="www.google.com/help/legalnotices_maps.html">Google Maps</a>',
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-    }),
-    outdoors = L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-      {
-        id: 'mapbox/outdoors-v9'
-      }
-    ),
-    light = L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-      {
-        id: 'mapbox/light-v9'
-      }
-    ),
-    dark = L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-      {
-        maxZoom: 18,
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/dark-v10'
-      }
-    ),
-    streets = L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-      {
-        maxZoom: 18,
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1
-      }
-    )
+  /*let satellite =*/
+  L.mapbox.tileLayer('mapbox.satellite')
+  let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    attribution: 'Imagery © <a href="www.google.com/help/legalnotices_maps.html">Google Maps</a>',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+  })
+  let outdoors = L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+    {
+      id: 'mapbox/outdoors-v9'
+    }
+  )
+  let light = L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+    {
+      id: 'mapbox/light-v9'
+    }
+  )
+  /*let dark =*/
+  L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+    {
+      maxZoom: 18,
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/dark-v10'
+    }
+  )
+  /*let streets =*/
+  L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+    {
+      maxZoom: 18,
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1
+    }
+  )
 
-  var map = L.map('map', {
+  let map = L.map('map', {
     center: [40.78, 24.71],
     zoom: 15,
     minZoom: 11,
@@ -61,7 +65,7 @@ export function thacerMap() {
 
   //---------------------------- Cluster ----------------------------
 
-  var markers = new L.MarkerClusterGroup({
+  let markers = new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
     zoomToBoundsOnClick: true,
@@ -71,21 +75,21 @@ export function thacerMap() {
 
   //---------------------------- Cluster pour Chronique ----------------------------
 
-  var markers2 = new L.MarkerClusterGroup({
+  let markers2 = new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {
-      var childCount = cluster.getChildCount()
-      var c = ' marker-cluster-'
-      if (childCount < 10) {
-        c += 'small'
-      } else if (childCount < 100) {
-        c += 'medium'
-      } else {
-        c += 'large'
-      }
+      let childCount = cluster.getChildCount()
+      // let c = ' marker-cluster-'
+      // if (childCount < 10) {
+      //   c += 'small'
+      // } else if (childCount < 100) {
+      //   c += 'medium'
+      // } else {
+      //   c += 'large'
+      // } // TODO check with jean-sé
 
       return new L.DivIcon({
         html: '<div class="circle"><span>' + childCount + '</span></div>',
-        className: 'marker-cluster' + c,
+        //className: 'marker-cluster' + c,
         className: 'circle',
         iconSize: new L.Point(40, 40)
       })
@@ -98,32 +102,36 @@ export function thacerMap() {
 
   //---------------------------- Couche CERAM ------------------------------------
 
-  var result = L.mapbox
+  let result = L.mapbox
     .featureLayer()
     .loadURL('API/geojson/ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
+        let archimageURL
+        let Type
+        let NUM
+
         layer.setOpacity(0.8)
         if (layer.feature.properties.Archimage == undefined) {
-          var archimageURL = 'Archimage non disponible<br>'
+          archimageURL = 'Archimage non disponible<br>'
         } else {
-          var archimageURL =
+          archimageURL =
             "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
             layer.feature.properties.Archimage +
             "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
         }
         if (layer.feature.properties.Type == undefined) {
-          var Type = ''
+          Type = ''
         } else {
-          var Type = '<br>Type : ' + layer.feature.properties.Type
+          Type = '<br>Type : ' + layer.feature.properties.Type
         }
         if (layer.feature.properties.Inv_Fouille == null) {
-          var NUM = ''
+          NUM = ''
         } else {
-          var NUM = layer.feature.properties.Inv_Fouille
+          NUM = layer.feature.properties.Inv_Fouille
         }
         if (layer.feature.properties.Pi !== null) {
-          var NUM = layer.feature.properties.Pi + 'Π'
+          NUM = layer.feature.properties.Pi + 'Π'
         }
         layer.bindPopup(
           archimageURL +
@@ -160,10 +168,10 @@ export function thacerMap() {
   map.addLayer(markers)
 
   //---------------------------- search Couche CERAM ----------------------------
-  var filterInput = document.getElementById('filter-input')
+  let filterInput = document.getElementById('filter-input')
   filterInput.addEventListener('keyup', function (e) {
     if (e.keyCode == 13) {
-      var value = e.target.value.trim().toLowerCase()
+      let value = e.target.value.trim().toLowerCase()
       document.getElementById('nonloc').innerHTML = []
 
       fetch('API/geojson/ceram.geojson')
@@ -206,6 +214,9 @@ export function thacerMap() {
 
       result
         .setFilter(function (e) {
+          let return1
+          let return2
+          let return3
           if (e.properties['Identification'] !== null) {
             return1 = e.properties['Identification'].toString().toLowerCase().indexOf(value) > -1
           }
@@ -221,26 +232,30 @@ export function thacerMap() {
         })
         .on('ready', function (e) {
           e.target.eachLayer(function (layer) {
+            let archimageURL
+            // let Type // TODO check with jean-sé
+            let NUM
+
             if (layer.feature.properties.Archimage == undefined) {
-              var archimageURL = 'Archimage non disponible<br>'
+              archimageURL = 'Archimage non disponible<br>'
             } else {
-              var archimageURL =
+              archimageURL =
                 "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
                 layer.feature.properties.Archimage +
                 "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
             }
-            if (layer.feature.properties.Type == undefined) {
-              var Type = ''
-            } else {
-              var Type = '<br>Type : ' + layer.feature.properties.Type
-            }
+            // if (layer.feature.properties.Type == undefined) {
+            //   Type = ''
+            // } else {
+            //   Type = '<br>Type : ' + layer.feature.properties.Type
+            // } // TODO check with jean-sé
             if (layer.feature.properties.Inv_Fouille == null) {
-              var NUM = ''
+              NUM = ''
             } else {
-              var NUM = '<br>Type : ' + layer.feature.properties.Type
+              NUM = '<br>Type : ' + layer.feature.properties.Type
             }
             if (layer.feature.properties.Pi !== null) {
-              var NUM = layer.feature.properties.Pi + 'Π'
+              NUM = layer.feature.properties.Pi + 'Π'
             }
             layer.bindPopup(
               archimageURL +
@@ -279,32 +294,32 @@ export function thacerMap() {
 
   //-------------------------------------------  secteurs + select ceram  _______________________________________________________
 
-  var secteurs = L.mapbox
+  let secteurs = L.mapbox
     .featureLayer()
     .loadURL('API/geojson/secteurs.geojson')
     .on('ready', function () {
       // function select ceram according to the secteurs ID on the clicked secteur feature
       secteurs.eachLayer(function (layer) {
         layer.eachLayer(function (e) {
-          var string = ''
-          var biblio = ''
+          let string = ''
+          let biblio = ''
           if (
-            (layer.feature.properties.GTh == '') |
-            (layer.feature.properties.GTh == 'null') |
-            (layer.feature.properties.GTh == undefined)
+            !(
+              (layer.feature.properties.GTh == '') |
+              (layer.feature.properties.GTh == 'null') |
+              (layer.feature.properties.GTh == undefined)
+            )
           ) {
-            var GTh = ' '
-          } else {
-            var string = ' GTh' + layer.feature.properties.GTh
+            string = ' GTh' + layer.feature.properties.GTh
           }
           if (
-            (layer.feature.properties.Référenc == '') |
-            (layer.feature.properties.Référenc == 'null') |
-            (layer.feature.properties.Référenc == undefined)
+            !(
+              (layer.feature.properties.Référenc == '') |
+              (layer.feature.properties.Référenc == 'null') |
+              (layer.feature.properties.Référenc == undefined)
+            )
           ) {
-            var GTh = ' '
-          } else {
-            var biblio = layer.feature.properties.Référenc
+            biblio = layer.feature.properties.Référenc
           }
           e.bindPopup(layer.feature.properties.Titre + string + '<br>' + biblio, {
             maxWidth: 300,
@@ -318,7 +333,7 @@ export function thacerMap() {
           e.on('click', function () {
             map.removeLayer(markers)
             markers.clearLayers()
-            var value = layer.feature.properties.secteur_ID
+            let value = layer.feature.properties.secteur_ID
             result.loadURL('API/geojson/ceram.geojson')
             result
               .setFilter(function (feature) {
@@ -326,10 +341,12 @@ export function thacerMap() {
               })
               .on('ready', function (e) {
                 e.target.eachLayer(function (layer) {
+                  let archimageURL
+
                   if (layer.feature.properties.ArchImage == undefined) {
-                    var archimageURL = 'Archimage non disponible<br>'
+                    archimageURL = 'Archimage non disponible<br>'
                   } else {
-                    var archimageURL =
+                    archimageURL =
                       "<img src='https://archimage.efa.gr/action.php?kroute=image_thumb&id=" +
                       layer.feature.properties.ArchImage +
                       "'/><br>"
@@ -337,7 +354,7 @@ export function thacerMap() {
                   layer.bindPopup(
                     archimageURL +
                       'Inventaire : ' +
-                      NUM +
+                      // NUM + // TODO check with jean-sé
                       '<br>Identification : ' +
                       layer.feature.properties.Identification +
                       '<br>Type : ' +
@@ -351,7 +368,7 @@ export function thacerMap() {
                       '&ANA=THA' +
                       layer.feature.properties.Num_Analyse +
                       '&INV=' +
-                      NUM +
+                      // NUM + // TODO check with jean-sé
                       "'>Fiche complète</a>",
                     {
                       maxWidth: 350,
@@ -378,18 +395,19 @@ export function thacerMap() {
   //_____________________________________ design marker _____________________________________
 
   result.on('layeradd', function (e) {
-    var marker = e.layer,
+    let NUM
+    let marker = e.layer,
       feature = marker.feature
     if (feature.properties.Pi == undefined) {
-      var NUM = feature.properties.Inv_Fouille
+      NUM = feature.properties.Inv_Fouille
     } else {
-      var NUM = feature.properties.Pi + 'Π'
+      NUM = feature.properties.Pi + 'Π'
     }
     marker.setIcon(L.divIcon({ html: NUM, className: 'my-icon', iconSize: 'null' }))
   })
 
   // ------------------------- Chronique -----------------------------
-  var chronique = L.mapbox
+  let chronique = L.mapbox
     .featureLayer()
     .loadURL('API/geojson/chronique.geojson')
     .on('layeradd', function (e) {
@@ -397,7 +415,7 @@ export function thacerMap() {
         layer.on('click', function () {
           window.open(
             'https://chronique.efa.gr/?kroute=report&id=' + layer.feature.properties.ID,
-            (target = '_blank')
+            '_blank'
           )
         })
         markers2.addLayer(layer)
@@ -406,14 +424,14 @@ export function thacerMap() {
 
   chronique.on('layeradd', function (e) {
     // map.addLayer(markers2);
-    var marker = e.layer,
-      feature = marker.feature
+    let marker = e.layer
+    // let feature = marker.feature// TODO check with jean-sé
     marker.setIcon(L.divIcon({ html: 'EfA', className: 'EFA-icon', iconSize: 'null' }))
   })
 
   // ------------------------- ADelt -----------------------------
 
-  var ADelt = L.mapbox
+  let ADelt = L.mapbox
     .featureLayer()
     .loadURL('API/geojson/ADelt51.geojson')
     .on('ready', function (e) {
@@ -430,7 +448,7 @@ export function thacerMap() {
     .addTo(map)
 
   ADelt.on('layeradd', function (e) {
-    var marker = e.layer,
+    let marker = e.layer,
       feature = marker.feature
     marker.setIcon(
       L.divIcon({
@@ -441,9 +459,9 @@ export function thacerMap() {
     )
   })
 
-  var show_label_zoom = 12 // zoom level threshold for showing/hiding labels
+  let show_label_zoom = 12 // zoom level threshold for showing/hiding labels
   function show_hide_labels() {
-    var cur_zoom = map.getZoom()
+    let cur_zoom = map.getZoom()
     if (cur_zoom <= show_label_zoom) {
       map.removeLayer(ADelt)
     } else if (cur_zoom > show_label_zoom) {
@@ -463,9 +481,9 @@ export function thacerMap() {
   //   transparent: true,
   //   maxZoom: 20,
   //   opacity: 0.5
-  // });
+  // }); // TODO check with jean-sé
 
-  Orthophoto_Agora = L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
+  let Orthophoto_Agora = L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:Orthophoto_Agora',
     attribution: 'EfA',
     transparent: true,
@@ -475,14 +493,14 @@ export function thacerMap() {
 
   //_____________________________________ vestiges _____________________________________
 
-  var vestiges = L.mapbox.featureLayer().loadURL('API/geojson/vestiges.geojson').addTo(map)
+  let vestiges = L.mapbox.featureLayer().loadURL('API/geojson/vestiges.geojson').addTo(map)
   vestiges.getAttribution = function () {
     return 'Plan des vestiges antique : MWK TK EfA'
   }
 
   //_____________________________________ Atλas  _____________________________________
 
-  // var AtlasGeonamePleiades = L.mapbox.featureLayer()
+  // let AtlasGeonamePleiades = L.mapbox.featureLayer()
   // 	.loadURL('AtlasGeonamePleiades.geojson')
   // 	.on('ready', function(e) {
   //   		e.target.eachLayer(function(layer) {
@@ -491,16 +509,18 @@ export function thacerMap() {
   // 	});
 
   //     AtlasGeonamePleiades.on('layeradd', function(e) {
-  //   var marker = e.layer,
+  //   let marker = e.layer,
   //     feature = marker.feature;
   //    marker.setIcon(L.divIcon({"html": feature.properties.toponame_lat,"className":"ADelt-icon","iconSize":"null"}));
   // });
 
   // 	AtlasGeonamePleiades.getAttribution = function() { return 'Atλas JSG'; };
 
+  // TODO check with jean-sé
+
   //_____________________________________ Ateliers _____________________________________
 
-  var ateliers_amphoriques = L.mapbox
+  let ateliers_amphoriques = L.mapbox
     .featureLayer()
     .loadURL('API/geojson/ateliers_amphoriques.geojson')
     .on('layeradd', function (e) {
@@ -521,10 +541,10 @@ export function thacerMap() {
 
   //_____________________________________ echantillonsgeol _____________________________________
 
-  var echantillonsgeol = L.mapbox.featureLayer().loadURL('API/geojson/echantillonsgeol.geojson')
+  let echantillonsgeol = L.mapbox.featureLayer().loadURL('API/geojson/echantillonsgeol.geojson')
 
   echantillonsgeol.on('layeradd', function (e) {
-    var marker = e.layer,
+    let marker = e.layer,
       feature = marker.feature
     marker.setIcon(
       L.divIcon({
@@ -537,7 +557,8 @@ export function thacerMap() {
 
   //_____________________________________ tours _____________________________________
 
-  var tours = L.mapbox
+  /*let tours =*/
+  L.mapbox
     .featureLayer()
     .loadURL('API/geojson/toursOS.geojson')
     .on('layeradd', function (e) {
@@ -574,16 +595,16 @@ export function thacerMap() {
       Add raster
   */
 
-  var KhalilimageBounds = [
+  let KhalilimageBounds = [
     [40.768370395, 24.699482062],
     [40.781060633, 24.716708757]
   ] // SWNE
-  var Khalil = L.imageOverlay('1685.png', KhalilimageBounds)
+  let Khalil = L.imageOverlay('1685.png', KhalilimageBounds)
 
   /*
       Control.layers
   */
-  var baseMaps = {
+  let baseMaps = {
     'Carte avec dénivellés': outdoors,
     'Fond satellite': googleSat,
     'Carte claire': light
@@ -591,7 +612,7 @@ export function thacerMap() {
     //'streets' : streets
   }
 
-  var overlayMaps = {
+  let overlayMaps = {
     'Vestiges antiques': vestiges,
     'Secteurs de fouille et GTh': secteurs,
     'Plan Khalil 1954': Khalil,
