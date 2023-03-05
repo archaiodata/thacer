@@ -23,6 +23,15 @@
       <div id="nonloc" class="d-flex flex-wrap"></div>
     </div>
   </div>
+  
+  <div class="filter-ctrl" style="right: 100px; position: absolute">
+    <input
+      id="filter-input"
+      type="text"
+      name="filter"
+      placeholder="ex. 2085, 2057, plat, cratère, amphore..."
+    />
+  </div>
 </template>
 
 <script>
