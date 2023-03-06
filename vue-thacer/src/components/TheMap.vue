@@ -4,27 +4,15 @@
       <div id="map" class="map"></div>
     </div>
   </main>
+
   <div id="encart-container">
-    <div
-      id="encart"
-      class="encart leaflet-control-layers leaflet-container"
-      style="
-        position: absolute;
-        bottom: 30px;
-        right: 0px;
-        width: 175px;
-        max-height: 50%;
-        overflow: auto;
-        margin-right: 10px;
-        padding: 6px 10px 6px 6px;
-      "
-    >
+    <div id="encart" class="encart leaflet-control-layers leaflet-container">
       Non localisés
       <div id="nonloc" class="d-flex flex-wrap"></div>
     </div>
   </div>
-  
-  <div class="filter-ctrl" style="right: 100px; position: absolute">
+
+  <div class="filter-ctrl">
     <input
       id="filter-input"
       type="text"
@@ -68,11 +56,22 @@ body {
   padding: 0;
 }
 
+.encart {
+  position: absolute;
+  bottom: 30px;
+  right: 0px;
+  width: 175px;
+  max-height: 50%;
+  overflow: auto;
+  margin-right: 10px;
+  padding: 6px 10px 6px 6px;
+}
+
 .filter-ctrl {
-  /*.position: absolute;
-    top: 25px;
-    right: 100px;
-    z-index: 1;*/
+  position: absolute;
+  top: 25px;
+  right: 100px;
+  z-index: 1;
   width: 220px;
 }
 
