@@ -194,7 +194,6 @@ export function thacerMap() {
         .on('ready', function (e) {
           e.target.eachLayer(function (layer) {
             let archimageURL
-            // let Type // TODO check with jean-sé
             let NUM
 
             if (layer.feature.properties.Archimage == undefined) {
@@ -310,7 +309,7 @@ export function thacerMap() {
                   layer.bindPopup(
                     archimageURL +
                       'Inventaire : ' +
-                      // NUM + // TODO check with jean-sé
+                      // identifier + // TODO check with jean-sé
                       '<br>Identification : ' +
                       layer.feature.properties.Identification +
                       '<br>Type : ' +
@@ -324,7 +323,7 @@ export function thacerMap() {
                       '&ANA=THA' +
                       layer.feature.properties.Num_Analyse +
                       '&INV=' +
-                      // NUM + // TODO check with jean-sé
+                      // identifier + // TODO check with jean-sé
                       "'>Fiche complète</a>",
                     {
                       maxWidth: 350,
@@ -434,7 +433,7 @@ export function thacerMap() {
   //   transparent: true,
   //   maxZoom: 20,
   //   opacity: 0.5
-  // }); // TODO check with jean-sé
+  // });
 
   let Orthophoto_Agora = L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:Orthophoto_Agora',
