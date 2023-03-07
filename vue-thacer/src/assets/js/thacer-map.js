@@ -27,32 +27,6 @@ export function thacerMap() {
       id: 'mapbox/light-v9'
     }
   )
-  /*let dark =*/
-  L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-    {
-      maxZoom: 18,
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      id: 'mapbox/dark-v10'
-    }
-  )
-  /*let streets =*/
-  L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
-    {
-      maxZoom: 18,
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1
-    }
-  )
 
   let map = L.map('map', {
     center: [40.78, 24.71],
@@ -70,7 +44,6 @@ export function thacerMap() {
     showCoverageOnHover: false,
     zoomToBoundsOnClick: true,
     spiderfyDistanceMultiplier: 2
-    //disableClusteringAtZoom: 20
   })
 
   //---------------------------- Cluster pour Chronique ----------------------------
@@ -78,18 +51,9 @@ export function thacerMap() {
   let markers2 = new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {
       let childCount = cluster.getChildCount()
-      // let c = ' marker-cluster-'
-      // if (childCount < 10) {
-      //   c += 'small'
-      // } else if (childCount < 100) {
-      //   c += 'medium'
-      // } else {
-      //   c += 'large'
-      // } // TODO check with jean-sé
 
       return new L.DivIcon({
         html: '<div class="circle"><span>' + childCount + '</span></div>',
-        //className: 'marker-cluster' + c,
         className: 'circle',
         iconSize: new L.Point(40, 40)
       })
@@ -423,9 +387,7 @@ export function thacerMap() {
     })
 
   chronique.on('layeradd', function (e) {
-    // map.addLayer(markers2);
     let marker = e.layer
-    // let feature = marker.feature// TODO check with jean-sé
     marker.setIcon(L.divIcon({ html: 'EfA', className: 'EFA-icon', iconSize: 'null' }))
   })
 
@@ -500,26 +462,6 @@ export function thacerMap() {
   vestiges.getAttribution = function () {
     return 'Plan des vestiges antique : MWK TK EfA'
   }
-
-  //_____________________________________ Atλas  _____________________________________
-
-  // let AtlasGeonamePleiades = L.mapbox.featureLayer()
-  // 	.loadURL('AtlasGeonamePleiades.geojson')
-  // 	.on('ready', function(e) {
-  //   		e.target.eachLayer(function(layer) {
-  //    			layer.bindPopup(layer.feature.properties.toponame_lat + "<br><a href='https://www.geonames.org/" + layer.feature.properties.GEONAME_ID + "'>Geoname</a>",{maxWidth: 350, maxHeight: 550, autoPan: true, closeButton: false, autoPanPadding: [5, 5]})
-  //  		});
-  // 	});
-
-  //     AtlasGeonamePleiades.on('layeradd', function(e) {
-  //   let marker = e.layer,
-  //     feature = marker.feature;
-  //    marker.setIcon(L.divIcon({"html": feature.properties.toponame_lat,"className":"ADelt-icon","iconSize":"null"}));
-  // });
-
-  // 	AtlasGeonamePleiades.getAttribution = function() { return 'Atλas JSG'; };
-
-  // TODO check with jean-sé
 
   //_____________________________________ Ateliers _____________________________________
 
@@ -613,8 +555,6 @@ export function thacerMap() {
     'Carte avec dénivellés': outdoors,
     'Fond satellite': googleSat,
     'Carte claire': light
-    // 'dark': dark,
-    //'streets' : streets
   }
 
   let overlayMaps = {
@@ -625,8 +565,6 @@ export function thacerMap() {
     // 'Plan SIG agora': SIG_thasos,
     'Orthophoto agora EfA': Orthophoto_Agora,
     'Ateliers amphoriques': ateliers_amphoriques,
-    //'Toponymes Atλas' : AtlasGeonamePleiades,
-    // 'Osborne 1986 Island towers' : tours,
     'Echantillons géologiques': echantillonsgeol
   }
 
