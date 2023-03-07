@@ -12,7 +12,8 @@ export function thacerMap() {
   L.mapbox.tileLayer('mapbox.satellite')
   let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
-    attribution: 'Imagery © <a href="www.google.com/help/legalnotices_maps.html">Google Maps</a>',
+    attribution:
+      'Imagery © <a href="https://www.google.com/help/legalnotices_maps.html">Google Maps</a>',
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
   })
   let outdoors = L.tileLayer(
