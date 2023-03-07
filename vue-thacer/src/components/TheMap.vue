@@ -2,6 +2,8 @@
   <main role="main">
     <div id="map-container">
       <div id="map" class="map"></div>
+
+      <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
     </div>
   </main>
 
@@ -11,22 +13,15 @@
       <div id="nonloc" class="d-flex flex-wrap"></div>
     </div>
   </div>
-
-  <div class="filter-ctrl">
-    <input
-      id="filter-input"
-      type="text"
-      name="filter"
-      placeholder="ex. 2085, 2057, plat, cratère, amphore..."
-    />
-  </div>
 </template>
 
 <script>
 import { thacerMap } from '@/assets/js/thacer-map'
+import TheMapSearch from '@/components/TheMapSearch.vue'
 
 export default {
   name: 'TheMap',
+  components: { TheMapSearch },
   mounted() {
     thacerMap()
   }
@@ -36,6 +31,12 @@ export default {
 <style scoped></style>
 
 <style>
+.map-search {
+  width: 220px;
+  margin-top: 75px;
+  margin-left: 12px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -65,26 +66,6 @@ body {
   overflow: auto;
   margin-right: 10px;
   padding: 6px 10px 6px 6px;
-}
-
-.filter-ctrl {
-  position: absolute;
-  top: 25px;
-  right: 100px;
-  z-index: 1;
-  width: 220px;
-}
-
-.filter-ctrl input[type='text'] {
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  width: 100%;
-  border: 0;
-  background-color: #fff;
-  margin: 0;
-  color: rgba(0, 0, 0, 0.5);
-  padding: 5px;
-  box-shadow: 0 0 0 0.8px rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
 }
 
 /* .download {
