@@ -1,30 +1,20 @@
 <template>
   <main role="main">
     <div id="map-container">
-      <div id="map" class="map"></div>
-
+      <TheMapMainDisplay></TheMapMainDisplay>
       <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
+      <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
     </div>
   </main>
-
-  <div id="encart-container">
-    <div id="encart" class="encart leaflet-control-layers leaflet-container">
-      Non localisés
-      <div id="nonloc" class="d-flex flex-wrap"></div>
-    </div>
-  </div>
 </template>
 
 <script>
-import { thacerMap } from '@/assets/js/thacer-map'
 import TheMapSearch from '@/components/TheMapSearch.vue'
+import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
 
 export default {
   name: 'TheMap',
-  components: { TheMapSearch },
-  mounted() {
-    thacerMap()
-  }
+  components: { TheMapInsertUnlocalised, TheMapSearch }
 }
 </script>
 
@@ -57,7 +47,7 @@ body {
   padding: 0;
 }
 
-.encart {
+.map-insert-unlocalised {
   position: absolute;
   bottom: 30px;
   right: 0px;
@@ -146,10 +136,6 @@ g path {
   line-height: 1.2;
 }
 
-.leaflet-control-layers label {
-  margin-bottom: 0rem;
-}
-
 .leaflet-popup {
   bottom: 2px;
   left: 175px;
@@ -161,11 +147,6 @@ g path {
 
 .leaflet-popup-content img {
   margin: 4%;
-}
-
-.leaflet-container p {
-  font-size: 10px;
-  line-height: 15px;
 }
 
 .marker-cluster-medium,
