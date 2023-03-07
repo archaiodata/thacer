@@ -57,11 +57,9 @@ function createBaseMaps() {
 
 function createOverlayMaps(map) {
   let markersCeram = overlay.createMarkersCeram()
-  let ceram = overlay.createOverlayCeram(markersCeram)
+  let ceram = overlay.createOverlayCeram(markersCeram, map)
   overlay.designMarkersCeram(ceram)
   map.addLayer(markersCeram) // Always displayed
-
-  overlay.setupSearchCeramText(markersCeram, map, ceram)
 
   let markersChronique = overlay.createMarkersChronique()
   overlay.createOverlayChronique(markersChronique)
