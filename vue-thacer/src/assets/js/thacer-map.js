@@ -64,7 +64,7 @@ export function thacerMap() {
   //---------------------------- Couche CERAM ------------------------------------
   let result = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
         // Note : The name "layer" is misleading. A layer is a unique element on the map, here a ceramique.
@@ -136,7 +136,7 @@ export function thacerMap() {
       let value = e.target.value.trim().toLowerCase()
       document.getElementById('nonloc').innerHTML = []
 
-      fetch(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
+      fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
         .then((r) => r.json())
         .then((json) => {
           // console.log(json.features)
@@ -171,7 +171,7 @@ export function thacerMap() {
 
       markersCeram.clearLayers()
       map.removeLayer(markersCeram)
-      result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
+      result.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
       result
         .setFilter(function (e) {
@@ -251,7 +251,7 @@ export function thacerMap() {
   // This take care of the search per click on secteur
   let secteurs = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'secteurs.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
     .on('ready', function () {
       // function select ceram according to the secteurs ID on the clicked secteur feature
       secteurs.eachLayer(function (layer) {
@@ -289,7 +289,7 @@ export function thacerMap() {
             map.removeLayer(markersCeram)
             markersCeram.clearLayers()
             let value = layer.feature.properties.secteur_ID
-            result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
+            result.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
             result
               .setFilter(function (feature) {
                 return feature.properties['secteur_ID'] == value
@@ -363,7 +363,7 @@ export function thacerMap() {
   // ------------------------- design marker for Chronique -----------------------------
   let chronique = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'chronique.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
     .on('layeradd', function (e) {
       e.target.eachLayer(function (layer) {
         layer.on('click', function () {
@@ -385,7 +385,7 @@ export function thacerMap() {
   // Always displayed (except one some zoom level)
   let ADelt = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ADelt51.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
         layer.bindPopup('ADelt 51 : "' + layer.feature.properties.Texte + '"<br>', {
@@ -446,7 +446,7 @@ export function thacerMap() {
   //_____________________________________ vestiges _____________________________________
   let vestiges = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'vestiges.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
     .addTo(map)
   vestiges.getAttribution = function () {
     return 'Plan des vestiges antique : MWK TK EfA'
@@ -455,7 +455,7 @@ export function thacerMap() {
   //_____________________________________ Ateliers _____________________________________
   let ateliers_amphoriques = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ateliers_amphoriques.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ateliers_amphoriques.geojson')
     .on('layeradd', function (e) {
       e.layer.setIcon(
         L.icon({
@@ -475,7 +475,7 @@ export function thacerMap() {
   //_____________________________________ echantillonsgeol _____________________________________
   let echantillonsgeol = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'echantillonsgeol.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
 
   echantillonsgeol.on('layeradd', function (e) {
     let marker = e.layer,
@@ -494,7 +494,7 @@ export function thacerMap() {
   /*let tours =*/
   L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'toursOS.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/toursOS.geojson')
     .on('layeradd', function (e) {
       e.layer.setIcon(
         L.icon({
