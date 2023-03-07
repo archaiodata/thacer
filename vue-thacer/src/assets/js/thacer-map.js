@@ -533,7 +533,7 @@ export function thacerMap() {
     [40.768370395, 24.699482062],
     [40.781060633, 24.716708757]
   ] // SWNE
-  let Khalil = L.imageOverlay('1685.png', KhalilimageBounds)
+  let Khalil = L.imageOverlay(import.meta.env.VITE_API_URL + 'IMAGES/1685.png', KhalilimageBounds)
 
   /*
       Control.layers
