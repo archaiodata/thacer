@@ -8,8 +8,6 @@ export function thacerMap() {
     [40.9, 24.9] // Northeast coordinates
   ]
 
-  /*let satellite =*/
-  L.mapbox.tileLayer('mapbox.satellite')
   let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     attribution:
@@ -38,18 +36,16 @@ export function thacerMap() {
     maxBounds: bounds // Sets bounds as max
   })
 
-  //---------------------------- Cluster ----------------------------
-
-  let markers = new L.MarkerClusterGroup({
+  //---------------------------- Cluster for Ceramique----------------------------
+  let markersCeram = new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
     zoomToBoundsOnClick: true,
     spiderfyDistanceMultiplier: 2
   })
 
-  //---------------------------- Cluster pour Chronique ----------------------------
-
-  let markers2 = new L.MarkerClusterGroup({
+  //---------------------------- Cluster for Chronique ----------------------------
+  let markersChronique = new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {
       let childCount = cluster.getChildCount()
 
@@ -66,12 +62,12 @@ export function thacerMap() {
   })
 
   //---------------------------- Couche CERAM ------------------------------------
-
   let result = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
+        // Note : The name "layer" is misleading. A layer is a unique element on the map, here a ceramique.
         let archimageURL
         let Type
         let NUM
@@ -125,14 +121,15 @@ export function thacerMap() {
             autoPanPadding: [5, 5]
           }
         )
-        markers.addLayer(layer)
+        markersCeram.addLayer(layer)
       })
     })
 
   //add the MarkerClusterGroup to the map:
-  map.addLayer(markers)
+  map.addLayer(markersCeram)
 
   //---------------------------- search Couche CERAM ----------------------------
+  // This take care of the search per input field
   let filterInput = document.getElementById('filter-input')
   filterInput.addEventListener('keyup', function (e) {
     if (e.keyCode == 13) {
@@ -148,7 +145,6 @@ export function thacerMap() {
 
             if (
               (obj.properties.x == 0 && obj.properties.Pi == value) ||
-              // obj.properties.x == 0 && obj.properties.Description.toString().toLowerCase().indexOf(value) > -1 ||
               (obj.properties.x == 0 &&
                 obj.properties.Identification.toString().toLowerCase().indexOf(value) > -1)
             ) {
@@ -173,8 +169,8 @@ export function thacerMap() {
           })
         })
 
-      markers.clearLayers()
-      map.removeLayer(markers)
+      markersCeram.clearLayers()
+      map.removeLayer(markersCeram)
       result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
       result
@@ -209,11 +205,6 @@ export function thacerMap() {
                 layer.feature.properties.Archimage +
                 "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
             }
-            // if (layer.feature.properties.Type == undefined) {
-            //   Type = ''
-            // } else {
-            //   Type = '<br>Type : ' + layer.feature.properties.Type
-            // } // TODO check with jean-sé
             if (layer.feature.properties.Inv_Fouille == null) {
               NUM = ''
             } else {
@@ -250,15 +241,15 @@ export function thacerMap() {
                 autoPanPadding: [5, 5]
               }
             )
-            markers.addLayer(layer)
+            markersCeram.addLayer(layer)
           })
         })
-      map.addLayer(markers)
+      map.addLayer(markersCeram)
     }
   })
 
   //-------------------------------------------  secteurs + select ceram  _______________________________________________________
-
+  // This take care of the search per click on secteur
   let secteurs = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'secteurs.geojson')
@@ -296,8 +287,8 @@ export function thacerMap() {
           })
           // search ceram on click
           e.on('click', function () {
-            map.removeLayer(markers)
-            markers.clearLayers()
+            map.removeLayer(markersCeram)
+            markersCeram.clearLayers()
             let value = layer.feature.properties.secteur_ID
             result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
             result
@@ -344,21 +335,20 @@ export function thacerMap() {
                       autoPanPadding: [5, 5]
                     }
                   )
-                  markers.addLayer(layer)
+                  markersCeram.addLayer(layer)
                 })
                 //  map.addLayer(result);
                 //map.fitBounds(result.getBounds());
               })
 
-            map.addLayer(markers)
+            map.addLayer(markersCeram)
           })
         })
       })
     })
     .addTo(map)
 
-  //_____________________________________ design marker _____________________________________
-
+  //_____________________________________ design marker for ceram _____________________________________
   result.on('layeradd', function (e) {
     let NUM
     let marker = e.layer,
@@ -371,7 +361,7 @@ export function thacerMap() {
     marker.setIcon(L.divIcon({ html: NUM, className: 'my-icon', iconSize: 'null' }))
   })
 
-  // ------------------------- Chronique -----------------------------
+  // ------------------------- design marker for Chronique -----------------------------
   let chronique = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'chronique.geojson')
@@ -383,7 +373,7 @@ export function thacerMap() {
             '_blank'
           )
         })
-        markers2.addLayer(layer)
+        markersChronique.addLayer(layer)
       })
     })
 
@@ -393,7 +383,7 @@ export function thacerMap() {
   })
 
   // ------------------------- ADelt -----------------------------
-
+  // Always displayed (except one some zoom level)
   let ADelt = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ADelt51.geojson')
@@ -455,7 +445,6 @@ export function thacerMap() {
   })
 
   //_____________________________________ vestiges _____________________________________
-
   let vestiges = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'vestiges.geojson')
@@ -465,7 +454,6 @@ export function thacerMap() {
   }
 
   //_____________________________________ Ateliers _____________________________________
-
   let ateliers_amphoriques = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ateliers_amphoriques.geojson')
@@ -486,7 +474,6 @@ export function thacerMap() {
     })
 
   //_____________________________________ echantillonsgeol _____________________________________
-
   let echantillonsgeol = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_GEOJSON_URL + 'echantillonsgeol.geojson')
@@ -504,7 +491,7 @@ export function thacerMap() {
   })
 
   //_____________________________________ tours _____________________________________
-
+  // Always displayed
   /*let tours =*/
   L.mapbox
     .featureLayer()
@@ -562,7 +549,7 @@ export function thacerMap() {
     'Vestiges antiques': vestiges,
     'Secteurs de fouille et GTh': secteurs,
     'Plan Khalil 1954': Khalil,
-    'Chronique des fouilles': markers2,
+    'Chronique des fouilles': markersChronique,
     // 'Plan SIG agora': SIG_thasos,
     'Orthophoto agora EfA': Orthophoto_Agora,
     'Ateliers amphoriques': ateliers_amphoriques,
