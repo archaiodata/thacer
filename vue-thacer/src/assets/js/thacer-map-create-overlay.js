@@ -157,7 +157,7 @@ export function createOverlayKhalil(map) {
   ] // SWNE
 
   map.on('overlayadd', function (eo) {
-    if (eo.name === 'Khalil 1954 plan') {
+    if (eo.name === 'Plan Khalil 1954') {
       map.fitBounds(KhalilimageBounds)
     }
   })
