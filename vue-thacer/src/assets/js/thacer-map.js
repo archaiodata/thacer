@@ -70,7 +70,7 @@ export function thacerMap() {
         // Note : The name "layer" is misleading. A layer is a unique element on the map, here a ceramique.
         let archimageURL
         let Type
-        let NUM
+        let identifier
 
         layer.setOpacity(0.8)
         if (layer.feature.properties.Archimage == undefined) {
@@ -82,22 +82,22 @@ export function thacerMap() {
             "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
         }
         if (layer.feature.properties.Type == undefined) {
-          Type = ''
+          Type = '' // TODO type
         } else {
           Type = '<br>Type : ' + layer.feature.properties.Type
         }
         if (layer.feature.properties.Inv_Fouille == null) {
-          NUM = ''
+          identifier = ''
         } else {
-          NUM = layer.feature.properties.Inv_Fouille
+          identifier = layer.feature.properties.Inv_Fouille
         }
         if (layer.feature.properties.Pi !== null) {
-          NUM = layer.feature.properties.Pi + 'Π'
+          identifier = layer.feature.properties.Pi + 'Π'
         }
         layer.bindPopup(
           archimageURL +
             'Inventaire : ' +
-            NUM +
+            identifier +
             '<br>Identification : ' +
             layer.feature.properties.Identification +
             Type +
@@ -110,7 +110,7 @@ export function thacerMap() {
             '&ANA=THA' +
             layer.feature.properties.Num_Analyse +
             '&INV=' +
-            NUM +
+            identifier +
             "'>Fiche complète</a>",
           {
             maxWidth: 350,
@@ -194,7 +194,7 @@ export function thacerMap() {
         .on('ready', function (e) {
           e.target.eachLayer(function (layer) {
             let archimageURL
-            let NUM
+            let identifier
 
             if (layer.feature.properties.Archimage == undefined) {
               archimageURL = 'Archimage non disponible<br>'
@@ -205,17 +205,17 @@ export function thacerMap() {
                 "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
             }
             if (layer.feature.properties.Inv_Fouille == null) {
-              NUM = ''
+              identifier = ''
             } else {
-              NUM = '<br>Type : ' + layer.feature.properties.Type
+              identifier = '<br>Type : ' + layer.feature.properties.Type
             }
             if (layer.feature.properties.Pi !== null) {
-              NUM = layer.feature.properties.Pi + 'Π'
+              identifier = layer.feature.properties.Pi + 'Π'
             }
             layer.bindPopup(
               archimageURL +
                 'Inventaire : ' +
-                NUM +
+                identifier +
                 '<br>Identification : ' +
                 layer.feature.properties.Identification +
                 '<br>Type : ' +
@@ -260,12 +260,12 @@ export function thacerMap() {
           let biblio = ''
           if (
             !(
-              (layer.feature.properties.GTh == '') |
+              (layer.feature.properties.GTh == '') | // TODO GTh : guide de thasos
               (layer.feature.properties.GTh == 'null') |
               (layer.feature.properties.GTh == undefined)
             )
           ) {
-            string = ' GTh' + layer.feature.properties.GTh
+            string = ' GTh' + layer.feature.properties.GTh // TODO : renommer la variable
           }
           if (
             !(
@@ -349,15 +349,15 @@ export function thacerMap() {
 
   //_____________________________________ design marker for ceram _____________________________________
   result.on('layeradd', function (e) {
-    let NUM
+    let identifier
     let marker = e.layer,
       feature = marker.feature
     if (feature.properties.Pi == undefined) {
-      NUM = feature.properties.Inv_Fouille
+      identifier = feature.properties.Inv_Fouille
     } else {
-      NUM = feature.properties.Pi + 'Π'
+      identifier = feature.properties.Pi + 'Π'
     }
-    marker.setIcon(L.divIcon({ html: NUM, className: 'my-icon', iconSize: 'null' }))
+    marker.setIcon(L.divIcon({ html: identifier, className: 'my-icon', iconSize: 'null' }))
   })
 
   // ------------------------- design marker for Chronique -----------------------------
