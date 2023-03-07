@@ -134,7 +134,7 @@ export function designMarkersCeram(ceram) {
     } else {
       identifier = feature.properties.Pi + 'Π'
     }
-    marker.setIcon(L.divIcon({ html: identifier, className: 'my-icon', iconSize: 'null' }))
+    marker.setIcon(L.divIcon({ html: identifier, className: 'icon ceram-icon', iconSize: 'null' }))
   })
 }
 
@@ -181,7 +181,7 @@ export function createOverlayChronique(markersChronique) {
       })
 
       let marker = e.layer
-      marker.setIcon(L.divIcon({ html: 'EfA', className: 'EFA-icon', iconSize: 'null' }))
+      marker.setIcon(L.divIcon({ html: 'EfA', className: 'icon EFA-icon', iconSize: 'null' }))
     })
 }
 
@@ -255,7 +255,7 @@ export function createOverlayEchantillonsGeol() {
       marker.setIcon(
         L.divIcon({
           html: feature.properties.RecNum,
-          className: 'EFA-icon',
+          className: 'icon echantillons-geol-icon',
           iconSize: 'null'
         })
       )

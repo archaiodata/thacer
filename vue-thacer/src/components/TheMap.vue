@@ -88,46 +88,41 @@ body {
   border-radius: 3px;
 } */
 
-.my-icon {
+.icon {
   top: -20px;
   left: -20px;
   border-radius: 100%;
   border-style: solid;
-  border-color: #f54b36;
   width: 40px;
   height: 40px;
   text-align: center;
   line-height: 35px;
   color: white;
-  background: #f54b36;
   font-size: 11px;
+}
+
+.ceram-icon {
+  border-color: #f54b36;
+  background: #f54b36;
+}
+
+.EFA-icon {
+  border-color: #005599;
+  background: #005599;
+}
+
+.echantillons-geol-icon {
+  border-color: #7bb358;
+  background: #7bb358;
 }
 
 .lost-icon {
   border-radius: 10%;
   border-style: solid;
   border-color: #f54b36;
-  /* width: 40px;
-  height: 40px; */
-  /* text-align: center; */
-  /* line-height: 35px; */
   color: white;
   background: #f54b36;
   font-size: 10px;
-}
-
-.EFA-icon {
-  top: -20px;
-  left: -20px;
-  border-radius: 100%;
-  border-style: solid;
-  border-color: #005599;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 35px;
-  color: white;
-  background: #005599;
 }
 
 .ADelt-icon {
