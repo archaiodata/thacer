@@ -82,7 +82,7 @@ export function thacerMap() {
             "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
         }
         if (layer.feature.properties.Type == undefined) {
-          Type = '' // TODO type
+          Type = ''
         } else {
           Type = '<br>Type : ' + layer.feature.properties.Type
         }
