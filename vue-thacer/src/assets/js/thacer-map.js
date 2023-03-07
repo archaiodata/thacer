@@ -68,7 +68,7 @@ export function thacerMap() {
 
   let result = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'ceram.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
         let archimageURL
@@ -174,7 +174,7 @@ export function thacerMap() {
 
       markers.clearLayers()
       map.removeLayer(markers)
-      result.loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
+      result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
       result
         .setFilter(function (e) {
@@ -260,7 +260,7 @@ export function thacerMap() {
 
   let secteurs = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'secteurs.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'secteurs.geojson')
     .on('ready', function () {
       // function select ceram according to the secteurs ID on the clicked secteur feature
       secteurs.eachLayer(function (layer) {
@@ -298,7 +298,7 @@ export function thacerMap() {
             map.removeLayer(markers)
             markers.clearLayers()
             let value = layer.feature.properties.secteur_ID
-            result.loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'ceram.geojson')
+            result.loadURL(import.meta.env.VITE_GEOJSON_URL + 'ceram.geojson')
             result
               .setFilter(function (feature) {
                 return feature.properties['secteur_ID'] == value
@@ -373,7 +373,7 @@ export function thacerMap() {
   // ------------------------- Chronique -----------------------------
   let chronique = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'chronique.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'chronique.geojson')
     .on('layeradd', function (e) {
       e.target.eachLayer(function (layer) {
         layer.on('click', function () {
@@ -395,7 +395,7 @@ export function thacerMap() {
 
   let ADelt = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'ADelt51.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ADelt51.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
         layer.bindPopup('ADelt 51 : "' + layer.feature.properties.Texte + '"<br>', {
@@ -457,7 +457,7 @@ export function thacerMap() {
 
   let vestiges = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'vestiges.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'vestiges.geojson')
     .addTo(map)
   vestiges.getAttribution = function () {
     return 'Plan des vestiges antique : MWK TK EfA'
@@ -467,7 +467,7 @@ export function thacerMap() {
 
   let ateliers_amphoriques = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'ateliers_amphoriques.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'ateliers_amphoriques.geojson')
     .on('layeradd', function (e) {
       e.layer.setIcon(
         L.icon({
@@ -488,7 +488,7 @@ export function thacerMap() {
 
   let echantillonsgeol = L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'echantillonsgeol.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'echantillonsgeol.geojson')
 
   echantillonsgeol.on('layeradd', function (e) {
     let marker = e.layer,
@@ -507,7 +507,7 @@ export function thacerMap() {
   /*let tours =*/
   L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_GEOJSON_PATHVITE_GEOJSON_URL + 'toursOS.geojson')
+    .loadURL(import.meta.env.VITE_GEOJSON_URL + 'toursOS.geojson')
     .on('layeradd', function (e) {
       e.layer.setIcon(
         L.icon({
