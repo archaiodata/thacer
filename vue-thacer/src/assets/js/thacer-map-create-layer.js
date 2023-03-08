@@ -238,7 +238,7 @@ export function createFeatureLayerAteliersAmphoriques() {
     .on('layeradd', function (e) {
       e.layer.setIcon(
         L.icon({
-          iconUrl: 'https://circe-antique.huma-num.fr/ThaCER/AmpTha.svg',
+          iconUrl: 'AmpTha.svg',
           iconSize: [20, 50]
         })
       )
