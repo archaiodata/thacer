@@ -16,3 +16,14 @@ export default {
 </script>
 
 <style scoped></style>
+
+<style>
+a.unlocalised-tag {
+  border-radius: 10%;
+  border-style: solid;
+  border-color: #f54b36;
+  color: white;
+  background: #f54b36;
+  font-size: 10px;
+}
+</style>

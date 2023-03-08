@@ -8,7 +8,6 @@ export function setupSearchCeramByText(markersCeram, map, ceram) {
       fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
         .then((r) => r.json())
         .then((json) => {
-          // console.log(json.features)
           Object.keys(json.features).forEach((k) => {
             let obj = json.features[k]
 
@@ -19,7 +18,7 @@ export function setupSearchCeramByText(markersCeram, map, ceram) {
             ) {
               if (obj.properties.Pi != null) {
                 document.getElementById('nonloc').innerHTML += [
-                  '<a class="lost-icon px-1 m-0 border border-white" style="color:white;" href="ceram.php?ID=' +
+                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram.php?ID=' +
                     obj.properties.ID +
                     '&ANA=8888880&INV=88880">Π' +
                     obj.properties.Pi +
@@ -27,7 +26,7 @@ export function setupSearchCeramByText(markersCeram, map, ceram) {
                 ]
               } else {
                 document.getElementById('nonloc').innerHTML += [
-                  '<a class="lost-icon px-1 m-0 border border-white" style="color:white;" href="ceram.php?ID=' +
+                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram.php?ID=' +
                     obj.properties.ID +
                     '&ANA=8888880&INV=88880">' +
                     obj.properties.Inv_Fouille +
@@ -168,8 +167,6 @@ export function searchCeramByClick(ceram, markersCeram, map, layer) {
         )
         markersCeram.addLayer(layer)
       })
-      //  map.addLayer(ceram);
-      //map.fitBounds(ceram.getBounds());
     })
 
   map.addLayer(markersCeram)

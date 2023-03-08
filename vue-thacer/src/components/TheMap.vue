@@ -1,56 +1,41 @@
 <template>
-  <main role="main">
-    <div id="map-container">
-      <TheMapMainDisplay></TheMapMainDisplay>
-      <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
-      <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
-    </div>
-  </main>
+  <TheMapMainDisplay class="map-main-display"></TheMapMainDisplay>
+  <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
+  <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
 </template>
 
 <script>
 import TheMapSearch from '@/components/TheMapSearch.vue'
 import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
+import TheMapMainDisplay from '@/components/TheMapMainDisplay.vue'
 
 export default {
   name: 'TheMap',
-  components: { TheMapInsertUnlocalised, TheMapSearch }
+  components: { TheMapMainDisplay, TheMapInsertUnlocalised, TheMapSearch }
 }
 </script>
 
 <style scoped></style>
 
 <style>
-.map-search {
-  width: 220px;
-  margin-top: 75px;
-  margin-left: 12px;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-#map-container {
-  width: 100%;
-  height: 93%;
-  position: fixed;
-}
-
-.map {
+.map-main-display {
   position: relative;
-  top: 0px;
-  bottom: 0px;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   padding: 0;
 }
 
+.map-search {
+  margin-top: 75px;
+  margin-left: 12px;
+}
+
 .map-insert-unlocalised {
   position: absolute;
   bottom: 30px;
-  right: 0px;
+  right: 0;
   width: 175px;
   max-height: 50%;
   overflow: auto;
@@ -78,103 +63,11 @@ body {
   border-radius: 3px;
 } */
 
-.icon {
-  top: -20px;
-  left: -20px;
-  border-radius: 100%;
-  border-style: solid;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 35px;
-  color: white;
-  font-size: 11px;
-}
-
-.ceram-icon {
-  border-color: #f54b36;
-  background: #f54b36;
-}
-
-.EFA-icon {
-  border-color: #005599;
-  background: #005599;
-}
-
-.echantillons-geol-icon {
-  border-color: #7bb358;
-  background: #7bb358;
-}
-
-.lost-icon {
-  border-radius: 10%;
-  border-style: solid;
-  border-color: #f54b36;
-  color: white;
-  background: #f54b36;
-  font-size: 10px;
-}
-
-.ADelt-icon {
-  border-radius: 100%;
-  border-style: solid;
-  width: 4px;
-  height: 4px;
-  line-height: 15px;
-}
-
 g path:hover {
   fill-opacity: 0.2;
 }
 
 g path {
   stroke-width: 1;
-}
-
-.leaflet-popup-content {
-  padding: 2px;
-  line-height: 1.2;
-}
-
-.leaflet-popup {
-  bottom: 2px;
-  left: 175px;
-}
-
-.leaflet-popup-tip-container {
-  height: 40px;
-}
-
-.leaflet-popup-content img {
-  margin: 4%;
-}
-
-.marker-cluster-medium,
-.marker-cluster-small,
-.marker-cluster-large,
-.marker-cluster-medium div,
-.marker-cluster-small div,
-.marker-cluster-large div {
-  background-color: rgba(245, 75, 54, 0.7);
-}
-
-.circle,
-.circle div {
-  background-color: rgba(0, 85, 153, 0.7);
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  margin-top: 5px;
-  text-align: center;
-  border-radius: 15px;
-  font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}
-
-.circle {
-  border-radius: 20px;
-}
-
-.circle div span {
-  line-height: 30px;
 }
 </style>

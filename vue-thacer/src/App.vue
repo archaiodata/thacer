@@ -6,7 +6,16 @@ import TheHeader from '@/components/TheHeader.vue'
 
 <template>
   <TheHeader></TheHeader>
-  <RouterView />
+
+  <main class="main-container">
+    <RouterView />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main-container {
+  width: 100%;
+  height: 93%;
+  position: fixed;
+}
+</style>

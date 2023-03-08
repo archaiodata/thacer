@@ -16,6 +16,10 @@ export default {
 </script>
 
 <style scoped>
+.filter-ctrl {
+  width: 220px;
+}
+
 .filter-ctrl input[type='text'] {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   width: 100%;
