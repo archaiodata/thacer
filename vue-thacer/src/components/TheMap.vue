@@ -22,9 +22,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
-
-<style>
+<style scoped>
 .map-main-display {
   position: relative;
   top: 0;
@@ -55,33 +53,5 @@ export default {
   position: absolute;
   width: 100%;
   height: 24px;
-}
-
-/* .download {
-  position: absolute;
-  top: 25px;
-  left: 100px;
-  z-index: 1;
-  width: 180px;
-}
-
-.download input[type="button" i] {
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  width: 100%;
-  border: 0;
-  background-color: #fff;
-  margin: 0;
-  color: rgba(0, 0, 0, .5);
-  padding: 5px;
-  box-shadow: 0 0 0 0.8px rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
-} */
-
-g path:hover {
-  fill-opacity: 0.2;
-}
-
-g path {
-  stroke-width: 1;
 }
 </style>

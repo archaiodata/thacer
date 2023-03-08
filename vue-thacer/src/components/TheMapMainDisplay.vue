@@ -16,24 +16,34 @@ export default {
 <style scoped></style>
 
 <style>
-.leaflet-popup-content {
-  padding: 2px;
-  line-height: 1.2;
+g path:hover {
+  fill-opacity: 0.2;
 }
 
-.leaflet-popup {
-  bottom: 2px;
-  left: 175px;
+g path {
+  stroke-width: 1;
 }
 
-.leaflet-popup-tip-container {
-  height: 40px;
-}
+/* TODO: check that this .leaflet* classes can be deleted */
+/*  .leaflet-popup-content {*/
+/*  padding: 2px;*/
+/*  line-height: 1.2;*/
+/*}*/
 
-.leaflet-popup-content img {
-  margin: 4%;
-}
+/*.leaflet-popup {*/
+/*  bottom: 2px;*/
+/*  left: 175px;*/
+/*}*/
 
+/*.leaflet-popup-tip-container {*/
+/*  height: 40px;*/
+/*}*/
+
+/*.leaflet-popup-content img {*/
+/*  margin: 4%;*/
+/*}*/
+
+/* Seems to change only the ceram cluster color */
 .marker-cluster-medium,
 .marker-cluster-small,
 .marker-cluster-large,
@@ -43,8 +53,8 @@ export default {
   background-color: rgba(245, 75, 54, 0.7);
 }
 
-.circle,
-.circle div {
+.efa-cluster,
+.efa-cluster div {
   background-color: rgba(0, 85, 153, 0.7);
   width: 30px;
   height: 30px;
@@ -55,15 +65,15 @@ export default {
   font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
-.circle {
+.efa-cluster {
   border-radius: 20px;
 }
 
-.circle div span {
+.efa-cluster div span {
   line-height: 30px;
 }
 
-.icon {
+.marker {
   top: -20px;
   left: -20px;
   border-radius: 100%;
@@ -76,22 +86,23 @@ export default {
   font-size: 11px;
 }
 
-.ceram-icon {
+.ceram-marker {
   border-color: #f54b36;
   background: #f54b36;
 }
 
-.EFA-icon {
+.EFA-marker {
   border-color: #005599;
   background: #005599;
 }
 
-.echantillons-geol-icon {
+.echantillons-geol-marker {
   border-color: #7bb358;
   background: #7bb358;
 }
 
-.ADelt-icon {
+/* Small dot next to the label: */
+.ADelt-dot {
   border-radius: 100%;
   border-style: solid;
   width: 4px;

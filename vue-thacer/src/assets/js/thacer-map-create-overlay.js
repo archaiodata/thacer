@@ -106,7 +106,7 @@ export function createOverlayCeram(markersCeram, map) {
             autoPanPadding: [5, 5]
           }
         )
-        markersCeram.addLayer(layer)
+        markersCeram.addLayer(layer) // TODO a voir, on pourrait faire le lien en dehors
       })
     })
 
@@ -116,6 +116,7 @@ export function createOverlayCeram(markersCeram, map) {
 }
 
 export function createMarkersCeram() {
+  // TODO rename
   return new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
@@ -134,7 +135,13 @@ export function designMarkersCeram(ceram) {
     } else {
       identifier = feature.properties.Pi + 'Π'
     }
-    marker.setIcon(L.divIcon({ html: identifier, className: 'icon ceram-icon', iconSize: 'null' }))
+    marker.setIcon(
+      L.divIcon({
+        html: identifier,
+        className: 'marker ceram-marker',
+        iconSize: 'null'
+      })
+    )
   })
 }
 
@@ -181,7 +188,7 @@ export function createOverlayChronique(markersChronique) {
       })
 
       let marker = e.layer
-      marker.setIcon(L.divIcon({ html: 'EfA', className: 'icon EFA-icon', iconSize: 'null' }))
+      marker.setIcon(L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }))
     })
 }
 
@@ -191,8 +198,8 @@ export function createMarkersChronique() {
       let childCount = cluster.getChildCount()
 
       return new L.DivIcon({
-        html: '<div class="circle"><span>' + childCount + '</span></div>',
-        className: 'circle',
+        html: '<div class="efa-cluster"><span>' + childCount + '</span></div>',
+        className: 'efa-cluster',
         iconSize: new L.Point(40, 40)
       })
     },
@@ -255,7 +262,7 @@ export function createOverlayEchantillonsGeol() {
       marker.setIcon(
         L.divIcon({
           html: feature.properties.RecNum,
-          className: 'icon echantillons-geol-icon',
+          className: 'marker echantillons-geol-marker',
           iconSize: 'null'
         })
       )
@@ -284,7 +291,7 @@ export function createOverlayADelt(map) {
     marker.setIcon(
       L.divIcon({
         html: feature.properties.Nom_GR,
-        className: 'ADelt-icon',
+        className: 'ADelt-dot',
         iconSize: 'null'
       })
     )
