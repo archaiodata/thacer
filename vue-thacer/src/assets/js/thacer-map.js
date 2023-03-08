@@ -5,22 +5,24 @@ export function thacerMap () {
   L.mapbox.accessToken =
     'pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA'
 
-  let baseMaps = createBaseMaps()
+  const tileLayers = createTileLayers()
 
-  let map = L.map('map', createMap(baseMaps['Carte claire']))
+  const defaultTileLayer = tileLayers['Carte claire']
+  const mapConfig = createMapConfig(defaultTileLayer)
+  let map = L.map('map', mapConfig)
 
-  let overlayMaps = createOverlayMaps(map)
+  const overlays = createOverlays(map)
 
-  L.control.layers(baseMaps, overlayMaps,
+  L.control.layers(tileLayers, overlays,
     { collapsed: false, sortLayers: true }).addTo(map)
 }
 
-function createMap (defaultLayer) {
+function createMapConfig (defaultTileLayer) {
   return {
     center: [40.78, 24.71],
     zoom: 15,
     minZoom: 11,
-    layers: [defaultLayer],
+    layers: [defaultTileLayer],
     maxZoom: 20,
     maxBounds: [
       [40.5, 24.4], // Southwest coordinates
@@ -29,7 +31,7 @@ function createMap (defaultLayer) {
   }
 }
 
-function createBaseMaps () {
+function createTileLayers () {
   let googleSat = L.tileLayer(
     'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
       maxZoom: 20,
@@ -57,7 +59,7 @@ function createBaseMaps () {
   }
 }
 
-function createOverlayMaps (map) {
+function createOverlays (map) {
   // Ceram - always displayed
   let markersCeram = overlay.createMarkersCeram()
   let ceram = overlay.createOverlayCeram(markersCeram, map)
