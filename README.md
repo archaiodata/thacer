@@ -91,6 +91,13 @@ in preferences :
       left)
     - https://vuejs.org/style-guide/
 
+## CSS
+
+### Boostrap icons
+
+I chose to use them as svg, not as font, to win some bundle size. If needed to
+switch in the future, see https://stackoverflow.com/a/63653277/1657853
+
 ## Git
 
 1. Flow : we create branch and PR in GitHub. We squash commit. Ask someone.
