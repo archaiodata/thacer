@@ -2,16 +2,23 @@
   <TheMapMainDisplay class="map-main-display"></TheMapMainDisplay>
   <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
   <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
+  <TheMapFooter class="map-footer"></TheMapFooter>
 </template>
 
 <script>
 import TheMapSearch from '@/components/TheMapSearch.vue'
 import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
 import TheMapMainDisplay from '@/components/TheMapMainDisplay.vue'
+import TheMapFooter from '@/components/TheMapFooter.vue'
 
 export default {
   name: 'TheMap',
-  components: { TheMapMainDisplay, TheMapInsertUnlocalised, TheMapSearch }
+  components: {
+    TheMapFooter,
+    TheMapMainDisplay,
+    TheMapInsertUnlocalised,
+    TheMapSearch
+  }
 }
 </script>
 
@@ -41,6 +48,13 @@ export default {
   overflow: auto;
   margin-right: 10px;
   padding: 6px 10px 6px 6px;
+}
+
+.map-footer {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 24px;
 }
 
 /* .download {
