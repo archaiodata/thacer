@@ -1,4 +1,4 @@
-export function setupSearchCeramByText(markersCeram, map, ceram) {
+export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram) {
   let filterInput = document.getElementById('filter-input')
   filterInput.addEventListener('keyup', function (e) {
     if (e.keyCode == 13) {
@@ -37,11 +37,11 @@ export function setupSearchCeramByText(markersCeram, map, ceram) {
           })
         })
 
-      markersCeram.clearLayers()
-      map.removeLayer(markersCeram)
-      ceram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
+      markerClusterGroupCeram.clearLayers()
+      map.removeLayer(markerClusterGroupCeram)
+      featureLayerCeram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
-      ceram
+      featureLayerCeram
         .setFilter(function (e) {
           let return1
           let return2
@@ -108,20 +108,20 @@ export function setupSearchCeramByText(markersCeram, map, ceram) {
                 autoPanPadding: [5, 5]
               }
             )
-            markersCeram.addLayer(layer)
+            markerClusterGroupCeram.addLayer(layer)
           })
         })
-      map.addLayer(markersCeram)
+      map.addLayer(markerClusterGroupCeram)
     }
   })
 }
 
-export function searchCeramByClick(ceram, markersCeram, map, layer) {
-  map.removeLayer(markersCeram)
-  markersCeram.clearLayers()
+export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, map, layer) {
+  map.removeLayer(markerClusterGroupCeram)
+  markerClusterGroupCeram.clearLayers()
   let value = layer.feature.properties.secteur_ID
-  ceram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-  ceram
+  featureLayerCeram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+  featureLayerCeram
     .setFilter(function (feature) {
       return feature.properties['secteur_ID'] == value
     })
@@ -140,7 +140,7 @@ export function searchCeramByClick(ceram, markersCeram, map, layer) {
         layer.bindPopup(
           archimageURL +
             'Inventaire : ' +
-            // identifier + // TODO check with jean-sé
+            // identifier + // TODO fix and check
             '<br>Identification : ' +
             layer.feature.properties.Identification +
             '<br>Type : ' +
@@ -154,7 +154,7 @@ export function searchCeramByClick(ceram, markersCeram, map, layer) {
             '&ANA=THA' +
             layer.feature.properties.Num_Analyse +
             '&INV=' +
-            // identifier + // TODO check with jean-sé
+            // identifier + // TODO fix and check
             "'>Fiche complète</a>",
           {
             maxWidth: 350,
@@ -165,9 +165,9 @@ export function searchCeramByClick(ceram, markersCeram, map, layer) {
             autoPanPadding: [5, 5]
           }
         )
-        markersCeram.addLayer(layer)
+        markerClusterGroupCeram.addLayer(layer)
       })
     })
 
-  map.addLayer(markersCeram)
+  map.addLayer(markerClusterGroupCeram)
 }

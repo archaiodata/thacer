@@ -1,6 +1,6 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
 
-export function createOverlaySecteurs(ceram, markersCeram, map) {
+export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
   /* global L */
   return L.mapbox
     .featureLayer()
@@ -39,20 +39,19 @@ export function createOverlaySecteurs(ceram, markersCeram, map) {
           })
           // search ceram on click
           e.on('click', function () {
-            search.searchCeramByClick(ceram, markersCeram, map, layer)
+            search.searchCeramByClick(ceram, markerClusterGroupCeram, map, layer)
           })
         })
       })
     })
 }
 
-export function createOverlayCeram(markersCeram, map) {
-  let ceram = L.mapbox
+export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
+  let featureLayerCeram = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
-        // Note : The name "layer" is misleading. A layer is a unique element on the map, here a ceramique.
         let archimageURL
         let Type
         let identifier
@@ -106,17 +105,18 @@ export function createOverlayCeram(markersCeram, map) {
             autoPanPadding: [5, 5]
           }
         )
-        markersCeram.addLayer(layer) // TODO a voir, on pourrait faire le lien en dehors
+        markerClusterGroupCeram.addLayer(layer)
       })
     })
 
-  search.setupSearchCeramByText(markersCeram, map, ceram)
+  search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram)
 
-  return ceram
+  designMarkersCeram(featureLayerCeram)
+
+  return featureLayerCeram
 }
 
-export function createMarkersCeram() {
-  // TODO rename
+export function createMarkerClusterGroupCeram() {
   return new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
@@ -125,8 +125,8 @@ export function createMarkersCeram() {
   })
 }
 
-export function designMarkersCeram(ceram) {
-  ceram.on('layeradd', function (e) {
+function designMarkersCeram(featureLayerCeram) {
+  featureLayerCeram.on('layeradd', function (e) {
     let identifier
     let marker = e.layer,
       feature = marker.feature
@@ -145,7 +145,7 @@ export function designMarkersCeram(ceram) {
   })
 }
 
-export function createOverlayVestiges() {
+export function createFeatureLayerVestiges() {
   let vestiges = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
@@ -157,7 +157,7 @@ export function createOverlayVestiges() {
   return vestiges
 }
 
-export function createOverlayKhalil(map) {
+export function createImageOverlayKhalil(map) {
   let KhalilimageBounds = [
     [40.768370395, 24.699482062],
     [40.781060633, 24.716708757]
@@ -172,7 +172,7 @@ export function createOverlayKhalil(map) {
   return L.imageOverlay(import.meta.env.VITE_API_URL + 'IMAGES/1685.png', KhalilimageBounds)
 }
 
-export function createOverlayChronique(markersChronique) {
+export function createFeatureLayerChronique(markersChronique) {
   L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
@@ -192,7 +192,7 @@ export function createOverlayChronique(markersChronique) {
     })
 }
 
-export function createMarkersChronique() {
+export function createMarkerClusterGroupChronique() {
   return new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {
       let childCount = cluster.getChildCount()
@@ -221,7 +221,7 @@ export function createMarkersChronique() {
 //   opacity: 0.5
 // });
 
-export function createOverlayOrthophotoAgora() {
+export function createTileLayerOrthophotoAgora() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:Orthophoto_Agora',
     attribution: 'EfA',
@@ -231,7 +231,7 @@ export function createOverlayOrthophotoAgora() {
   })
 }
 
-export function createOverlayAteliersAmphoriques() {
+export function createFeatureLayerAteliersAmphoriques() {
   return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ateliers_amphoriques.geojson')
@@ -252,7 +252,7 @@ export function createOverlayAteliersAmphoriques() {
     })
 }
 
-export function createOverlayEchantillonsGeol() {
+export function createFeatureLayerEchantillonsGeol() {
   return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
@@ -269,7 +269,7 @@ export function createOverlayEchantillonsGeol() {
     })
 }
 
-export function createOverlayADelt(map) {
+export function createFeatureLayerADelt(map) {
   let ADelt = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
@@ -313,7 +313,7 @@ export function createOverlayADelt(map) {
   return ADelt
 }
 
-export function createOverlayTours() {
+export function createFeatureLayerTours() {
   return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/toursOS.geojson')
