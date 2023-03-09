@@ -1,38 +1,51 @@
 <template>
-  <section class="bg-body-secondary py-3">
-    <div class="container">
-      <h2>{{ identification }}</h2>
-      <p class="lead text-muted">{{ inventaires }}</p>
-      <p>{{ familleCategorieType }}</p>
-      <p>{{ description }}</p>
-      <p>{{ biblio }}</p>
+  <div v-if="loadingStatus === 'loading'" class="p-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-  </section>
+  </div>
+  <div v-else-if="loadingStatus === 'error'" class="p-5">
+    <div class="alert alert-danger" role="alert">Erreur de chargement</div>
+  </div>
+  <div v-else-if="loadingStatus === 'not_found'" class="p-5">
+    <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
+  </div>
+  <div v-else>
+    <section class="bg-body-secondary py-3">
+      <div class="container">
+        <h2>{{ identification }}</h2>
+        <p class="lead text-muted">{{ inventaires }}</p>
+        <p>{{ familleCategorieType }}</p>
+        <p>{{ description }}</p>
+        <p>{{ biblio }}</p>
+      </div>
+    </section>
 
-  <section class="bg-light py-5">
-    <div class="container">
-      <div class="card mb-4 p-2 text-center shadow-sm">
-        <div v-if="archimageLink">
-          <a :href="archimageLink" target="_blank">
-            <img :src="archimageImageUrl" alt="image archimage" class="img-thumbnail" />
-          </a>
-          <div>{{ archimageText }}</div>
-        </div>
-        <div v-else>
-          <img
-            src="https://www.efa.gr/images/logo/01archimage.jpg"
-            alt="logo archimage "
-            class="img-thumbnail"
-          />
-          <div class="card-body">
-            <p id="ArchimageTxt" class="card-text">
-              il n'y a pas de photographie Archimage disponible pour cet exemplaire.
-            </p>
+    <section class="bg-light py-5">
+      <div class="container">
+        <div class="card mb-4 p-2 text-center shadow-sm">
+          <div v-if="archimageLink">
+            <a :href="archimageLink" target="_blank">
+              <img :src="archimageImageUrl" alt="image archimage" class="img-thumbnail" />
+            </a>
+            <div>{{ archimageText }}</div>
+          </div>
+          <div v-else>
+            <img
+              src="https://www.efa.gr/images/logo/01archimage.jpg"
+              alt="logo archimage "
+              class="img-thumbnail"
+            />
+            <div class="card-body">
+              <p id="ArchimageTxt" class="card-text">
+                il n'y a pas de photographie Archimage disponible pour cet exemplaire.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -47,7 +60,8 @@ export default {
       biblio: '',
       archimageLink: null,
       archimageText: '',
-      archimageImageUrl: null
+      archimageImageUrl: null,
+      loadingStatus: 'loading'
     }
   },
   methods: {
@@ -107,20 +121,22 @@ export default {
     }
   },
   mounted() {
-    let requestURL = import.meta.env.VITE_API_URL + '/geojson/ceram.geojson'
-    let request = new XMLHttpRequest()
-    request.open('GET', requestURL)
-    request.responseType = 'json'
-    request.send()
-
-    request.onload = () => {
-      const ceramGeojson = request.response
-      const id = this.$route.query.ID
-      const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
-      if (ceramProperties) {
-        this.setCeramTemplateValues(ceramProperties)
-      }
-    }
+    fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
+      .then((response) => response.json())
+      .then((ceramGeojson) => {
+        const id = this.$route.query.ID
+        const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
+        if (ceramProperties) {
+          this.setCeramTemplateValues(ceramProperties)
+          this.loadingStatus = 'loaded'
+        } else {
+          this.loadingStatus = 'not_found'
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        this.loadingStatus = 'error'
+      })
   }
 }
 </script>
