@@ -21,9 +21,9 @@
       </div>
     </section>
 
-    <section class="bg-light py-5">
+    <section class="bg-light pt-5">
       <div class="container">
-        <div class="card mb-4 p-2 text-center shadow-sm">
+        <div class="card p-2 text-center shadow-sm">
           <div v-if="archimageLink">
             <a :href="archimageLink" target="_blank">
               <img :src="archimageImageUrl" alt="image archimage" class="img-thumbnail" />
