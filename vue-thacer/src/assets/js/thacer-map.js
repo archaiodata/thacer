@@ -11,9 +11,11 @@ export function thacerMap() {
   const mapConfig = createMapConfig(defaultTileLayer)
   let map = L.map('map', mapConfig)
 
-  const overlays = createOverlays(map)
+  const controlledOverlays = createOverlays(map)
 
-  L.control.layers(tileLayers, overlays, { collapsed: false, sortLayers: true }).addTo(map)
+  L.control
+    .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
+    .addTo(map)
 }
 
 function createMapConfig(defaultTileLayer) {
@@ -57,6 +59,9 @@ function createTileLayers() {
   }
 }
 
+/*Create all overlays,
+add a few directly to the map,
+and return those which will be hid-able/show-able in the control*/
 function createOverlays(map) {
   // Ceram - always displayed
   let markerClusterGroupCeram = createLayer.createMarkerClusterGroupCeram()
