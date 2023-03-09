@@ -1,12 +1,13 @@
 <template>
-  <TheCeramicText></TheCeramicText>
+  <!--  TODO ? <meta name="description"-->
+  <!--  content="THASIAN, THASOS, GREEK, POTTERY, ANTIQUITY, ARCHAIC, CLASSICAL, HELLENISTIC, ROMAN">-->
 
-  <!--  <meta name="description"-->
-  content="THASIAN, THASOS, GREEK, POTTERY, ANTIQUITY, ARCHAIC, CLASSICAL, HELLENISTIC, ROMAN">
-  <!--  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
-  chart js?
+  <!--  TODO ? <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
+  <!--  chart js?-->
 
   <main role="main">
+    <TheCeramicText></TheCeramicText>
+
     <div class="album py-5 bg-light">
       <div class="container">
         <div class="row">
@@ -200,11 +201,7 @@ import TheCeramicText from '@/components/TheCeramicText.vue'
 
 export default {
   name: 'TheCeramic',
-  components: { TheCeramicText },
-  mounted() {
-    console.log(this.$route)
-    console.log(this.$route.query)
-  }
+  components: { TheCeramicText }
 }
 </script>
 

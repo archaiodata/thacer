@@ -1,109 +1,124 @@
 <template>
-  <section class="jumbotron py-2 m-0 text-left">
-    <!-- 	formulaire alimenté par js -->
+  <section class="bg-body-secondary py-3">
+    <div class="container">
+      <h2>{{ identification }}</h2>
+      <p class="lead text-muted">{{ inventaires }}</p>
+      <p>{{ familleCategorieType }}</p>
+      <p>{{ description }}</p>
+      <p>{{ biblio }}</p>
+    </div>
+  </section>
+
+  <section class="bg-light py-5">
+    <div class="container">
+      <div class="card mb-4 p-2 text-center shadow-sm">
+        <div v-if="archimageLink">
+          <a :href="archimageLink" target="_blank">
+            <img :src="archimageImageUrl" alt="image archimage" class="img-thumbnail" />
+          </a>
+          <div>{{ archimageText }}</div>
+        </div>
+        <div v-else>
+          <img
+            src="https://www.efa.gr/images/logo/01archimage.jpg"
+            alt="logo archimage "
+            class="img-thumbnail"
+          />
+          <div class="card-body">
+            <p id="ArchimageTxt" class="card-text">
+              il n'y a pas de photographie Archimage disponible pour cet exemplaire.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
   name: 'TheCeramicText',
+  data() {
+    return {
+      identification: '',
+      inventaires: '',
+      familleCategorieType: '',
+      description: '',
+      biblio: '',
+      archimageLink: null,
+      archimageText: '',
+      archimageImageUrl: null
+    }
+  },
+  methods: {
+    findCeramObjectProperties(id, ceramGeojson) {
+      const features = ceramGeojson['features']
+      for (let i = 0; i < features.length; i++) {
+        if (features[i].properties.ID === id) {
+          return features[i].properties
+        }
+      }
+      return null
+    },
+    setCeramTemplateValues(ceramProperties) {
+      if (!ceramProperties) {
+        return
+      }
+
+      this.identification = ceramProperties.Identification
+
+      if (ceramProperties.Pi) {
+        this.inventaires = ceramProperties.Pi + 'Π'
+      }
+      if (ceramProperties.Inv_Fouille) {
+        this.inventaires += ' ' + ceramProperties.Inv_Fouille
+      }
+      if (ceramProperties.Num_Analyse) {
+        this.inventaires += ' - échantillon : ' + ceramProperties.Num_Analyse
+      }
+
+      if (ceramProperties.Famille) {
+        this.familleCategorieType = 'Famille : ' + ceramProperties.Famille
+      }
+      if (ceramProperties.Catégorie) {
+        this.familleCategorieType += ' Catégorie : ' + ceramProperties.Catégorie
+      }
+      if (ceramProperties.Type) {
+        this.familleCategorieType += +' type : ' + ceramProperties.Type
+      }
+
+      this.description = 'Description : ' + ceramProperties.Description
+
+      if (ceramProperties.Biblio) {
+        this.biblio = ' Publication : ' + ceramProperties.Biblio
+      }
+
+      if (ceramProperties.Archimage) {
+        this.archimageImageUrl =
+          'https://archimage.efa.gr/action.php?kroute=image_preview_public&id=' +
+          ceramProperties.Archimage +
+          '&type=2&ext=.jpg'
+        this.archimageLink =
+          'https://archimage.efa.gr/?kroute=fiche_publique&id=' + ceramProperties.Archimage
+        if (ceramProperties.Pi) {
+          this.archimageText = 'Π' + ceramProperties.Pi
+        }
+      }
+    }
+  },
   mounted() {
-    // lecture du fichier ceram et selection de l'exemplaire
-    // let requestURL = 'API/geojson/ceram.geojson';
     let requestURL = import.meta.env.VITE_API_URL + '/geojson/ceram.geojson'
     let request = new XMLHttpRequest()
     request.open('GET', requestURL)
     request.responseType = 'json'
     request.send()
 
-    request.onload = function () {
-      const ceram = request.response
-      showCeram(ceram)
-    }
-
-    const queryString = window.location.search
-    const urlParams = new URLSearchParams(queryString)
-    const ID = urlParams.get('ID')
-    const ANA = urlParams.get('ANA')
-    const section = document.querySelector('section')
-
-    function showCeram(jsonObj) {
-      const features = jsonObj['features']
-
-      for (let i = 0; i < features.length; i++) {
-        if (features[i].properties.ID == ID) {
-          const myArticle = document.createElement('div')
-          myArticle.setAttribute('class', 'container')
-          // const myH1 = document.createElement('h1');
-          // myH1.setAttribute('class', 'text-uppercase');
-          const myH2 = document.createElement('h2')
-          const myPara1 = document.createElement('p')
-          myPara1.setAttribute('class', 'lead text-muted')
-          const myPara2 = document.createElement('p')
-          const myPara3 = document.createElement('p')
-          const myPara4 = document.createElement('p')
-
-          const myList = document.createElement('ul')
-
-          myH2.textContent = features[i].properties.Identification
-
-          //Para 1 = inventaires
-          if (features[i].properties.Pi !== null) {
-            myPara1.textContent = features[i].properties.Pi + 'Π'
-          }
-          if (features[i].properties.Inv_Fouille !== null) {
-            myPara1.textContent = myPara1.textContent + ' ' + features[i].properties.Inv_Fouille
-          }
-          if (features[i].properties.Num_Analyse !== null) {
-            myPara1.textContent =
-              myPara1.textContent + ' - échantillon : ' + features[i].properties.Num_Analyse
-          }
-          //Para 2 = famille, catégorie, type
-          if (features[i].properties.Famille !== null) {
-            myPara2.textContent = 'Famille : ' + features[i].properties.Famille
-          }
-          if (features[i].properties.Catégorie !== null) {
-            myPara2.textContent =
-              myPara2.textContent + ' Catégorie : ' + features[i].properties.Catégorie
-          }
-          if (features[i].properties.Type !== null) {
-            myPara2.textContent = myPara2.textContent + ' type : ' + features[i].properties.Type
-          }
-          //Para 3 = description
-          myPara3.textContent = 'Description : ' + features[i].properties.Description
-
-          //Para 4 = biblio
-          if (features[i].properties.Biblio !== null) {
-            myPara4.textContent =
-              myPara4.textContent + ' Publication : ' + features[i].properties.Biblio
-          }
-          //Archimage
-          if (features[i].properties.Archimage !== null) {
-            ArchimageImg.src =
-              'https://archimage.efa.gr/action.php?kroute=image_preview_public&id=' +
-              features[i].properties.Archimage +
-              '&type=2&ext=.jpg'
-          }
-          if (features[i].properties.Archimage !== null) {
-            var src =
-              'https://archimage.efa.gr/?kroute=fiche_publique&id=' +
-              features[i].properties.Archimage
-            var a = $('<a>').attr('href', src).attr('target', '_blank')
-
-            $('#ArchimageImg').wrap(a)
-          }
-
-          if (features[i].properties.Pi !== null) {
-            ArchimageTxt.textContent = 'Π' + features[i].properties.Pi
-          }
-          myArticle.appendChild(myH2)
-          myArticle.appendChild(myPara1)
-          myArticle.appendChild(myPara2)
-          myArticle.appendChild(myPara3)
-          myArticle.appendChild(myPara4)
-          myArticle.appendChild(myList)
-          section.appendChild(myArticle)
-        }
+    request.onload = () => {
+      const ceramGeojson = request.response
+      const id = this.$route.query.ID
+      const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
+      if (ceramProperties) {
+        this.setCeramTemplateValues(ceramProperties)
       }
     }
   }
