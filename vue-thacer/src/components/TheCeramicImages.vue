@@ -1,5 +1,5 @@
 <template>
-  <div v-if="imageUrlArrayList !== null" class="album py-5 bg-light">
+  <section v-if="imageUrlArrayList !== null" class="album py-5 bg-light">
     <div class="container">
       <TheCeramicImagesSubGroup
         title="Photographie"
@@ -19,7 +19,7 @@
         noImageMessage="il n'y a pas de profil disponible pour cet exemplaire."
       ></TheCeramicImagesSubGroup>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
