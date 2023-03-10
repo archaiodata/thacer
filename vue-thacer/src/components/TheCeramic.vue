@@ -31,7 +31,7 @@
       </div>
     </section>
 
-    <section class="p-5 bg-light">
+    <section class="pb-5 px-5 bg-light">
       <div v-if="loadingStatusTextAndArchimageData === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading data...</span>
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <section class="p-5 bg-light">
+    <section class="pb-5 px-5 bg-light">
       <TheCeramicChart></TheCeramicChart>
     </section>
   </main>
