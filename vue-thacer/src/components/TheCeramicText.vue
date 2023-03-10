@@ -23,6 +23,7 @@
 
     <section class="bg-light pt-5">
       <div class="container">
+        <h4>Archimage</h4>
         <div class="card p-2 text-center shadow-sm">
           <div v-if="archimageLink">
             <a :href="archimageLink" target="_blank">
@@ -63,6 +64,24 @@ export default {
       archimageImageUrl: null,
       loadingStatus: 'loading'
     }
+  },
+  mounted() {
+    fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
+      .then((response) => response.json())
+      .then((ceramGeojson) => {
+        const id = this.$route.query.ID
+        const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
+        if (ceramProperties) {
+          this.setCeramTemplateValues(ceramProperties)
+          this.loadingStatus = 'loaded'
+        } else {
+          this.loadingStatus = 'not_found'
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        this.loadingStatus = 'error'
+      })
   },
   methods: {
     findCeramObjectProperties(id, ceramGeojson) {
@@ -119,24 +138,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
-    fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
-      .then((response) => response.json())
-      .then((ceramGeojson) => {
-        const id = this.$route.query.ID
-        const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
-        if (ceramProperties) {
-          this.setCeramTemplateValues(ceramProperties)
-          this.loadingStatus = 'loaded'
-        } else {
-          this.loadingStatus = 'not_found'
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        this.loadingStatus = 'error'
-      })
   }
 }
 </script>
