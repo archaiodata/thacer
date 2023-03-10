@@ -1,5 +1,5 @@
 <template>
-  <h4>Photographie</h4>
+  <h4>{{ title }}</h4>
   <div v-if="Array.isArray(imageUrlArray) && imageUrlArray.length > 0" class="row">
     <div v-for="imageUrl in imageUrlArray" :key="imageUrl" class="col-md-4 col-sm-6">
       <div class="card mb-4 shadow-sm">
@@ -16,7 +16,7 @@
   </div>
   <div v-else class="card mb-4 shadow-sm">
     <div class="card-body">
-      <p class="card-text">il n'y a pas de photographie disponible pour cet exemplaire.</p>
+      <p class="card-text">{{ noImageMessage }}</p>
     </div>
   </div>
 </template>
