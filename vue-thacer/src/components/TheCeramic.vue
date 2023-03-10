@@ -11,7 +11,7 @@
       <div class="alert alert-danger" role="alert">Erreur de chargement des images</div>
     </div>
     <div v-else>
-      <TheCeramicImages :imagesUrls="imagesUrls"></TheCeramicImages>
+      <TheCeramicImages :imageUrlArrayList="imageUrlArrayList"></TheCeramicImages>
     </div>
 
     <TheCeramicChart></TheCeramicChart>
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       loadingStatus: 'loading',
-      imagesUrls: null
+      imageUrlArrayList: null
     }
   },
   mounted() {
@@ -38,9 +38,9 @@ export default {
     const ANA = this.$route.query.ANA
     fetch(`${import.meta.env.VITE_API_URL}ceram.php?INV=${INV}&ANA=${ANA}`)
       .then((response) => response.json())
-      .then((imagesUrls) => {
-        if (isObject(imagesUrls)) {
-          this.imagesUrls = imagesUrls
+      .then((imageUrlArrayList) => {
+        if (isObject(imageUrlArrayList)) {
+          this.imageUrlArrayList = imageUrlArrayList
           this.loadingStatus = 'loaded'
         } else {
           this.loadingStatus = 'error'
