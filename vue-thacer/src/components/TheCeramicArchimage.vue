@@ -1,8 +1,8 @@
 <template>
   <div v-if="ceramArchimageData !== null" class="container">
     <h4>Archimage</h4>
-    <div class="card p-2 text-center">
-      <div v-if="ceramArchimageData.archimageLink">
+    <div class="card">
+      <div v-if="ceramArchimageData.archimageLink" class="text-center p-2">
         <a :href="ceramArchimageData.archimageLink" target="_blank">
           <img
             :src="ceramArchimageData.archimageImageUrl"
@@ -16,7 +16,7 @@
         <img
           src="https://www.efa.gr/images/logo/01archimage.jpg"
           alt="logo archimage "
-          class="img-thumbnail"
+          class="pt-3 ps-3"
         />
         <div class="card-body">
           <p id="ArchimageTxt" class="card-text">
