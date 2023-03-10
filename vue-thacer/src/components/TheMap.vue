@@ -33,7 +33,7 @@ export default {
 }
 
 .map-search {
-  margin-top: 75px;
+  margin-top: 10px;
   margin-left: 12px;
 }
 
