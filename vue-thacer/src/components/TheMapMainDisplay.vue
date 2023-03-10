@@ -1,0 +1,112 @@
+<template>
+  <div id="map"></div>
+</template>
+
+<script>
+import { thacerMap } from '@/assets/js/thacer-map'
+
+export default {
+  name: 'TheMapMainDisplay',
+  mounted() {
+    thacerMap()
+  }
+}
+</script>
+
+<style scoped></style>
+
+<style>
+g path:hover {
+  fill-opacity: 0.2;
+}
+
+g path {
+  stroke-width: 1;
+}
+
+/* TODO: check that this .leaflet* classes can be deleted */
+/*  .leaflet-popup-content {*/
+/*  padding: 2px;*/
+/*  line-height: 1.2;*/
+/*}*/
+
+/*.leaflet-popup {*/
+/*  bottom: 2px;*/
+/*  left: 175px;*/
+/*}*/
+
+/*.leaflet-popup-tip-container {*/
+/*  height: 40px;*/
+/*}*/
+
+/*.leaflet-popup-content img {*/
+/*  margin: 4%;*/
+/*}*/
+
+/* Seems to change only the ceram cluster color */
+.marker-cluster-medium,
+.marker-cluster-small,
+.marker-cluster-large,
+.marker-cluster-medium div,
+.marker-cluster-small div,
+.marker-cluster-large div {
+  background-color: rgba(245, 75, 54, 0.7);
+}
+
+.efa-cluster,
+.efa-cluster div {
+  background-color: rgba(0, 85, 153, 0.7);
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 15px;
+  font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.efa-cluster {
+  border-radius: 20px;
+}
+
+.efa-cluster div span {
+  line-height: 30px;
+}
+
+.marker {
+  top: -20px;
+  left: -20px;
+  border-radius: 100%;
+  border-style: solid;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 35px;
+  color: white;
+  font-size: 11px;
+}
+
+.ceram-marker {
+  border-color: #f54b36;
+  background: #f54b36;
+}
+
+.EFA-marker {
+  border-color: #005599;
+  background: #005599;
+}
+
+.echantillons-geol-marker {
+  border-color: #7bb358;
+  background: #7bb358;
+}
+
+/* Small dot next to the label: */
+.ADelt-dot {
+  border-radius: 100%;
+  border-style: solid;
+  width: 4px;
+  height: 4px;
+  line-height: 15px;
+}
+</style>
