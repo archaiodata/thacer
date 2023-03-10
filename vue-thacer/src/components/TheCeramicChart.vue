@@ -5,18 +5,18 @@
         <!-- Display x y selectors -->
         <div class="row">
           <div class="table-responsive">
-            <table class="table table-striped" id="SearchTable">
+            <table id="SearchTable" class="table table-striped">
               <tbody>
                 <tr id="tr0" class="condline">
                   <td class="">Thasos analyses XRF</td>
                   <td class="">X :</td>
-                  <td class="" id="td_selx">
+                  <td id="td_selx" class="">
                     <select
+                      id="selx"
                       v-model="x"
-                      @change="updateData()"
                       class="form-control"
                       name="selx"
-                      id="selx"
+                      @change="updateData()"
                     >
                       <option value="Na2O">Na2O (%)</option>
                       <option value="MgO">MgO (%)</option>
@@ -47,13 +47,13 @@
                     </select>
                   </td>
                   <td class="">Y :</td>
-                  <td class="condcellval" id="td_sely">
+                  <td id="td_sely" class="condcellval">
                     <select
+                      id="sely"
                       v-model="y"
-                      @change="updateData()"
                       class="form-control"
                       name="sely"
-                      id="sely"
+                      @change="updateData()"
                     >
                       <option value="Na2O">Na2O (%)</option>
                       <option value="MgO">MgO (%)</option>
