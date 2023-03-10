@@ -1,15 +1,15 @@
 <template>
   <main>
     <section class="p-5 bg-body-secondary">
-      <div v-if="loadingStatusData === 'loading'" class="text-center">
+      <div v-if="loadingStatusTextAndArchimageData === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading data...</span>
         </div>
       </div>
-      <div v-else-if="loadingStatusData === 'error'">
+      <div v-else-if="loadingStatusTextAndArchimageData === 'error'">
         <div class="alert alert-danger" role="alert">Erreur de chargement</div>
       </div>
-      <div v-else-if="loadingStatusData === 'not_found'">
+      <div v-else-if="loadingStatusTextAndArchimageData === 'not_found'">
         <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
       </div>
       <div v-else>
@@ -18,12 +18,12 @@
     </section>
 
     <section class="p-5 bg-light">
-      <div v-if="loadingStatusImage === 'loading'" class="text-center">
+      <div v-if="loadingStatusImagesUrls === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading images...</span>
         </div>
       </div>
-      <div v-else-if="loadingStatusImage === 'error'">
+      <div v-else-if="loadingStatusImagesUrls === 'error'">
         <div class="alert alert-danger" role="alert">Erreur de chargement des images</div>
       </div>
       <div v-else>
@@ -32,15 +32,15 @@
     </section>
 
     <section class="p-5 bg-light">
-      <div v-if="loadingStatusData === 'loading'" class="text-center">
+      <div v-if="loadingStatusTextAndArchimageData === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading data...</span>
         </div>
       </div>
-      <div v-else-if="loadingStatusData === 'error'">
+      <div v-else-if="loadingStatusTextAndArchimageData === 'error'">
         <div class="alert alert-danger" role="alert">Erreur de chargement</div>
       </div>
-      <div v-else-if="loadingStatusData === 'not_found'">
+      <div v-else-if="loadingStatusTextAndArchimageData === 'not_found'">
         <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
       </div>
       <div v-else>
@@ -71,8 +71,8 @@ export default {
   },
   data() {
     return {
-      loadingStatusImage: 'loading',
-      loadingStatusData: 'loading',
+      loadingStatusImagesUrls: 'loading',
+      loadingStatusTextAndArchimageData: 'loading',
       imageUrlArrayList: null,
       ceramTextData: null,
       ceramArchimageData: null
@@ -86,14 +86,14 @@ export default {
       .then((imageUrlArrayList) => {
         if (isObject(imageUrlArrayList)) {
           this.imageUrlArrayList = imageUrlArrayList
-          this.loadingStatusImage = 'loaded'
+          this.loadingStatusImagesUrls = 'loaded'
         } else {
-          this.loadingStatusImage = 'error'
+          this.loadingStatusImagesUrls = 'error'
         }
       })
       .catch((error) => {
         console.error(error)
-        this.loadingStatusImage = 'error'
+        this.loadingStatusImagesUrls = 'error'
       })
 
     fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
@@ -104,14 +104,14 @@ export default {
         if (ceramProperties) {
           this.setCeramTextValues(ceramProperties)
           this.setCeramArchimageValues(ceramProperties)
-          this.loadingStatusData = 'loaded'
+          this.loadingStatusTextAndArchimageData = 'loaded'
         } else {
-          this.loadingStatusData = 'not_found'
+          this.loadingStatusTextAndArchimageData = 'not_found'
         }
       })
       .catch((error) => {
         console.error(error)
-        this.loadingStatusData = 'error'
+        this.loadingStatusTextAndArchimageData = 'error'
       })
   },
   methods: {
