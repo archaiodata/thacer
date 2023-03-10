@@ -1,48 +1,56 @@
 <template>
   <main>
-    <div v-if="loadingStatusData === 'loading'" class="p-5 text-center">
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading data...</span>
+    <section class="p-5 bg-body-secondary">
+      <div v-if="loadingStatusData === 'loading'" class="text-center">
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading data...</span>
+        </div>
       </div>
-    </div>
-    <div v-else-if="loadingStatusData === 'error'" class="p-5">
-      <div class="alert alert-danger" role="alert">Erreur de chargement</div>
-    </div>
-    <div v-else-if="loadingStatusData === 'not_found'" class="p-5">
-      <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
-    </div>
-    <div v-else>
-      <TheCeramicText :ceramTextData="ceramTextData"></TheCeramicText>
-    </div>
-
-    <div v-if="loadingStatusImage === 'loading'" class="p-5 text-center">
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading images...</span>
+      <div v-else-if="loadingStatusData === 'error'">
+        <div class="alert alert-danger" role="alert">Erreur de chargement</div>
       </div>
-    </div>
-    <div v-else-if="loadingStatusImage === 'error'" class="p-5">
-      <div class="alert alert-danger" role="alert">Erreur de chargement des images</div>
-    </div>
-    <div v-else>
-      <TheCeramicImages :imageUrlArrayList="imageUrlArrayList"></TheCeramicImages>
-    </div>
-
-    <div v-if="loadingStatusData === 'loading'" class="p-5 text-center">
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading data...</span>
+      <div v-else-if="loadingStatusData === 'not_found'">
+        <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
       </div>
-    </div>
-    <div v-else-if="loadingStatusData === 'error'" class="p-5">
-      <div class="alert alert-danger" role="alert">Erreur de chargement</div>
-    </div>
-    <div v-else-if="loadingStatusData === 'not_found'" class="p-5">
-      <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
-    </div>
-    <div v-else>
-      <TheCeramicArchimage :ceramArchimageData="ceramArchimageData"></TheCeramicArchimage>
-    </div>
+      <div v-else>
+        <TheCeramicText :ceramTextData="ceramTextData"></TheCeramicText>
+      </div>
+    </section>
 
-    <TheCeramicChart></TheCeramicChart>
+    <section class="p-5 bg-light">
+      <div v-if="loadingStatusImage === 'loading'" class="text-center">
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading images...</span>
+        </div>
+      </div>
+      <div v-else-if="loadingStatusImage === 'error'">
+        <div class="alert alert-danger" role="alert">Erreur de chargement des images</div>
+      </div>
+      <div v-else>
+        <TheCeramicImages :imageUrlArrayList="imageUrlArrayList"></TheCeramicImages>
+      </div>
+    </section>
+
+    <section class="p-5 bg-light">
+      <div v-if="loadingStatusData === 'loading'" class="text-center">
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading data...</span>
+        </div>
+      </div>
+      <div v-else-if="loadingStatusData === 'error'">
+        <div class="alert alert-danger" role="alert">Erreur de chargement</div>
+      </div>
+      <div v-else-if="loadingStatusData === 'not_found'">
+        <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
+      </div>
+      <div v-else>
+        <TheCeramicArchimage :ceramArchimageData="ceramArchimageData"></TheCeramicArchimage>
+      </div>
+    </section>
+
+    <section class="p-5 bg-light">
+      <TheCeramicChart></TheCeramicChart>
+    </section>
   </main>
 </template>
 

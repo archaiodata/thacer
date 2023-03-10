@@ -1,15 +1,11 @@
 <template>
-  <section v-if="ceramTextData !== null">
-    <section class="bg-body-secondary py-3">
-      <div class="container">
-        <h2>{{ ceramTextData.identification }}</h2>
-        <p class="lead text-muted">{{ ceramTextData.inventaires }}</p>
-        <p>{{ ceramTextData.familleCategorieType }}</p>
-        <p>{{ ceramTextData.description }}</p>
-        <p>{{ ceramTextData.biblio }}</p>
-      </div>
-    </section>
-  </section>
+  <div v-if="ceramTextData !== null" class="container">
+    <h2>{{ ceramTextData.identification }}</h2>
+    <p class="lead text-muted">{{ ceramTextData.inventaires }}</p>
+    <p>{{ ceramTextData.familleCategorieType }}</p>
+    <p>{{ ceramTextData.description }}</p>
+    <p>{{ ceramTextData.biblio }}</p>
+  </div>
 </template>
 
 <script>

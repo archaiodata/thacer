@@ -1,25 +1,23 @@
 <template>
-  <section v-if="imageUrlArrayList !== null" class="album py-5 bg-light">
-    <div class="container">
-      <TheCeramicImagesSubGroup
-        title="Photographie"
-        :imageUrlArray="imageUrlArrayList.PHOTO"
-        noImageMessage="il n'y a pas de photographie disponible pour cet exemplaire."
-      ></TheCeramicImagesSubGroup>
+  <div v-if="imageUrlArrayList !== null" class="container">
+    <TheCeramicImagesSubGroup
+      title="Photographie"
+      :imageUrlArray="imageUrlArrayList.PHOTO"
+      noImageMessage="il n'y a pas de photographie disponible pour cet exemplaire."
+    ></TheCeramicImagesSubGroup>
 
-      <TheCeramicImagesSubGroup
-        title="Macrophoto"
-        :imageUrlArray="imageUrlArrayList.THA_MACRO_PHOTO"
-        noImageMessage="il n'y a pas de macrophoto pour cet exemplaire."
-      ></TheCeramicImagesSubGroup>
+    <TheCeramicImagesSubGroup
+      title="Macrophoto"
+      :imageUrlArray="imageUrlArrayList.THA_MACRO_PHOTO"
+      noImageMessage="il n'y a pas de macrophoto pour cet exemplaire."
+    ></TheCeramicImagesSubGroup>
 
-      <TheCeramicImagesSubGroup
-        title="Profils"
-        :imageUrlArray="imageUrlArrayList.Profils"
-        noImageMessage="il n'y a pas de profil disponible pour cet exemplaire."
-      ></TheCeramicImagesSubGroup>
-    </div>
-  </section>
+    <TheCeramicImagesSubGroup
+      title="Profils"
+      :imageUrlArray="imageUrlArrayList.Profils"
+      noImageMessage="il n'y a pas de profil disponible pour cet exemplaire."
+    ></TheCeramicImagesSubGroup>
+  </div>
 </template>
 
 <script>
