@@ -88,6 +88,7 @@ export default {
           this.imageUrlArrayList = imageUrlArrayList
           this.loadingStatusImagesUrls = 'loaded'
         } else {
+          console.error(imageUrlArrayList)
           this.loadingStatusImagesUrls = 'error'
         }
       })
