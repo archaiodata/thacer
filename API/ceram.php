@@ -36,5 +36,11 @@ foreach ($files as $image) {
 }
 
 header("Content-Type: application/json");
-echo json_encode($result, JSON_UNESCAPED_UNICODE);
+
+if ($result === []) {
+    echo '{}'; // If no images at all, return an empty object (and not an empty array)
+} else {
+    echo json_encode($result, JSON_UNESCAPED_UNICODE);
+}
+
 exit();
