@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ceramTextData !== null" class="container">
+  <div v-if="ceramTextData !== null">
     <h2>{{ ceramTextData.identification }}</h2>
     <p class="lead text-muted">{{ ceramTextData.inventaires }}</p>
     <p>{{ ceramTextData.familleCategorieType }}</p>

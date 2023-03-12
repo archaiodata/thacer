@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ceramArchimageData !== null" class="container">
+  <div v-if="ceramArchimageData !== null">
     <h4>Archimage</h4>
     <div class="card">
       <div v-if="ceramArchimageData.archimageLink" class="text-center p-2">

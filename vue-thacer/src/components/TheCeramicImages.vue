@@ -1,5 +1,5 @@
 <template>
-  <div v-if="imageUrlArrayList !== null" class="container">
+  <div v-if="imageUrlArrayList !== null">
     <TheCeramicImagesSubGroup
       title="Photographie"
       :imageUrlArray="imageUrlArrayList.PHOTO"

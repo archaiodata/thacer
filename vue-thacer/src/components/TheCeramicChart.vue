@@ -1,98 +1,96 @@
 <template>
-  <div class="container">
-    <h4>Graphique</h4>
-    <div class="card">
-      <!-- Display x y selectors -->
-      <div class="row">
-        <div class="table-responsive">
-          <table id="SearchTable" class="table table-striped">
-            <tbody>
-              <tr id="tr0" class="condline">
-                <td class="">Thasos analyses XRF</td>
-                <td class="">X :</td>
-                <td id="td_selx" class="">
-                  <select
-                    id="selx"
-                    v-model="x"
-                    class="form-control"
-                    name="selx"
-                    @change="updateData()"
-                  >
-                    <option value="Na2O">Na2O (%)</option>
-                    <option value="MgO">MgO (%)</option>
-                    <option value="Al2O3">Al2O3 (%)</option>
-                    <option value="SiO2">SiO2 (%)</option>
-                    <option value="P">P (PPM)</option>
-                    <option value="K2O">K2O (%)</option>
-                    <option value="CaO">CaO (%)</option>
-                    <option value="TiO2">TiO2 (%)</option>
-                    <option value="V">V (PPM)</option>
-                    <option value="Cr" selected="selected">Cr (PPM)</option>
-                    <option value="Mn">Mn (PPM)</option>
-                    <option value="Fe2O3">Fe2O3 (%)</option>
-                    <option value="Co">Co (PPM)</option>
-                    <option value="Ni">Ni (PPM)</option>
-                    <option value="Cu">Cu (PPM)</option>
-                    <option value="Zn">Zn (PPM)</option>
-                    <option value="Rb">Rb (PPM)</option>
-                    <option value="Sr">Sr (PPM)</option>
-                    <option value="Y">Y (PPM)</option>
-                    <option value="Zr">Zr (PPM)</option>
-                    <option value="Ba">Ba (PPM)</option>
-                    <option value="La">La (PPM)</option>
-                    <option value="Ce">Ce (PPM)</option>
-                    <option value="Nd">Nd (PPM)</option>
-                    <option value="Pb">Pb (PPM)</option>
-                    <option value="Th">Th (PPM)</option>
-                  </select>
-                </td>
-                <td class="">Y :</td>
-                <td id="td_sely" class="condcellval">
-                  <select
-                    id="sely"
-                    v-model="y"
-                    class="form-control"
-                    name="sely"
-                    @change="updateData()"
-                  >
-                    <option value="Na2O">Na2O (%)</option>
-                    <option value="MgO">MgO (%)</option>
-                    <option value="Al2O3">Al2O3 (%)</option>
-                    <option value="SiO2">SiO2 (%)</option>
-                    <option value="P">P (PPM)</option>
-                    <option value="K2O">K2O (%)</option>
-                    <option value="CaO">CaO (%)</option>
-                    <option value="TiO2">TiO2 (%)</option>
-                    <option value="V">V (PPM)</option>
-                    <option value="Cr">Cr (PPM)</option>
-                    <option value="Mn">Mn (PPM)</option>
-                    <option value="Fe2O3">Fe2O3 (%)</option>
-                    <option value="Co">Co (PPM)</option>
-                    <option value="Ni" selected="selected">Ni (PPM)</option>
-                    <option value="Cu">Cu (PPM)</option>
-                    <option value="Zn">Zn (PPM)</option>
-                    <option value="Rb">Rb (PPM)</option>
-                    <option value="Sr">Sr (PPM)</option>
-                    <option value="Y">Y (PPM)</option>
-                    <option value="Zr">Zr (PPM)</option>
-                    <option value="Ba">Ba (PPM)</option>
-                    <option value="La">La (PPM)</option>
-                    <option value="Ce">Ce (PPM)</option>
-                    <option value="Nd">Nd (PPM)</option>
-                    <option value="Pb">Pb (PPM)</option>
-                    <option value="Th">Th (PPM)</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <h4>Graphique</h4>
+  <div class="card">
+    <!-- Display x y selectors -->
+    <div class="row">
+      <div class="table-responsive">
+        <table id="SearchTable" class="table table-striped">
+          <tbody>
+            <tr id="tr0" class="condline">
+              <td class="">Thasos analyses XRF</td>
+              <td class="">X :</td>
+              <td id="td_selx" class="">
+                <select
+                  id="selx"
+                  v-model="x"
+                  class="form-control"
+                  name="selx"
+                  @change="updateData()"
+                >
+                  <option value="Na2O">Na2O (%)</option>
+                  <option value="MgO">MgO (%)</option>
+                  <option value="Al2O3">Al2O3 (%)</option>
+                  <option value="SiO2">SiO2 (%)</option>
+                  <option value="P">P (PPM)</option>
+                  <option value="K2O">K2O (%)</option>
+                  <option value="CaO">CaO (%)</option>
+                  <option value="TiO2">TiO2 (%)</option>
+                  <option value="V">V (PPM)</option>
+                  <option value="Cr" selected="selected">Cr (PPM)</option>
+                  <option value="Mn">Mn (PPM)</option>
+                  <option value="Fe2O3">Fe2O3 (%)</option>
+                  <option value="Co">Co (PPM)</option>
+                  <option value="Ni">Ni (PPM)</option>
+                  <option value="Cu">Cu (PPM)</option>
+                  <option value="Zn">Zn (PPM)</option>
+                  <option value="Rb">Rb (PPM)</option>
+                  <option value="Sr">Sr (PPM)</option>
+                  <option value="Y">Y (PPM)</option>
+                  <option value="Zr">Zr (PPM)</option>
+                  <option value="Ba">Ba (PPM)</option>
+                  <option value="La">La (PPM)</option>
+                  <option value="Ce">Ce (PPM)</option>
+                  <option value="Nd">Nd (PPM)</option>
+                  <option value="Pb">Pb (PPM)</option>
+                  <option value="Th">Th (PPM)</option>
+                </select>
+              </td>
+              <td class="">Y :</td>
+              <td id="td_sely" class="condcellval">
+                <select
+                  id="sely"
+                  v-model="y"
+                  class="form-control"
+                  name="sely"
+                  @change="updateData()"
+                >
+                  <option value="Na2O">Na2O (%)</option>
+                  <option value="MgO">MgO (%)</option>
+                  <option value="Al2O3">Al2O3 (%)</option>
+                  <option value="SiO2">SiO2 (%)</option>
+                  <option value="P">P (PPM)</option>
+                  <option value="K2O">K2O (%)</option>
+                  <option value="CaO">CaO (%)</option>
+                  <option value="TiO2">TiO2 (%)</option>
+                  <option value="V">V (PPM)</option>
+                  <option value="Cr">Cr (PPM)</option>
+                  <option value="Mn">Mn (PPM)</option>
+                  <option value="Fe2O3">Fe2O3 (%)</option>
+                  <option value="Co">Co (PPM)</option>
+                  <option value="Ni" selected="selected">Ni (PPM)</option>
+                  <option value="Cu">Cu (PPM)</option>
+                  <option value="Zn">Zn (PPM)</option>
+                  <option value="Rb">Rb (PPM)</option>
+                  <option value="Sr">Sr (PPM)</option>
+                  <option value="Y">Y (PPM)</option>
+                  <option value="Zr">Zr (PPM)</option>
+                  <option value="Ba">Ba (PPM)</option>
+                  <option value="La">La (PPM)</option>
+                  <option value="Ce">Ce (PPM)</option>
+                  <option value="Nd">Nd (PPM)</option>
+                  <option value="Pb">Pb (PPM)</option>
+                  <option value="Th">Th (PPM)</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- Display the charts -->
-      <div class="row">
-        <canvas id="myChart" width="400" height="400"></canvas>
-      </div>
+    <!-- Display the charts -->
+    <div class="row">
+      <canvas id="myChart" width="400" height="400"></canvas>
     </div>
   </div>
 </template>
