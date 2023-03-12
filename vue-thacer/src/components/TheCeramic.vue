@@ -134,6 +134,7 @@ export default {
 
       this.ceramTextData.identification = ceramProperties.Identification
 
+      this.ceramTextData.inventaires = ''
       if (ceramProperties.Pi) {
         this.ceramTextData.inventaires = ceramProperties.Pi + 'Π'
       }
@@ -144,6 +145,7 @@ export default {
         this.ceramTextData.inventaires += ' - échantillon : ' + ceramProperties.Num_Analyse
       }
 
+      this.ceramTextData.familleCategorieType = ''
       if (ceramProperties.Famille) {
         this.ceramTextData.familleCategorieType = 'Famille : ' + ceramProperties.Famille
       }
@@ -156,6 +158,7 @@ export default {
 
       this.ceramTextData.description = 'Description : ' + ceramProperties.Description
 
+      this.ceramTextData.biblio = ''
       if (ceramProperties.Biblio) {
         this.ceramTextData.biblio = ' Publication : ' + ceramProperties.Biblio
       }
