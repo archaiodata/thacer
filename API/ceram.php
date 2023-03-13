@@ -13,7 +13,7 @@
 //    ]
 //}
 
-$result = [];
+$result = ['PHOTO' => [], 'THA_MACRO_PHOTO' => [], 'Profils' => [],];
 $INV = $_GET['INV'];
 $ANA = $_GET['ANA'];
 
@@ -36,11 +36,5 @@ foreach ($files as $image) {
 }
 
 header("Content-Type: application/json");
-
-if ($result === []) {
-    echo '{}'; // If no images at all, return an empty object (and not an empty array)
-} else {
-    echo json_encode($result, JSON_UNESCAPED_UNICODE);
-}
-
+echo json_encode($result, JSON_UNESCAPED_UNICODE);
 exit();

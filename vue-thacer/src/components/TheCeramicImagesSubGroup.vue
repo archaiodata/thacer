@@ -1,6 +1,6 @@
 <template>
   <h4>{{ title }}</h4>
-  <div v-if="Array.isArray(imageUrlArray) && imageUrlArray.length > 0" class="row">
+  <div v-if="imageUrlArray?.length > 0" class="row">
     <div v-for="imageUrl in imageUrlArray" :key="imageUrl" class="col-md-4 col-sm-6">
       <div class="card mb-4 shadow-sm">
         <img
