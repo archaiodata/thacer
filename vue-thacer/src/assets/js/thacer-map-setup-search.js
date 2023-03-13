@@ -12,27 +12,28 @@ export function setupSearchCeramByText (
         Object.keys(json.features).forEach((k) => {
           let obj = json.features[k]
 
-          if (
-            (obj.properties.x == 0 && obj.properties.Pi == value) ||
-            (obj.properties.x == 0 &&
+          if (obj.properties.x == 0) {
+            if (
+              obj.properties.Pi == value ||
               obj.properties.Identification.toString().
               toLowerCase().
-              indexOf(value) > -1)
-          ) {
-            let label = ''
-            if (obj.properties.Pi != null) {
-              label = 'Π' + obj.properties.Pi
-            } else {
-              label = obj.properties.Inv_Fouille
-            }
+              indexOf(value) > -1
+            ) {
+              let label = ''
+              if (obj.properties.Pi != null) {
+                label = 'Π' + obj.properties.Pi
+              } else {
+                label = obj.properties.Inv_Fouille
+              }
 
-            document.getElementById('nonloc').innerHTML += [
-              '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
-              obj.properties.ID +
-              '&ANA=8888880&INV=88880">' +
-              label +
-              '</a>'
-            ]
+              document.getElementById('nonloc').innerHTML += [
+                '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
+                obj.properties.ID +
+                '&ANA=8888880&INV=88880">' +
+                label +
+                '</a>'
+              ]
+            }
           }
         })
       })
