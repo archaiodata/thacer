@@ -1,6 +1,6 @@
 <template>
   <TheMapMainDisplay class="map-main-display"></TheMapMainDisplay>
-  <TheMapSearch class="position-absolute top-0 left-0 map-search"></TheMapSearch>
+  <TheMapSearch class="position-absolute map-search"></TheMapSearch>
   <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
   <TheMapFooter class="map-footer"></TheMapFooter>
 </template>
@@ -24,17 +24,15 @@ export default {
 
 <style scoped>
 .map-main-display {
-  position: relative;
-  top: 0;
-  bottom: 0;
   width: 100%;
-  height: 100%;
-  padding: 0;
+  height: 93%;
+  position: fixed;
 }
 
 .map-search {
-  margin-top: 75px;
-  margin-left: 12px;
+  position: absolute;
+  top: 120px;
+  left: 12px;
 }
 
 .map-insert-unlocalised {

@@ -18,7 +18,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
             ) {
               if (obj.properties.Pi != null) {
                 document.getElementById('nonloc').innerHTML += [
-                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram.php?ID=' +
+                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceramic?ID=' +
                     obj.properties.ID +
                     '&ANA=8888880&INV=88880">Π' +
                     obj.properties.Pi +
@@ -26,7 +26,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
                 ]
               } else {
                 document.getElementById('nonloc').innerHTML += [
-                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram.php?ID=' +
+                  '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceramic?ID=' +
                     obj.properties.ID +
                     '&ANA=8888880&INV=88880">' +
                     obj.properties.Inv_Fouille +
@@ -92,7 +92,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
                 layer.feature.properties.Description +
                 '<br>Bilbiographie : ' +
                 layer.feature.properties.Biblio +
-                "<br><a href='ceram.php?ID=" +
+                "<br><a href='ceramic?ID=" +
                 layer.feature.properties.ID +
                 '&THA' +
                 layer.feature.properties.Num_Analyse +
@@ -149,7 +149,7 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
             layer.feature.properties.Description +
             '<br>Bilbiographie : ' +
             layer.feature.properties.ETh7 +
-            "<br><a href='ceram.php?ID=" +
+            "<br><a href='ceramic?ID=" +
             layer.feature.properties.ID +
             '&ANA=THA' +
             layer.feature.properties.Num_Analyse +
