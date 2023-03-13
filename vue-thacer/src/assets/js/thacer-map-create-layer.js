@@ -89,7 +89,7 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
             layer.feature.properties.Description +
             '<br>Bilbiographie : ' +
             layer.feature.properties.Biblio +
-            "<br><a href='ceramic?ID=" +
+            "<br><a href='ceram?ID=" +
             layer.feature.properties.ID +
             '&ANA=THA' +
             layer.feature.properties.Num_Analyse +

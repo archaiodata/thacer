@@ -11,7 +11,7 @@ const router = createRouter({
       component: TheMap
     },
     {
-      path: '/ceramic',
+      path: '/ceram',
       name: 'about',
       component: TheCeramic
     }
