@@ -44,25 +44,21 @@ export function setupSearchCeramByText (
         import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
       featureLayerCeram.setFilter(function(e) {
-        let return1
-        let return2
-        let return3
-        if (e.properties['Identification'] !== null) {
-          return1 = e.properties['Identification'].toString().
+        const isValueContainedInIdentification = e.properties['Identification'] !==
+          null &&
+          e.properties['Identification'].toString().
           toLowerCase().
-          indexOf(value) > -1
-        }
-        if (e.properties['Pi'] !== null) {
-          return2 = e.properties['Pi'] == value
-        } else {
-          return2 = return1
-        }
-        if (e.properties['Description'] !== null) {
-          return3 = e.properties['Description'].toString().
-          toLowerCase().
-          indexOf(value) > -1
-        }
-        return return1 + return2 + return3
+          includes(value)
+
+        const isValueEqualsPi = e.properties['Pi'] !== null &&
+          e.properties['Pi'] === value
+
+        const isValueContainedInDescription = e.properties['Description'] !==
+          null &&
+          e.properties['Description'].toString().toLowerCase().includes(value)
+
+        return isValueContainedInIdentification || isValueEqualsPi ||
+          isValueContainedInDescription
       }).on('ready', function(e) {
         e.target.eachLayer(function(layer) {
           let archimageURL
