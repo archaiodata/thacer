@@ -73,8 +73,9 @@ improvements.
 in preferences :
 
 - eslint: choose "automatic configuration".
-- prettier: specify the package path, add "vue,css,scss,html,json, cjs" in "run
-  for files", check "reformat on save".
+- prettier: specify the package path, add "vue,css,scss,html,json,cjs" in "run
+  for files", check "reformat on save". (should be `{**/*,*}.{js,ts,jsx,tsx,vue,css,scss,html,json,cjs}`)
+- Disable "reformat code" in "actions on save", to disable intellij own reformatting tool
 
 ## Best practices frontend
 
