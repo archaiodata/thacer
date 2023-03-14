@@ -63,7 +63,7 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
           archimageURL =
             "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
             layer.feature.properties.Archimage +
-            "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
+            "&type=2&ext=.jpg' /><br>"
         }
         if (layer.feature.properties.Type == undefined) {
           Type = ''
