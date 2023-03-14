@@ -1,5 +1,61 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
 
+export function setCeramLayer(ceramLayer) {
+  let archimageURL
+  let Type
+  let identifier
+
+  ceramLayer.setOpacity(0.8)
+  if (ceramLayer.feature.properties.Archimage == undefined) {
+    archimageURL = 'Archimage non disponible<br>'
+  } else {
+    archimageURL =
+      "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
+      ceramLayer.feature.properties.Archimage +
+      "&type=2&ext=.jpg' /><br>"
+  }
+  if (ceramLayer.feature.properties.Type == undefined) {
+    Type = ''
+  } else {
+    Type = '<br>Type : ' + ceramLayer.feature.properties.Type
+  }
+  if (ceramLayer.feature.properties.Inv_Fouille == null) {
+    identifier = ''
+  } else {
+    identifier = ceramLayer.feature.properties.Inv_Fouille
+  }
+  if (ceramLayer.feature.properties.Pi !== null) {
+    identifier = ceramLayer.feature.properties.Pi + 'Π'
+  }
+  ceramLayer.bindPopup(
+    archimageURL +
+      'Inventaire : ' +
+      identifier +
+      '<br>Identification : ' +
+      ceramLayer.feature.properties.Identification +
+      Type +
+      '<br>Description : ' +
+      ceramLayer.feature.properties.Description +
+      '<br>Bilbiographie : ' +
+      ceramLayer.feature.properties.Biblio +
+      "<br><a href='ceram?ID=" +
+      ceramLayer.feature.properties.ID +
+      '&ANA=THA' +
+      ceramLayer.feature.properties.Num_Analyse +
+      '&INV=' +
+      identifier +
+      "'>Fiche complète</a>",
+    {
+      maxWidth: 350,
+      minWidth: 350,
+      maxHeight: 550,
+      autoPan: true,
+      closeButton: true,
+      autoPanPadding: [5, 5]
+    }
+  )
+}
+
 export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
   /* global L */
   return L.mapbox
@@ -55,59 +111,8 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
-        let archimageURL
-        let Type
-        let identifier
+        setCeramLayer(layer)
 
-        layer.setOpacity(0.8)
-        if (layer.feature.properties.Archimage == undefined) {
-          archimageURL = 'Archimage non disponible<br>'
-        } else {
-          archimageURL =
-            "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
-            layer.feature.properties.Archimage +
-            "&type=2&ext=.jpg' /><br>"
-        }
-        if (layer.feature.properties.Type == undefined) {
-          Type = ''
-        } else {
-          Type = '<br>Type : ' + layer.feature.properties.Type
-        }
-        if (layer.feature.properties.Inv_Fouille == null) {
-          identifier = ''
-        } else {
-          identifier = layer.feature.properties.Inv_Fouille
-        }
-        if (layer.feature.properties.Pi !== null) {
-          identifier = layer.feature.properties.Pi + 'Π'
-        }
-        layer.bindPopup(
-          archimageURL +
-            'Inventaire : ' +
-            identifier +
-            '<br>Identification : ' +
-            layer.feature.properties.Identification +
-            Type +
-            '<br>Description : ' +
-            layer.feature.properties.Description +
-            '<br>Bilbiographie : ' +
-            layer.feature.properties.Biblio +
-            "<br><a href='ceram?ID=" +
-            layer.feature.properties.ID +
-            '&ANA=THA' +
-            layer.feature.properties.Num_Analyse +
-            '&INV=' +
-            identifier +
-            "'>Fiche complète</a>",
-          {
-            maxWidth: 350,
-            minWidth: 350,
-            maxHeight: 550,
-            autoPan: true,
-            closeButton: true,
-            autoPanPadding: [5, 5]
-          }
-        )
         markerClusterGroupCeram.addLayer(layer)
       })
     })
