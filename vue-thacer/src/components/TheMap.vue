@@ -24,31 +24,31 @@ export default {
 
 <style scoped>
 .map-main-display {
-  width: 100%;
-  height: 93%;
   position: fixed;
+  width: 100%;
+  height: 95%;
 }
 
 .map-search {
   position: absolute;
-  bottom: 120px;
+  margin-top: 10px;
   left: 12px;
 }
 
 .map-insert-unlocalised {
   position: absolute;
-  bottom: 30px;
+  bottom: 35px;
   right: 0;
   width: 175px;
   max-height: 50%;
   overflow: auto;
   margin-right: 10px;
-  padding: 6px 10px 6px 6px;
+  /* padding: 6px 10px 6px 6px; */
 }
 
 .map-footer {
-  bottom: 0;
   position: absolute;
+  bottom: 0;
   width: 100%;
   height: 24px;
 }
