@@ -62,8 +62,10 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
         .on('ready', function (e) {
           e.target.eachLayer(function (layer) {
             let archimageURL
+            let Type
             let identifier
 
+            layer.setOpacity(0.8)
             if (layer.feature.properties.Archimage == undefined) {
               archimageURL = 'Archimage non disponible<br>'
             } else {
@@ -72,10 +74,15 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
                 layer.feature.properties.Archimage +
                 "&type=2&ext=.jpg' width='92%' margin-left='4%' /><br>"
             }
+            if (layer.feature.properties.Type == undefined) {
+              Type = ''
+            } else {
+              Type = '<br>Type : ' + layer.feature.properties.Type
+            }
             if (layer.feature.properties.Inv_Fouille == null) {
               identifier = ''
             } else {
-              identifier = '<br>Type : ' + layer.feature.properties.Type
+              identifier = layer.feature.properties.Inv_Fouille
             }
             if (layer.feature.properties.Pi !== null) {
               identifier = layer.feature.properties.Pi + 'Π'
@@ -86,18 +93,17 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
                 identifier +
                 '<br>Identification : ' +
                 layer.feature.properties.Identification +
-                '<br>Type : ' +
-                layer.feature.properties.Type +
+                Type +
                 '<br>Description : ' +
                 layer.feature.properties.Description +
                 '<br>Bilbiographie : ' +
                 layer.feature.properties.Biblio +
                 "<br><a href='ceram?ID=" +
                 layer.feature.properties.ID +
-                '&THA' +
+                '&ANA=THA' +
                 layer.feature.properties.Num_Analyse +
                 '&INV=' +
-                layer.feature.properties.Inv_Fouille +
+                identifier +
                 "'>Fiche complète</a>",
               {
                 maxWidth: 350,
