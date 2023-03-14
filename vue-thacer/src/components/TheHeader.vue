@@ -36,10 +36,10 @@
 
     <div class="navbar navbar-dark bg-dark shadow-sm my-0">
       <div class="container-fluid">
-        <a href="#" class="navbar-brand d-flex align-items-center py-0">
+        <router-link to="/" href="#" class="navbar-brand d-flex align-items-center py-0">
           <img src="@/assets/images/ThaCER.svg" class="img-fluid" alt="Responsive image" />
           <strong>THACER</strong>
-        </a>
+        </router-link>
 
         <!-- Bootstrap toggle button -->
         <button
