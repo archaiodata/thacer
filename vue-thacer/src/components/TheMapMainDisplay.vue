@@ -24,7 +24,7 @@ g path {
   stroke-width: 1;
 }
 
-/* modify .leaflet* classes of pop to be more compact */
+/* modify .leaflet* classes of popup to be more compact */
 .leaflet-popup-content {
   padding: 2px;
   line-height: 1.2;
