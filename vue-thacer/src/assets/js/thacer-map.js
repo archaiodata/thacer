@@ -16,6 +16,11 @@ export function thacerMap() {
   L.control
     .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
     .addTo(map)
+
+    L.control.zoom({
+      position: 'bottomleft'
+  }).addTo(map)
+  
 }
 
 function createMapConfig(defaultTileLayer) {
@@ -24,6 +29,7 @@ function createMapConfig(defaultTileLayer) {
     zoom: 15,
     minZoom: 11,
     layers: [defaultTileLayer],
+    zoomControl: false,
     maxZoom: 20,
     maxBounds: [
       [40.5, 24.4], // Southwest coordinates

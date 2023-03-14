@@ -31,7 +31,7 @@ export default {
 
 .map-search {
   position: absolute;
-  top: 120px;
+  bottom: 120px;
   left: 12px;
 }
 
