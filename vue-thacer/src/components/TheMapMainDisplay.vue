@@ -24,24 +24,25 @@ g path {
   stroke-width: 1;
 }
 
-/* TODO: check that this .leaflet* classes can be deleted */
-/*  .leaflet-popup-content {*/
-/*  padding: 2px;*/
-/*  line-height: 1.2;*/
-/*}*/
+/* modify .leaflet* classes of popup to be more compact */
+.leaflet-popup-content {
+  padding: 2px;
+  line-height: 1.2;
+}
 
-/*.leaflet-popup {*/
-/*  bottom: 2px;*/
-/*  left: 175px;*/
-/*}*/
+.leaflet-popup-tip-container {
+  height: 40px;
+}
 
-/*.leaflet-popup-tip-container {*/
-/*  height: 40px;*/
-/*}*/
+.leaflet-popup-content img {
+  margin: 1%;
+  width: 98%;
+}
 
-/*.leaflet-popup-content img {*/
-/*  margin: 4%;*/
-/*}*/
+/* modify .leaflet* classe for not overlapping map footer */
+.leaflet-control-zoom {
+  bottom: 30px;
+}
 
 /* Seems to change only the ceram cluster color */
 .marker-cluster-medium,
