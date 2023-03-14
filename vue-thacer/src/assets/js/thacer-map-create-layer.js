@@ -21,7 +21,7 @@ export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) 
               )
             )
           ) {
-            string = ' GTh' + layer.feature.properties.GTh //
+            string = ' GTh' + layer.feature.properties.GTh
           }
           if (
             !(
