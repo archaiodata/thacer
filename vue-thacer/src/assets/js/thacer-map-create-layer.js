@@ -13,12 +13,15 @@ export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) 
           let biblio = ''
           if (
             !(
-              (layer.feature.properties.GTh == '') | // TODO GTh : guide de thasos
-              (layer.feature.properties.GTh == 'null') |
-              (layer.feature.properties.GTh == undefined)
+              // GTh means "Guide de Thasos"
+              (
+                (layer.feature.properties.GTh == '') |
+                (layer.feature.properties.GTh == 'null') |
+                (layer.feature.properties.GTh == undefined)
+              )
             )
           ) {
-            string = ' GTh' + layer.feature.properties.GTh // TODO : renommer la variable
+            string = ' GTh' + layer.feature.properties.GTh //
           }
           if (
             !(
