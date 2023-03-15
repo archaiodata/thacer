@@ -17,10 +17,11 @@ export function thacerMap() {
     .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
     .addTo(map)
 
-    L.control.zoom({
+  L.control
+    .zoom({
       position: 'bottomleft'
-  }).addTo(map)
-  
+    })
+    .addTo(map)
 }
 
 function createMapConfig(defaultTileLayer) {
@@ -90,6 +91,7 @@ function createOverlays(map) {
     map
   )
   let khalil = createLayer.createImageOverlayKhalil(map)
+  let SIG_thasos = createLayer.createTileLayerSIG_thasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
   let ateliersAmphoriques = createLayer.createFeatureLayerAteliersAmphoriques()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
@@ -100,7 +102,7 @@ function createOverlays(map) {
     'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
     'Plan Khalil 1954': khalil,
     'Chronique des fouilles': markerClusterGroupChronique,
-    // 'Plan SIG agora': SIG_thasos,
+    'Plan SIG agora': SIG_thasos,
     'Orthophoto agora EfA': orthophotoAgora,
     'Ateliers amphoriques': ateliersAmphoriques,
     'Echantillons géologiques': echantillonsGeol
