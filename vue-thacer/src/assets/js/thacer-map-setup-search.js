@@ -35,13 +35,12 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
 
             if (obj.properties.x == 0) {
               if (doesCeramObjectPassesSearch(obj.properties, value)) {
-                let label = ''
+                let label
                 if (obj.properties.Pi != null) {
                   label = 'Π' + obj.properties.Pi
                 } else {
                   label = obj.properties.Inv_Fouille
                 }
-
                 document.getElementById('nonloc').innerHTML += [
                   '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
                     obj.properties.ID +
@@ -82,44 +81,7 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
     })
     .on('ready', function (e) {
       e.target.eachLayer(function (layer) {
-        let archimageURL
-
-        if (layer.feature.properties.ArchImage == undefined) {
-          archimageURL = 'Archimage non disponible<br>'
-        } else {
-          archimageURL =
-            "<img src='https://archimage.efa.gr/action.php?kroute=image_thumb&id=" +
-            layer.feature.properties.ArchImage +
-            "'/><br>"
-        }
-        layer.bindPopup(
-          archimageURL +
-            'Inventaire : ' +
-            // identifier + // TODO fix and check
-            '<br>Identification : ' +
-            layer.feature.properties.Identification +
-            '<br>Type : ' +
-            layer.feature.properties.Type +
-            '<br>Description : ' +
-            layer.feature.properties.Description +
-            '<br>Bilbiographie : ' +
-            layer.feature.properties.ETh7 +
-            "<br><a href='ceram?ID=" +
-            layer.feature.properties.ID +
-            '&ANA=THA' +
-            layer.feature.properties.Num_Analyse +
-            '&INV=' +
-            // identifier + // TODO fix and check
-            "'>Fiche complète</a>",
-          {
-            maxWidth: 350,
-            minWidth: 350,
-            maxHeight: 550,
-            autoPan: true,
-            closeButton: true,
-            autoPanPadding: [5, 5]
-          }
-        )
+        setCeramLayer(layer)
         markerClusterGroupCeram.addLayer(layer)
       })
     })
