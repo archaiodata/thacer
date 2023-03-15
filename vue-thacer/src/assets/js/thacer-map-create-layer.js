@@ -1,5 +1,16 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
 
+function createCeramUrl(ceramLayer, identifier) {
+  return (
+    'ceram?ID=' +
+    ceramLayer.feature.properties.ID +
+    '&ANA=THA' +
+    ceramLayer.feature.properties.Num_Analyse +
+    '&INV=' +
+    identifier
+  )
+}
+
 export function setCeramLayer(ceramLayer) {
   let archimageURL
   let Type
@@ -38,13 +49,9 @@ export function setCeramLayer(ceramLayer) {
       ceramLayer.feature.properties.Description +
       '<br>Bilbiographie : ' +
       ceramLayer.feature.properties.Biblio +
-      "<br><a href='ceram?ID=" +
-      ceramLayer.feature.properties.ID +
-      '&ANA=THA' +
-      ceramLayer.feature.properties.Num_Analyse +
-      '&INV=' +
-      identifier +
-      "'>Fiche complète</a>",
+      '<br><a href=' +
+      createCeramUrl(ceramLayer, identifier) +
+      '>Fiche complète</a>',
     {
       maxWidth: 350,
       minWidth: 350,
