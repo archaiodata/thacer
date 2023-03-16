@@ -17,10 +17,11 @@ export function thacerMap() {
     .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
     .addTo(map)
 
-    L.control.zoom({
+  L.control
+    .zoom({
       position: 'bottomleft'
-  }).addTo(map)
-  
+    })
+    .addTo(map)
 }
 
 function createMapConfig(defaultTileLayer) {
@@ -76,7 +77,7 @@ function createOverlays(map) {
 
   // Adelt and Tours - always displayed (except on some zoom level for ADelt)
   createLayer.createFeatureLayerADelt(map).addTo(map)
-  createLayer.createFeatureLayerTours().addTo(map)
+  createLayer.createFeatureLayerSites().addTo(map)
 
   // Chronique - hid-able/show-able in the control
   let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()
@@ -91,7 +92,6 @@ function createOverlays(map) {
   )
   let khalil = createLayer.createImageOverlayKhalil(map)
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
-  let ateliersAmphoriques = createLayer.createFeatureLayerAteliersAmphoriques()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
   // Finally, return the list of overlays which will be hid-able/show-able in the control
@@ -102,7 +102,7 @@ function createOverlays(map) {
     'Chronique des fouilles': markerClusterGroupChronique,
     // 'Plan SIG agora': SIG_thasos,
     'Orthophoto agora EfA': orthophotoAgora,
-    'Ateliers amphoriques': ateliersAmphoriques,
+
     'Echantillons géologiques': echantillonsGeol
   }
 }

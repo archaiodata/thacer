@@ -108,6 +108,5 @@ g path {
   border-style: solid;
   width: 4px;
   height: 4px;
-  line-height: 15px;
 }
 </style>

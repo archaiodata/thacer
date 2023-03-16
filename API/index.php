@@ -1,7 +1,7 @@
 <?php
 
 // Test array for debug purpose
-$userdb = array(
+$test = array(
     'type' => 'FeatureCollection', 
     'name' => 'secteurs',
     'features' => array(
@@ -32,23 +32,11 @@ $userdb = array(
                     )
 );
 
-
-
 // Get the contents of the JSON file 
-$strJsonFileContents = file_get_contents("secteurs.json");
-
-// test show raw dump
-// var_dump($strJsonFileContents);  
+$strJsonFileContents = file_get_contents("./geojson/secteurs.geojson");
 
 // Convert to array 
 $array = json_decode($strJsonFileContents, true);
-
-// tests print array
-// var_dump($array); 
-// print_r($array);
-
-// simple echo d'une valeur
-// echo $array['features'][1]['properties']['Titre'];
 
 // Build GeoJSON feature collection array for response
 $geojson = array(
@@ -105,38 +93,6 @@ foreach ($array as $userdbchild) {
         }
     }
 }
-
-// GENERIC SEARCH version 
-// foreach ($array as $userdbchild) {
-//         $i=-1;
-//     foreach ($userdbchild as $userdbchildchild) {
-//                 $i++;
-//         foreach ($userdbchildchild as $props ) {
-
-//             foreach ($props as $prop) {
-
-//                 if ($prop == $search) {              
-//                     // echo $userdb['features'][$i]['properties']['Titre'] . $i .'<br>';
-
-//                         $marker = array(
-//                             'type' => 'Feature',
-//                             'properties' => array(
-//                               'RecNum' => $array['features'][$i]['properties']['RecNum'],
-//                               'GTh' => $array['features'][$i]['properties']['GTh'],
-//                               'Titre' => $array['features'][$i]['properties']['Titre'],
-//                               'Référenc' => $array['features'][$i]['properties']['Référenc'],
-//                               'Description' => $array['features'][$i]['properties']['Description'],
-//                             ),
-//                             'geometry' => $array['features'][$i]['geometry']
-//                         );
-
-//                       array_push($geojson['features'], $marker); 
-
-//                 }
-//             }   
-//         }
-//     }
-// }
 
 
 header('Content-type: application/json');
