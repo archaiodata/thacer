@@ -231,27 +231,6 @@ export function createTileLayerOrthophotoAgora() {
   })
 }
 
-export function createFeatureLayerAteliersAmphoriques() {
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ateliers_amphoriques.geojson')
-    .on('layeradd', function (e) {
-      e.layer.setIcon(
-        L.icon({
-          iconUrl: 'AmpTha.svg',
-          iconSize: [20, 50]
-        })
-      )
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup(layer.feature.properties.Nom, {
-          autoPan: true,
-          closeButton: false,
-          autoPanPadding: [5, 5]
-        })
-      })
-    })
-}
-
 export function createFeatureLayerEchantillonsGeol() {
   return L.mapbox
     .featureLayer()
@@ -297,7 +276,7 @@ export function createFeatureLayerADelt(map) {
     )
   })
 
-  let show_label_zoom = 12 // zoom level threshold for showing/hiding labels
+  let show_label_zoom = 13 // zoom level threshold for showing/hiding labels
   function show_hide_labels() {
     let cur_zoom = map.getZoom()
     if (cur_zoom <= show_label_zoom) {
@@ -313,30 +292,35 @@ export function createFeatureLayerADelt(map) {
   return ADelt
 }
 
-export function createFeatureLayerTours() {
+export function createFeatureLayerSites() {
   return L.mapbox
     .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/toursOS.geojson')
+    .loadURL(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
     .on('layeradd', function (e) {
-      e.layer.setIcon(
-        L.icon({
-          iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg',
-          iconSize: [15, 35]
-        })
-      )
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup(
-          layer.feature.properties.Name +
-            "<br>Description d'Osborne 1986 : " +
-            layer.feature.properties.Osborne,
-          {
-            maxWidth: 350,
-            maxHeight: 550,
-            autoPan: true,
-            closeButton: false,
-            autoPanPadding: [5, 5]
-          }
+      if (e.layer.feature.properties.type == 'Atelier') {
+        e.layer.setIcon(
+          L.icon({
+            iconUrl: 'AmpTha.svg',
+            iconSize: [20, 50]
+          })
         )
+      } else {
+        e.layer.setIcon(
+          L.icon({
+            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg',
+            iconSize: [15, 35]
+          })
+        )
+      }
+
+      e.target.eachLayer(function (layer) {
+        layer.bindPopup(layer.feature.properties.Nom + ': ' + layer.feature.properties.desc, {
+          maxWidth: 350,
+          maxHeight: 550,
+          autoPan: true,
+          closeButton: false,
+          autoPanPadding: [5, 5]
+        })
       })
     })
 }
