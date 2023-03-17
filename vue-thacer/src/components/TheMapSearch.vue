@@ -4,7 +4,7 @@
       id="filter-input"
       type="text"
       name="filter"
-      placeholder="ex. 2085, 2057, plat, cratère, amphore..."
+      placeholder="Recherche. Exemples : plat id:9130 invFouille:Indéterminé"
     />
   </div>
 </template>
