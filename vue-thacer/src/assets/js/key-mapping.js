@@ -1,5 +1,6 @@
-// This variable allows to map, for each key present in the data, the corresponding
-// keys that the user can use to search.
+// This variable will allow to map, for each key present in the geojson,
+// a list of the corresponding keys that the user may use when searching.
+// (The "user key" arrays (-> the property values) must be in lower cases)
 export const keyMapping = {
   ID: ['id'],
   Pi: ['pi'],
@@ -21,8 +22,8 @@ export const keyMapping = {
   geometry: ['geometry', 'geometrie', 'géometrie']
 }
 
-// Since keyMapping is human friendly but not developer friendly, we inverse it here.
-// this function return this kind of result :
+// Since the keyMapping variable is human friendly but not developer friendly, we inverse it here.
+// The function return this kind of result :
 // { inventaire: 'Inv_Fouille', inventory: 'Inv_Fouille', invfouille: 'Inv_Fouille',
 //  'inv-fouille': 'Inv_Fouille', inv_fouille: 'Inv_Fouille', archimage: 'Archimage',
 //   ... }
@@ -38,9 +39,9 @@ export const getInverseKeyMapping = () => {
   return inverseKeyMapping
 }
 
-// From a key that the user want to search in, we return the corresponding
-// "real" key used in the data. If not found, it will return undefined.
+// From a key that the user asked to search in, we return the corresponding
+// "real" key used in the geojson. If not found, it will return undefined.
+// (searchItemKey is expected to be lower case)
 export function mapToRealKeyName(searchItemKey) {
-  // debugger
   return getInverseKeyMapping()[searchItemKey]
 }

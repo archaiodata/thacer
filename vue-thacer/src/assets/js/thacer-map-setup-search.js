@@ -82,8 +82,9 @@ const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) 
     return false
   }
 
-  // Trim :
+  // Trim and lower case :
   inputSearchString = inputSearchString.trim()
+  inputSearchString = inputSearchString.toLowerCase()
 
   // If empty search query :
   if (inputSearchString === '') {
@@ -100,6 +101,7 @@ const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) 
 }
 
 // this function is launched for each search item, to check if it passes with current ceramObject
+// (searchItemSingle is expected to be lower case)
 function isSearchItemSingleFound(searchItemSingle, ceramObject) {
   const searchItemSingleSplit = searchItemSingle.split(':')
 
@@ -111,7 +113,8 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
       Boolean(ceramObject['Identification']) &&
       ceramObject['Identification'].toLowerCase().isearchItemSingleSplit
 
-    const isValueEqualsPi = Boolean(ceramObject['Pi']) && ceramObject['Pi'] === searchItemValue
+    const isValueEqualsPi =
+      Boolean(ceramObject['Pi']) && ceramObject['Pi'].toLowerCase() === searchItemValue
 
     const isValueContainedInDescription =
       Boolean(ceramObject['Description']) &&
@@ -120,9 +123,10 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
     return isValueContainedInIdentification || isValueEqualsPi || isValueContainedInDescription
   }
   // Search with key :
-  // If more than 2 element, there was 2 or more colon, we just skip after the second colon
+  // (More than 2 elements would mean that there was 2 or more colons in the searchItemSingle.
+  // In this case we will just not consider everything after the second colon)
   else if (searchItemSingleSplit.length >= 2) {
-    const searchItemValue = searchItemSingleSplit[1].toLowerCase()
+    const searchItemValue = searchItemSingleSplit[1]
     let searchItemKey = searchItemSingleSplit[0]
     searchItemKey = mapToRealKeyName(searchItemKey)
 
