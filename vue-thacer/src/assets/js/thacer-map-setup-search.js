@@ -9,6 +9,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
       let inputSearchString = e.target.value.trim().toLowerCase()
       document.getElementById('nonloc').innerHTML = []
 
+      document.getElementById('loading-unlocalised').classList.remove('d-none')
       fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
         .then((r) => r.json())
         .then((json) => {
@@ -35,12 +36,15 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
               ]
             }
           })
+
+          document.getElementById('loading-unlocalised').classList.add('d-none')
         })
 
       markerClusterGroupCeram.clearLayers()
       map.removeLayer(markerClusterGroupCeram)
       featureLayerCeram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
 
+      document.getElementById('loading-localised').classList.remove('d-none')
       featureLayerCeram
         .setFilter((e) => {
           // Adding current ceramObject only if localised and passing input search string :
@@ -54,7 +58,9 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
             setCeramLayer(layer)
             markerClusterGroupCeram.addLayer(layer)
           })
+          document.getElementById('loading-localised').classList.add('d-none')
         })
+
       map.addLayer(markerClusterGroupCeram)
     }
   })
