@@ -6,6 +6,9 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   let config = {
+    build: {
+      sourcemap: true
+    },
     plugins: [vue()],
     resolve: {
       alias: {
