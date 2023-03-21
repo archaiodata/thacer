@@ -211,7 +211,7 @@ export function createMarkerClusterGroupChronique() {
 }
 
 // -----------------------------------EfA Geoserver WMS ---------------------------------------------
-export function createTileLayersigThasos() {
+export function createTileLayerSigThasos() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:fd_thasos_4326',
     attribution: 'EfA',

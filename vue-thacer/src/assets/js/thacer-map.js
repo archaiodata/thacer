@@ -91,7 +91,7 @@ function createOverlays(map) {
     map
   )
   let khalil = createLayer.createImageOverlayKhalil(map)
-  let sigThasos = createLayer.createTileLayersigThasos()
+  let sigThasos = createLayer.createTileLayerSigThasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
   let ateliersAmphoriques = createLayer.createFeatureLayerAteliersAmphoriques()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
