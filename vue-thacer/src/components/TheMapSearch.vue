@@ -4,8 +4,21 @@
       id="filter-input"
       type="text"
       name="filter"
-      placeholder="ex. 2085, 2057, plat, cratère, amphore..."
+      placeholder="Recherche. Exemples : plat id:9130 invFouille:Indéterminé"
     />
+
+    <div id="loading-localised" class="d-none loading-text m-2 mt-3">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      recherche d'éléments localisés en cours...
+    </div>
+    <div id="loading-unlocalised" class="d-none loading-text m-2">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      recherche d'éléments non-localisés en cours...
+    </div>
   </div>
 </template>
 
@@ -18,6 +31,10 @@ export default {
 <style scoped>
 .filter-ctrl {
   width: 220px;
+}
+
+.loading-text {
+  font-size: 10px;
 }
 
 .filter-ctrl input[type='text'] {
