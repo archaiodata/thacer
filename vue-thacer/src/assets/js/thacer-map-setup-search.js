@@ -111,7 +111,7 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
 
     const isValueContainedInIdentification =
       Boolean(ceramObject['Identification']) &&
-      ceramObject['Identification'].toLowerCase().isearchItemSingleSplit
+      ceramObject['Identification'].toLowerCase().includes(searchItemValue)
 
     const isValueEqualsPi =
       Boolean(ceramObject['Pi']) && ceramObject['Pi'].toLowerCase() === searchItemValue
