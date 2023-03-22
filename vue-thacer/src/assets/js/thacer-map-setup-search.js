@@ -105,7 +105,7 @@ const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) 
 function isSearchItemSingleFound(searchItemSingle, ceramObject) {
   const searchItemSingleSplit = searchItemSingle.split(':')
 
-  // Search without key :
+  // Search without key will hit three fields: Identification, Pi, Description :
   if (searchItemSingleSplit.length === 1) {
     const searchItemValue = searchItemSingleSplit[0]
 
