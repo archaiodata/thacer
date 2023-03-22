@@ -91,6 +91,7 @@ function createOverlays(map) {
     map
   )
   let khalil = createLayer.createImageOverlayKhalil(map)
+  let sigThasos = createLayer.createTileLayerSigThasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
@@ -100,7 +101,7 @@ function createOverlays(map) {
     'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
     'Plan Khalil 1954': khalil,
     'Chronique des fouilles': markerClusterGroupChronique,
-    // 'Plan SIG agora': SIG_thasos,
+    'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
 
     'Echantillons géologiques': echantillonsGeol

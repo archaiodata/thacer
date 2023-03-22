@@ -226,15 +226,15 @@ export function createMarkerClusterGroupChronique() {
 }
 
 // -----------------------------------EfA Geoserver WMS ---------------------------------------------
-//link broken
-// SIG_thasos = L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
-//   id: 'vms2',
-//   attribution: 'EfA',
-//   layers: 'SIG_thasos:fd_thasos_4326',
-//   transparent: true,
-//   maxZoom: 20,
-//   opacity: 0.5
-// });
+export function createTileLayerSigThasos() {
+  return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
+    layers: 'SIG_thasos:fd_thasos_4326',
+    attribution: 'EfA',
+    transparent: true,
+    maxZoom: 20,
+    opacity: 0.5
+  })
+}
 
 export function createTileLayerOrthophotoAgora() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
