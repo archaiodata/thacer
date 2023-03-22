@@ -18,8 +18,7 @@ export const keyMapping = {
   Biblio: ['biblio', 'bibliography', 'bibliographie'],
   Période: ['période', 'periode', 'period'],
   x: ['x'],
-  y: ['y'],
-  geometry: ['geometry', 'geometrie', 'géometrie']
+  y: ['y']
 }
 
 // Since the keyMapping variable is human friendly but not developer friendly, we inverse it here.
