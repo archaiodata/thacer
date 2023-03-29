@@ -1,4 +1,4 @@
-import { isObject } from '@/assets/js/utils.js'
+import { isObject, notifyProgrammaticError } from '@/assets/js/utils.js'
 import { setCeramLayer } from '@/assets/js/thacer-map-create-layer'
 import { mapToRealKeyName } from '@/assets/js/key-mapping'
 
@@ -71,13 +71,14 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
 const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) => {
   // Programmatic errors :
   if (!isObject(ceramObject)) {
-    console.error(`Error in doesCeramObjectPassFilter, ceramObject is not an object :`, ceramObject)
+    notifyProgrammaticError(
+      `Error in doesCeramObjectPassFilter, ceramObject is not an object : ${ceramObject}`
+    )
     return false
   }
   if (typeof inputSearchString !== 'string') {
-    console.error(
-      `Error in doesCeramObjectPassFilter, inputSearchString is not an string :`,
-      inputSearchString
+    notifyProgrammaticError(
+      `Error in doesCeramObjectPassFilter, inputSearchString is not an string :  ${ceramObject}`
     )
     return false
   }
