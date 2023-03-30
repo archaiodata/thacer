@@ -58,7 +58,7 @@
 import TheCeramicText from '@/components/TheCeramicText.vue'
 import TheCeramicChart from '@/components/TheCeramicChart.vue'
 import TheCeramicImages from '@/components/TheCeramicImages.vue'
-import { isObject, notifyProgrammaticError } from '@/assets/js/utils.js'
+import { isObject } from '@/assets/js/utils.js'
 import TheCeramicArchimage from '@/components/TheCeramicArchimage.vue'
 
 export default {
@@ -88,9 +88,7 @@ export default {
           this.imageUrlArrayList = imageUrlArrayList
           this.loadingStatusImagesUrls = 'loaded'
         } else {
-          notifyProgrammaticError(
-            `Error, imageUrlArrayList is not an object : ${imageUrlArrayList}`
-          )
+          console.error(imageUrlArrayList)
           this.loadingStatusImagesUrls = 'error'
         }
       })
