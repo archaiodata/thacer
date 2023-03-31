@@ -46,21 +46,24 @@ function createTileLayers() {
       'Imagery © <a href="https://www.google.com/help/legalnotices_maps.html">Google Maps</a>',
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
   })
-  let outdoors = L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+
+  let topo = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
     {
-      id: 'mapbox/outdoors-v9'
+      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
     }
   )
+
   let light = L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA',
+    'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     {
-      id: 'mapbox/light-v9'
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }
   )
 
   return {
-    'Carte avec dénivellés': outdoors,
+    'Carte avec dénivellés': topo,
     'Fond satellite': googleSat,
     'Carte claire': light
   }
