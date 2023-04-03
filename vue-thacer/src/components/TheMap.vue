@@ -1,32 +1,34 @@
 <template>
   <TheMapMainDisplay class="map-main-display"></TheMapMainDisplay>
   <TheMapSearch class="position-absolute map-search"></TheMapSearch>
-  <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
+  <TheMapInsertUnlocalised
+    class="map-insert-unlocalised"
+  ></TheMapInsertUnlocalised>
   <TheMapFooter class="map-footer"></TheMapFooter>
 </template>
 
 <script>
-import TheMapSearch from '@/components/TheMapSearch.vue'
-import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
-import TheMapMainDisplay from '@/components/TheMapMainDisplay.vue'
-import TheMapFooter from '@/components/TheMapFooter.vue'
+import TheMapSearch from "@/components/TheMapSearch.vue";
+import TheMapInsertUnlocalised from "@/components/TheMapInsertUnlocalised.vue";
+import TheMapMainDisplay from "@/components/TheMapMainDisplay.vue";
+import TheMapFooter from "@/components/TheMapFooter.vue";
 
 export default {
-  name: 'TheMap',
+  name: "TheMap",
   components: {
     TheMapFooter,
     TheMapMainDisplay,
     TheMapInsertUnlocalised,
-    TheMapSearch
-  }
-}
+    TheMapSearch,
+  },
+};
 </script>
 
 <style scoped>
 .map-main-display {
   position: fixed;
   width: 100%;
-  height: 95%;
+  height: calc(100vh - 50.3px);
 }
 
 .map-search {
