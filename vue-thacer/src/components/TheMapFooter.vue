@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: "TheMapFooter",
-};
+  name: 'TheMapFooter'
+}
 </script>
 
 <style scoped></style>
