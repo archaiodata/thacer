@@ -26,7 +26,7 @@ export default {
 .map-main-display {
   position: fixed;
   width: 100%;
-  height: 95%;
+  height: calc(100vh - 50.3px);
 }
 
 .map-search {

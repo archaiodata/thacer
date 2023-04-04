@@ -1,7 +1,7 @@
 <template>
   <footer class="text-muted">
     <div class="container-fluid">
-      <p>&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
+      <span>&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</span>
     </div>
   </footer>
 </template>
