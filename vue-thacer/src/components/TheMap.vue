@@ -2,19 +2,16 @@
   <TheMapMainDisplay class="map-main-display"></TheMapMainDisplay>
   <TheMapSearch class="position-absolute map-search"></TheMapSearch>
   <TheMapInsertUnlocalised class="map-insert-unlocalised"></TheMapInsertUnlocalised>
-  <TheMapFooter class="map-footer"></TheMapFooter>
 </template>
 
 <script>
 import TheMapSearch from '@/components/TheMapSearch.vue'
 import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
 import TheMapMainDisplay from '@/components/TheMapMainDisplay.vue'
-import TheMapFooter from '@/components/TheMapFooter.vue'
 
 export default {
   name: 'TheMap',
   components: {
-    TheMapFooter,
     TheMapMainDisplay,
     TheMapInsertUnlocalised,
     TheMapSearch

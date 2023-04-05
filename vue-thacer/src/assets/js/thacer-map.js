@@ -43,14 +43,15 @@ function createTileLayers() {
   let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     attribution:
-      'Imagery © <a href="https://www.google.com/help/legalnotices_maps.html">Google Maps</a>',
+      '&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP. Imagery &copy; <a href="https://www.google.com/help/legalnotices_maps.html">Google Maps</a>',
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
   })
 
   let topo = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
     {
-      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+      attribution:
+        '&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP. Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
     }
   )
 
@@ -58,7 +59,8 @@ function createTileLayers() {
     'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     {
       maxZoom: 20,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      attribution:
+        '&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP. Tiles &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }
   )
 
