@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TheCeramic from '@/components/TheCeramic.vue'
-import TheMap from '@/components/TheMap.vue'
-import NotFound404 from '@/components/NotFound404.vue'
+const TheCeramic = () => import('@/components/TheCeramic.vue')
+const TheMap = () => import('@/components/TheMap.vue')
+const NotFound404 = () => import('@/components/NotFound404.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
