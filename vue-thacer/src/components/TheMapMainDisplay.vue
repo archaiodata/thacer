@@ -44,6 +44,12 @@ g path {
   bottom: 30px;
 }
 
+/* smaller font for map attribution due to lenghty credits*/
+.leaflet-control-attribution {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
 /* Seems to change only the ceram cluster color */
 .marker-cluster-medium,
 .marker-cluster-small,
