@@ -229,7 +229,7 @@ export function createMarkerClusterGroupChronique() {
 export function createTileLayerSigThasos() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:fd_thasos_4326',
-    attribution: 'C. Guillaume, N. Trippé. Lever topographique réalisé sous la direction de L. Fadin. EFA',
+    attribution: 'C. Guillaume, N. Trippé, L. Fadin, EFA',
     transparent: true,
     maxZoom: 20,
     opacity: 0.5
