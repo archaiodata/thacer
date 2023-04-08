@@ -229,7 +229,7 @@ export function createMarkerClusterGroupChronique() {
 export function createTileLayerSigThasos() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:fd_thasos_4326',
-    attribution: 'C. Guillaume, N. Trippé, L. Fadin, EFA',
+    attribution: 'Plan SIG Agora : C. Guillaume, N. Trippé, L. Fadin, EfA',
     transparent: true,
     maxZoom: 20,
     opacity: 0.5
@@ -239,7 +239,7 @@ export function createTileLayerSigThasos() {
 export function createTileLayerOrthophotoAgora() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:Orthophoto_Agora',
-    attribution: 'L. Fadin, N. Trippé, EFA',
+    attribution: 'Orthophoto Agora : L. Fadin, N. Trippé, EfA',
     transparent: true,
     maxZoom: 20,
     opacity: 0.5
