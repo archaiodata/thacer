@@ -22,8 +22,6 @@ export function thacerMap() {
       position: 'bottomleft'
     })
     .addTo(map)
-
-  map.attributionControl.addAttribution('&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP')
 }
 
 function createMapConfig(defaultTileLayer) {

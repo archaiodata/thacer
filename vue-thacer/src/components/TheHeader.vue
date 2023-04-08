@@ -13,6 +13,7 @@
               2 la création d’un tessonnier de référence au musée de Thasos.<br />
               3 la publication d'une version en ligne du tessonnier.
             </p>
+            <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 class="text-white">Contacts</h4>
