@@ -42,11 +42,4 @@ export default {
   margin-right: 10px;
   /* padding: 6px 10px 6px 6px; */
 }
-
-.map-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 24px;
-}
 </style>
