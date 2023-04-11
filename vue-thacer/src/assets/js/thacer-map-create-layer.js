@@ -40,18 +40,18 @@ export function setCeramLayer(ceramLayer) {
   }
   ceramLayer.bindPopup(
     archimageURL +
-      'Inventaire : ' +
-      identifier +
-      '<br>Identification : ' +
-      ceramLayer.feature.properties.Identification +
-      Type +
-      '<br>Description : ' +
-      ceramLayer.feature.properties.Description +
-      '<br>Bilbiographie : ' +
-      ceramLayer.feature.properties.Biblio +
-      '<br><a href=' +
-      createCeramUrl(ceramLayer, identifier) +
-      '>Fiche complète</a>',
+    'Inventaire : ' +
+    identifier +
+    '<br>Identification : ' +
+    ceramLayer.feature.properties.Identification +
+    Type +
+    '<br>Description : ' +
+    ceramLayer.feature.properties.Description +
+    '<br>Bilbiographie : ' +
+    ceramLayer.feature.properties.Biblio +
+    '<br><a href=' +
+    createCeramUrl(ceramLayer, identifier) +
+    '>Fiche complète</a>',
     {
       maxWidth: 350,
       minWidth: 350,
@@ -229,7 +229,7 @@ export function createMarkerClusterGroupChronique() {
 export function createTileLayerSigThasos() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:fd_thasos_4326',
-    attribution: 'EfA',
+    attribution: 'Plan SIG Agora : C. Guillaume, N. Trippé, L. Fadin, EfA',
     transparent: true,
     maxZoom: 20,
     opacity: 0.5
@@ -239,7 +239,7 @@ export function createTileLayerSigThasos() {
 export function createTileLayerOrthophotoAgora() {
   return L.tileLayer.wms('https://geoserver.efa.gr/geoserver/wms?', {
     layers: 'SIG_thasos:Orthophoto_Agora',
-    attribution: 'EfA',
+    attribution: 'Orthophoto Agora : L. Fadin, N. Trippé, EfA',
     transparent: true,
     maxZoom: 20,
     opacity: 0.5
