@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 const TheCeramic = () => import('@/components/TheCeramic.vue')
 const TheMap = () => import('@/components/TheMap.vue')
+const TheBiblio = () => import('@/components/TheBiblio.vue')
 const NotFound404 = () => import('@/components/NotFound404.vue')
 
 const router = createRouter({
@@ -13,8 +14,13 @@ const router = createRouter({
     },
     {
       path: '/ceram',
-      name: 'about',
+      name: 'ceram',
       component: TheCeramic
+    },
+    {
+      path: '/biblio',
+      name: 'biblio',
+      component: TheBiblio
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound404', component: NotFound404 }
   ]
