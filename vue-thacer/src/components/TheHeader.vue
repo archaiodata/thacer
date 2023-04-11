@@ -83,8 +83,8 @@ export default {
 }
 
 .navbar strong {
-  font-size: calc(20px + 0.6vw);
-  letter-spacing: calc(10px + 1.2vw);
+  font-size: 1.5em;
+  letter-spacing: calc(11px + 1vw);
   line-height: 1px;
 }
 </style>
