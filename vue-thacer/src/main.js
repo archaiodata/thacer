@@ -15,7 +15,9 @@ Sentry.init({
   integrations: [
     new BrowserTracing({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracePropagationTargets: ['localhost', '127.0.0.1', 'thacer.archaiodata.com', /^\//]
+      tracePropagationTargets: ['thacer.archaiodata.com', /^\//]
+      // Uncomment for using sentry in dev :
+      // tracePropagationTargets: ['localhost', '127.0.0.1', 'thacer.archaiodata.com', /^\//]
     })
   ],
   // Set tracesSampleRate to 1.0 to capture 100%
