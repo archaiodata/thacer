@@ -13,16 +13,17 @@
               2 la création d’un tessonnier de référence au musée de Thasos.<br />
               3 la publication d'une version en ligne du tessonnier.
             </p>
+            <p><a href="/biblio" class="text-white">Sources bibliographiques</a></p>
             <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
+            <p class="text-secondary">Une remarque? une question? Contactez nous</p>
             <h4 class="text-white">Contacts</h4>
             <p class="text-secondary">Une remarque? une question? Contactez nous</p>
             <p class="text-secondary">
               Jean-Sébastien Gros - Jacky Kozlowski - Martin Perron (Parks Canada / Maison de
               l'Orient et de la Méditerranée)
             </p>
-
             <ul class="list-unstyled">
               <li>
                 <a href="mailto:thacer@archaiodata.com" class="text-white"
