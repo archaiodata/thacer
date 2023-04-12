@@ -63,9 +63,9 @@ export function setCeramLayer(ceramLayer) {
   )
 }
 
-export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
-  /* global L */
-  return L.mapbox
+//export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
+/* global L */
+/*  return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
     .on('ready', function (e) {
@@ -111,8 +111,8 @@ export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) 
       })
     })
 }
-
-export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
+*/
+/*export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
   let featureLayerCeram = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
@@ -130,7 +130,7 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
 
   return featureLayerCeram
 }
-
+*/
 export function createMarkerClusterGroupCeram() {
   return new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
@@ -160,7 +160,7 @@ function designMarkersCeram(featureLayerCeram) {
   })
 }
 
-export function createFeatureLayerVestiges() {
+/*export function createFeatureLayerVestiges() {
   let vestiges = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
@@ -171,7 +171,7 @@ export function createFeatureLayerVestiges() {
 
   return vestiges
 }
-
+*/
 export function createImageOverlayKhalil(map) {
   let KhalilimageBounds = [
     [40.768370395, 24.699482062],
@@ -187,7 +187,7 @@ export function createImageOverlayKhalil(map) {
   return L.imageOverlay(import.meta.env.VITE_API_URL + 'IMAGES/1685.png', KhalilimageBounds)
 }
 
-export function createFeatureLayerChronique(markersChronique) {
+/*export function createFeatureLayerChronique(markersChronique) {
   L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
@@ -206,7 +206,7 @@ export function createFeatureLayerChronique(markersChronique) {
       marker.setIcon(L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }))
     })
 }
-
+*/
 export function createMarkerClusterGroupChronique() {
   return new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {
@@ -246,7 +246,7 @@ export function createTileLayerOrthophotoAgora() {
   })
 }
 
-export function createFeatureLayerEchantillonsGeol() {
+/*export function createFeatureLayerEchantillonsGeol() {
   return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
@@ -262,8 +262,8 @@ export function createFeatureLayerEchantillonsGeol() {
       )
     })
 }
-
-export function createFeatureLayerADelt(map) {
+*/
+/*export function createFeatureLayerADelt(map) {
   let ADelt = L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
@@ -306,8 +306,8 @@ export function createFeatureLayerADelt(map) {
 
   return ADelt
 }
-
-export function createFeatureLayerSites() {
+*/
+/*export function createFeatureLayerSites() {
   return L.mapbox
     .featureLayer()
     .loadURL(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
@@ -339,3 +339,4 @@ export function createFeatureLayerSites() {
       })
     })
 }
+*/

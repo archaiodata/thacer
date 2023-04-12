@@ -2,9 +2,6 @@ import * as createLayer from '@/assets/js/thacer-map-create-layer'
 
 export function thacerMap() {
   /* global L */
-  L.mapbox.accessToken =
-    'pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA'
-
   const tileLayers = createTileLayers()
 
   const defaultTileLayer = tileLayers['Carte claire']
@@ -77,38 +74,39 @@ and return those which will be hid-able/show-able in the control*/
 function createOverlays(map) {
   // Ceram - always displayed
   let markerClusterGroupCeram = createLayer.createMarkerClusterGroupCeram()
-  let featureLayerCeram = createLayer.createFeatureLayerCeram(markerClusterGroupCeram, map)
+  //let featureLayerCeram = createLayer.createFeatureLayerCeram(markerClusterGroupCeram, map)
   markerClusterGroupCeram.addTo(map)
 
   // Adelt and Tours - always displayed (except on some zoom level for ADelt)
-  createLayer.createFeatureLayerADelt(map).addTo(map)
-  createLayer.createFeatureLayerSites().addTo(map)
+  //createLayer.createFeatureLayerADelt(map).addTo(map)
+  //createLayer.createFeatureLayerSites().addTo(map)
 
   // Chronique - hid-able/show-able in the control
-  let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()
-  createLayer.createFeatureLayerChronique(markerClusterGroupChronique)
+  //let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()
+  //createLayer.createFeatureLayerChronique(markerClusterGroupChronique)
 
   // The rest - hid-able/show-able in the control
-  let vestiges = createLayer.createFeatureLayerVestiges()
-  let secteur = createLayer.createFeatureLayerSecteurs(
-    featureLayerCeram,
-    markerClusterGroupCeram,
-    map
-  )
+  //let vestiges = createLayer.createFeatureLayerVestiges()
+  /* let secteur = createLayer.createFeatureLayerSecteurs(
+     featureLayerCeram,
+     markerClusterGroupCeram,
+     map
+   )
+   */
   let khalil = createLayer.createImageOverlayKhalil(map)
   let sigThasos = createLayer.createTileLayerSigThasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
-  let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
+  //let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
   // Finally, return the list of overlays which will be hid-able/show-able in the control
   return {
-    'Vestiges antiques': vestiges.addTo(map), // Display on by default,
-    'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
+    //'Vestiges antiques': vestiges.addTo(map), // Display on by default,
+    //'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
     'Plan Khalil 1954': khalil,
-    'Chronique des fouilles': markerClusterGroupChronique,
+    //'Chronique des fouilles': markerClusterGroupChronique,
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
 
-    'Echantillons géologiques': echantillonsGeol
+    //'Echantillons géologiques': echantillonsGeol
   }
 }
