@@ -44,6 +44,15 @@ g path {
   bottom: 30px;
 }
 
+/* smaller font for map attribution due to lenghty credits*/
+.leaflet-control-attribution {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100vw;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
 /* Seems to change only the ceram cluster color */
 .marker-cluster-medium,
 .marker-cluster-small,

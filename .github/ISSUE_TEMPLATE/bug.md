@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-## Expected Behavior
-
-(Please fill this)
-
 ## Current Behavior
 
 (Please fill this)  
 (Eventually add screenshots)
+
+## Expected Behavior
+
+(Please fill this)
 
 ## How to reproduce
 

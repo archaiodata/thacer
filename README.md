@@ -76,6 +76,7 @@ in preferences :
 - prettier: specify the package path, add "vue,css,scss,html,json,cjs" in "run
   for files", check "reformat on save". (should be `{**/*,*}.{js,ts,jsx,tsx,vue,css,scss,html,json,cjs}`)
 - Disable "reformat code" in "actions on save", to disable intellij own reformatting tool
+- Disable "remove trailing blank lines at the end of saved files"
 
 ## Best practices frontend
 
@@ -103,7 +104,7 @@ switch in the future, see https://stackoverflow.com/a/63653277/1657853
 
 1. Flow : we create branch and PR in GitHub. We squash commit. Ask someone.
 
-1. Use the standard commit naming "_like a title and imperative_" **for single
+2. Use the standard commit naming "_like a title and imperative_" **for single
    commit,
    squashed commit, and PR names**.
 
@@ -117,7 +118,7 @@ In imperative present tense
 
 Example for single commit : `Implement access right management`
 
-2. For PR and squash commit names (1), better long than incomplete. But :
+3. For PR and squash commit names (1), better long than incomplete. But :
    details
    and precision can be put in the description part (2), below the title. This
    description part will be kept in the PR description and in the git history,
@@ -127,7 +128,7 @@ Example for single commit : `Implement access right management`
 Example for Squashed commit and PR name :
 
 ```
-#14 Implement access right management and rewrite the API accordingly
+Implement access right management and rewrite the API accordingly
 
 Description :
 Access right manamgement implmentation had to be done like blabla, in this place, because blablabla. 
@@ -141,7 +142,6 @@ Example for comment :
 Hey Gerard, could you double check the re-writing of the url for the user infos route ? I may have miss some cases.
 ```
 
-4. **Important !** Always add the `#<issue id>` in the PR name and in the final
-   squash commit !!! (the issue id, not the PR id),
+## Deployment
 
-Example : `#14 Implement access right management and rewrite the API accordingly`
+Create a new issue with the "deployment" template/button, and follow the instructions in this issue

@@ -14,6 +14,7 @@
               3 la publication d'une version en ligne du tessonnier.
             </p>
             <a href="/biblio" class="text-white">Sources bibliographiques</a>
+            <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <p class="text-secondary">Une remarque? une question? Contactez nous</p>
