@@ -85,8 +85,8 @@ export default {
 }
 
 .navbar strong {
-  letter-spacing: 1.25em;
   font-size: 1.5em;
+  letter-spacing: calc(11px + 1vw);
   line-height: 1px;
 }
 </style>
