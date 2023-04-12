@@ -86,7 +86,7 @@ function createOverlays(map) {
   //createLayer.createFeatureLayerChronique(markerClusterGroupChronique)
 
   // The rest - hid-able/show-able in the control
-  //let vestiges = createLayer.createFeatureLayerVestiges()
+  let vestiges = createLayer.createFeatureLayerVestiges()
   /* let secteur = createLayer.createFeatureLayerSecteurs(
      featureLayerCeram,
      markerClusterGroupCeram,
@@ -100,7 +100,7 @@ function createOverlays(map) {
 
   // Finally, return the list of overlays which will be hid-able/show-able in the control
   return {
-    //'Vestiges antiques': vestiges.addTo(map), // Display on by default,
+    'Vestiges antiques': vestiges.addTo(map), // Display on by default,
     //'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
     'Plan Khalil 1954': khalil,
     //'Chronique des fouilles': markerClusterGroupChronique,

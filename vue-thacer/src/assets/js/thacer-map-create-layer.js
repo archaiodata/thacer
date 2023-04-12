@@ -160,18 +160,27 @@ function designMarkersCeram(featureLayerCeram) {
   })
 }
 
-/*export function createFeatureLayerVestiges() {
-  let vestiges = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
+export function createFeatureLayerVestiges() {
+  let vestiges = L.featureGroup();
+
+  // Load GeoJSON data from URL
+  fetch(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
+    .then(res => res.json())
+    .then(data => {
+      // Create a Leaflet GeoJSON layer from the data
+      let layer = L.geoJSON(data);
+
+      // Add the layer to the feature group
+      vestiges.addLayer(layer);
+    });
 
   vestiges.getAttribution = function () {
-    return 'Plan des vestiges antique : MWK TK EfA'
-  }
+    return 'Plan des vestiges antique : MWK TK EfA';
+  };
 
-  return vestiges
+  return vestiges;
 }
-*/
+
 export function createImageOverlayKhalil(map) {
   let KhalilimageBounds = [
     [40.768370395, 24.699482062],
