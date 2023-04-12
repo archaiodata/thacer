@@ -196,26 +196,29 @@ export function createImageOverlayKhalil(map) {
   return L.imageOverlay(import.meta.env.VITE_API_URL + 'IMAGES/1685.png', KhalilimageBounds)
 }
 
-/*export function createFeatureLayerChronique(markersChronique) {
-  L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
-    .on('layeradd', function (e) {
-      e.target.eachLayer(function (layer) {
-        layer.on('click', function () {
-          window.open(
-            'https://chronique.efa.gr/?kroute=report&id=' + layer.feature.properties.ID,
-            '_blank'
-          )
-        })
-        markersChronique.addLayer(layer)
+export function createFeatureLayerChronique(markersChronique) {
+  fetch(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          layer.on('click', function () {
+            window.open(
+              'https://chronique.efa.gr/?kroute=report&id=' + feature.properties.ID,
+              '_blank'
+            )
+          })
+          markersChronique.addLayer(layer)
+        },
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }),
+          })
+        },
       })
-
-      let marker = e.layer
-      marker.setIcon(L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }))
     })
 }
-*/
+
 export function createMarkerClusterGroupChronique() {
   return new L.MarkerClusterGroup({
     iconCreateFunction: function (cluster) {

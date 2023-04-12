@@ -82,8 +82,8 @@ function createOverlays(map) {
   //createLayer.createFeatureLayerSites().addTo(map)
 
   // Chronique - hid-able/show-able in the control
-  //let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()
-  //createLayer.createFeatureLayerChronique(markerClusterGroupChronique)
+  let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()
+  createLayer.createFeatureLayerChronique(markerClusterGroupChronique)
 
   // The rest - hid-able/show-able in the control
   let vestiges = createLayer.createFeatureLayerVestiges()
@@ -103,7 +103,7 @@ function createOverlays(map) {
     'Vestiges antiques': vestiges.addTo(map), // Display on by default,
     //'Secteurs de fouille et GTh': secteur.addTo(map), // Display on by default,
     'Plan Khalil 1954': khalil,
-    //'Chronique des fouilles': markerClusterGroupChronique,
+    'Chronique des fouilles': markerClusterGroupChronique,
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
 
