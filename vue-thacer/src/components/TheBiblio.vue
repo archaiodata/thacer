@@ -9,9 +9,6 @@
       <div v-else-if="loadingStatus === 'error'">
         <div class="alert alert-danger" role="alert">Erreur de chargement</div>
       </div>
-      <div v-else-if="loadingStatus === 'not_found'">
-        <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
-      </div>
       <div v-else>
         <div class="zotero-entries">
           <h2>Sources</h2>
