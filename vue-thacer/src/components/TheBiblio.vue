@@ -22,12 +22,12 @@
             l'évolution de la collection Zotero "ThaCER".
           </p>
           <a href="https://www.zotero.org/groups/5022130/thacer/library"
-            >https://www.zotero.org/groups/5022130/thacer/library</a
+            >www.zotero.org/groups/5022130/thacer/library</a
           >
           <h3>Publications intégrées :</h3>
           <ul>
-            <li v-for="entry in biblioViewed" :key="entry.key">
-              <p>
+            <li v-for="entry in biblioZotero" :key="entry.key">
+              <p v-if="entry.data.collections == 'QK8TC6JE'">
                 {{ entry.data.creators?.[0].firstName }} {{ entry.data.creators?.[0].lastName }}
                 <i>{{ entry.data.title }}</i
                 >,
@@ -37,8 +37,8 @@
           </ul>
           <h3>Publications en cours d'intégration :</h3>
           <ul>
-            <li v-for="entry in biblioToView" :key="entry.key">
-              <p>
+            <li v-for="entry in biblioZotero" :key="entry.key">
+              <p v-if="entry.data.collections == 'JVX4B9VP'">
                 {{ entry.data.creators?.[0].firstName }} {{ entry.data.creators?.[0].lastName }}
                 <i>{{ entry.data.title }}</i
                 >,
@@ -59,49 +59,28 @@ export default {
   data() {
     return {
       loadingStatus: 'loading',
-      biblioViewed: null,
-      biblioToView: null
+      biblioZotero: null
     }
   },
 
   mounted() {
-    fetch('https://api.zotero.org/groups/5022130/collections/QK8TC6JE/items')
+    fetch('https://api.zotero.org/groups/5022130/items')
       .then((response) => response.json())
-      .then((biblioViewed) => {
-        this.biblioViewed = biblioViewed.sort((a, b) => {
+      .then((biblioZotero) => {
+        this.biblioZotero = biblioZotero.sort((a, b) => {
           if (a.data.creators?.[0].lastName < b.data.creators?.[0].lastName) {
             return -1
           }
         })
 
         this.loadingStatus = 'loaded'
-        console.log(biblioViewed)
       })
 
       .catch((error) => {
         console.error(error)
         this.loadingStatus = 'error'
       })
-
-    fetch('https://api.zotero.org/groups/5022130/collections/JVX4B9VP/items')
-      .then((response) => response.json())
-      .then((biblioToView) => {
-        this.biblioToView = biblioToView.sort((a, b) => {
-          if (a.data.creators?.[0].lastName < b.data.creators?.[0].lastName) {
-            return -1
-          }
-        })
-
-        this.loadingStatus = 'loaded'
-        console.log(biblioToView)
-      })
-
-      .catch((error) => {
-        console.error(error)
-        this.loadingStatus = 'error'
-      })
-  },
-  methods: {}
+  }
 }
 </script>
 
