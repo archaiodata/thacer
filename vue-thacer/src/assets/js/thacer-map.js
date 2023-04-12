@@ -96,7 +96,7 @@ function createOverlays(map) {
   let khalil = createLayer.createImageOverlayKhalil(map)
   let sigThasos = createLayer.createTileLayerSigThasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
-  //let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
+  let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
   // Finally, return the list of overlays which will be hid-able/show-able in the control
   return {
@@ -106,7 +106,6 @@ function createOverlays(map) {
     'Chronique des fouilles': markerClusterGroupChronique,
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
-
-    //'Echantillons géologiques': echantillonsGeol
+    'Echantillons géologiques': echantillonsGeol
   }
 }

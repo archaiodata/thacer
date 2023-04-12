@@ -258,23 +258,27 @@ export function createTileLayerOrthophotoAgora() {
   })
 }
 
-/*export function createFeatureLayerEchantillonsGeol() {
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
-    .on('layeradd', function (e) {
-      let marker = e.layer,
-        feature = marker.feature
-      marker.setIcon(
-        L.divIcon({
-          html: feature.properties.RecNum,
-          className: 'marker echantillons-geol-marker',
-          iconSize: 'null'
-        })
-      )
-    })
+export function createFeatureLayerEchantillonsGeol() {
+  let echantillons = L.featureGroup();
+  fetch(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
+    .then(response => response.json())
+    .then(data => {
+      let layer = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              html: feature.properties.RecNum,
+              className: 'marker echantillons-geol-marker',
+              iconSize: null
+            })
+          });
+        }
+      });
+      echantillons.addLayer(layer);
+    });
+  return echantillons;
 }
-*/
+
 /*export function createFeatureLayerADelt(map) {
   let ADelt = L.mapbox
     .featureLayer()
