@@ -63,55 +63,61 @@ export function setCeramLayer(ceramLayer) {
   )
 }
 
-//export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
-/* global L */
-/*  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
-    .on('ready', function (e) {
-      // function select ceram according to the secteurs ID on the clicked secteur feature
-      e.target.eachLayer(function (layer) {
-        layer.eachLayer(function (e) {
-          let string = ''
-          let biblio = ''
-          if (
-            !(
-              // GTh means "Guide de Thasos"
-              (
-                (layer.feature.properties.GTh == '') |
-                (layer.feature.properties.GTh == 'null') |
-                (layer.feature.properties.GTh == undefined)
-              )
+export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
+  // create a new leaflet GeoJSON layer
+  const layer = L.geoJSON();
+
+  // fetch the data from the API URL using the fetch method
+  fetch(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
+    .then(response => response.json()) // parse the response as JSON
+    .then(data => {
+      // add the GeoJSON data to the leaflet layer
+      layer.addData(data);
+
+      // set up the popup and click events for each layer
+      layer.eachLayer(function (e) {
+        let string = ''
+        let biblio = ''
+        if (
+          !(
+            // GTh means "Guide de Thasos"
+            (
+              (e.feature.properties.GTh == '') |
+              (e.feature.properties.GTh == 'null') |
+              (e.feature.properties.GTh == undefined)
             )
-          ) {
-            string = ' GTh' + layer.feature.properties.GTh
-          }
-          if (
-            !(
-              (layer.feature.properties.Référenc == '') |
-              (layer.feature.properties.Référenc == 'null') |
-              (layer.feature.properties.Référenc == undefined)
-            )
-          ) {
-            biblio = layer.feature.properties.Référenc
-          }
-          e.bindPopup(layer.feature.properties.Titre + string + '<br>' + biblio, {
-            maxWidth: 300,
-            minWidth: 10,
-            maxHeight: 250,
-            autoPan: true,
-            closeButton: false,
-            autoPanPadding: [0, 0]
-          })
-          // search ceram on click
-          e.on('click', function () {
-            search.searchCeramByClick(ceram, markerClusterGroupCeram, map, layer)
-          })
+          )
+        ) {
+          string = ' GTh' + e.feature.properties.GTh
+        }
+        if (
+          !(
+            (e.feature.properties.Référenc == '') |
+            (e.feature.properties.Référenc == 'null') |
+            (e.feature.properties.Référenc == undefined)
+          )
+        ) {
+          biblio = e.feature.properties.Référenc
+        }
+        e.bindPopup(e.feature.properties.Titre + string + '<br>' + biblio, {
+          maxWidth: 300,
+          minWidth: 10,
+          maxHeight: 250,
+          autoPan: true,
+          closeButton: false,
+          autoPanPadding: [0, 0]
         })
-      })
-    })
+        // search ceram on click
+        e.on('click', function () {
+          search.searchCeramByClick(ceram, markerClusterGroupCeram, map, e)
+        })
+      });
+    });
+
+  // return the leaflet layer
+  return layer;
 }
-*/
+
 export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
   fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
     .then(response => response.json())
