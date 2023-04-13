@@ -79,7 +79,7 @@ function createOverlays(map) {
 
   // Adelt and Tours - always displayed (except on some zoom level for ADelt)
   createLayer.createFeatureLayerADelt(map).addTo(map)
-  //createLayer.createFeatureLayerSites().addTo(map)
+  createLayer.createFeatureLayerSites().addTo(map)
 
   // Chronique - hid-able/show-able in the control
   let markerClusterGroupChronique = createLayer.createMarkerClusterGroupChronique()

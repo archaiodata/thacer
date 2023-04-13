@@ -319,11 +319,11 @@ export function createFeatureLayerADelt(map) {
     let cur_zoom = map.getZoom()
     if (cur_zoom <= 13) {
       ADelt.eachLayer(function (layer) {
-        layer.getElement().style.visibility = 'hidden'
+        map.removeLayer(layer)
       })
     } else if (cur_zoom > 13) {
       ADelt.eachLayer(function (layer) {
-        layer.getElement().style.visibility = 'visible'
+        map.addLayer(layer)
       })
     }
   }
@@ -331,36 +331,33 @@ export function createFeatureLayerADelt(map) {
   return ADelt
 }
 
-/*export function createFeatureLayerSites() {
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
-    .on('layeradd', function (e) {
-      if (e.layer.feature.properties.type == 'Atelier') {
-        e.layer.setIcon(
-          L.icon({
-            iconUrl: 'AmpTha.svg',
-            iconSize: [20, 50]
-          })
-        )
-      } else {
-        e.layer.setIcon(
-          L.icon({
-            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg',
-            iconSize: [15, 35]
-          })
-        )
-      }
+export function createFeatureLayerSites() {
+  let sites = L.featureGroup();
 
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup(layer.feature.properties.Nom + ': ' + layer.feature.properties.desc, {
-          maxWidth: 350,
-          maxHeight: 550,
-          autoPan: true,
-          closeButton: false,
-          autoPanPadding: [5, 5]
-        })
-      })
-    })
+  fetch(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
+    .then(response => response.json())
+    .then(data => {
+      L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          let iconUrl = feature.properties.type === 'Atelier' ? 'AmpTha.svg' : 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg';
+          return L.marker(latlng, {
+            icon: L.icon({
+              iconUrl: iconUrl,
+              iconSize: feature.properties.type === 'Atelier' ? [20, 50] : [15, 35]
+            })
+          })
+        },
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(feature.properties.Nom + ': ' + feature.properties.desc, {
+            maxWidth: 350,
+            maxHeight: 550,
+            autoPan: true,
+            closeButton: false,
+            autoPanPadding: [5, 5]
+          });
+        }
+      }).addTo(sites);
+    });
+
+  return sites;
 }
-*/
