@@ -280,50 +280,57 @@ export function createFeatureLayerEchantillonsGeol() {
   return echantillons;
 }
 
-/*export function createFeatureLayerADelt(map) {
-  let ADelt = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
-    .on('ready', function (e) {
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup('ADelt 51 : "' + layer.feature.properties.Texte + '"<br>', {
-          maxWidth: 350,
-          maxHeight: 550,
-          autoPan: true,
-          closeButton: false,
-          autoPanPadding: [5, 5]
-        })
-      })
+export function createFeatureLayerADelt(map) {
+  let ADelt = L.featureGroup()
+
+  fetch(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
+    .then(response => response.json())
+    .then(data => {
+      L.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('ADelt 51 : "' + feature.properties.Texte + '"<br>', {
+            maxWidth: 350,
+            maxHeight: 550,
+            autoPan: true,
+            closeButton: false,
+            autoPanPadding: [5, 5]
+          })
+        },
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              html: feature.properties.Nom_GR,
+              className: 'ADelt-dot',
+              iconSize: 'null'
+            }),
+          })
+        },
+        pane: 'markerPane',
+        interactive: true,
+      }).addTo(ADelt)
     })
 
-  ADelt.on('layeradd', function (e) {
-    let marker = e.layer,
-      feature = marker.feature
-    marker.setIcon(
-      L.divIcon({
-        html: feature.properties.Nom_GR,
-        className: 'ADelt-dot',
-        iconSize: 'null'
-      })
-    )
+  ADelt.on('add', function () {
+    map.on('zoomend', show_hide_labels)
+    show_hide_labels()
   })
 
-  let show_label_zoom = 13 // zoom level threshold for showing/hiding labels
   function show_hide_labels() {
     let cur_zoom = map.getZoom()
-    if (cur_zoom <= show_label_zoom) {
-      map.removeLayer(ADelt)
-    } else if (cur_zoom > show_label_zoom) {
-      map.addLayer(ADelt)
+    if (cur_zoom <= 13) {
+      ADelt.eachLayer(function (layer) {
+        layer.getElement().style.visibility = 'hidden'
+      })
+    } else if (cur_zoom > 13) {
+      ADelt.eachLayer(function (layer) {
+        layer.getElement().style.visibility = 'visible'
+      })
     }
   }
 
-  map.on('zoomend', show_hide_labels)
-  show_hide_labels()
-
   return ADelt
 }
-*/
+
 /*export function createFeatureLayerSites() {
   return L.mapbox
     .featureLayer()
