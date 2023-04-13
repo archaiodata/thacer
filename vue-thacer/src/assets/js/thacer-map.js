@@ -74,7 +74,7 @@ and return those which will be hid-able/show-able in the control*/
 function createOverlays(map) {
   // Ceram - always displayed
   let markerClusterGroupCeram = createLayer.createMarkerClusterGroupCeram()
-  //let featureLayerCeram = createLayer.createFeatureLayerCeram(markerClusterGroupCeram, map)
+  let featureLayerCeram = createLayer.createFeatureLayerCeram(markerClusterGroupCeram, map)
   markerClusterGroupCeram.addTo(map)
 
   // Adelt and Tours - always displayed (except on some zoom level for ADelt)

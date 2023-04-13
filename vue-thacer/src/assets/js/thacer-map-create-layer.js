@@ -112,25 +112,26 @@ export function setCeramLayer(ceramLayer) {
     })
 }
 */
-/*export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
-  let featureLayerCeram = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-    .on('ready', function (e) {
-      e.target.eachLayer(function (layer) {
-        setCeramLayer(layer)
+export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
+  fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+    .then(response => response.json())
+    .then(data => {
+      let featureLayerCeram = L.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          setCeramLayer(layer);
+          markerClusterGroupCeram.addLayer(layer);
+        }
+      });
 
-        markerClusterGroupCeram.addLayer(layer)
-      })
-    })
+      featureLayerCeram.on('ready', function () {
+        search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram);
+        designMarkersCeram(featureLayerCeram);
+      });
 
-  search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram)
-
-  designMarkersCeram(featureLayerCeram)
-
-  return featureLayerCeram
+      return featureLayerCeram;
+    });
 }
-*/
+
 export function createMarkerClusterGroupCeram() {
   return new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: true,
