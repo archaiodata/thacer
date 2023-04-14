@@ -2,7 +2,7 @@ import * as search from '@/assets/js/thacer-map-setup-search'
 
 function createCeramUrl(ceramLayer, identifier) {
   return (
-    'ceram?ID=' +
+    '#/ceram?ID=' +
     ceramLayer.feature.properties.ID +
     '&ANA=THA' +
     ceramLayer.feature.properties.Num_Analyse +
