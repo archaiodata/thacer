@@ -1,6 +1,6 @@
 {
   "name": "vue-thacer",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@sentry/tracing": "^7.43.0",
+    "@sentry/vue": "^7.43.0",
+    "bootstrap-icons": "^1.10.3",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
