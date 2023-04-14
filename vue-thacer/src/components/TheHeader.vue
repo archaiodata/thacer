@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div id="navbarHeader" class="collapse bg-dark">
+    <div id="navbarHeader" class="collapse bg-dark" :class="{ show: navbarIsDisplayed }">
       <div class="container">
         <div class="row">
           <div class="col-sm-8 col-md-7 py-4">
@@ -13,7 +13,11 @@
               2 la création d’un tessonnier de référence au musée de Thasos.<br />
               3 la publication d'une version en ligne du tessonnier.
             </p>
-            <p><a href="/biblio" class="text-white">Sources bibliographiques</a></p>
+            <p>
+              <router-link :to="{ name: 'biblio' }" class="text-white" @click="closeNavbar"
+                >Sources bibliographiques</router-link
+              >
+            </p>
             <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -38,20 +42,24 @@
 
     <div class="navbar navbar-dark bg-dark shadow-sm my-0">
       <div class="container-fluid">
-        <router-link to="/" href="#" class="navbar-brand d-flex align-items-center py-0">
+        <router-link
+          to="/"
+          href="#"
+          class="navbar-brand d-flex align-items-center py-0"
+          @click="closeNavbar"
+        >
           <img src="@/assets/images/ThaCER.svg" class="img-fluid" alt="Responsive image" />
           <strong>THACER</strong>
         </router-link>
 
         <!-- Bootstrap toggle button -->
         <button
+          aria-controls="navbarHeader"
+          :aria-expanded="navbarIsDisplayed"
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarHeader"
-          aria-controls="navbarHeader"
-          aria-expanded="false"
           aria-label="Toggle navigation"
+          @click="toggleNavbar"
         >
           <!-- Bootstrap's "i" icon -->
           <svg
@@ -74,7 +82,20 @@
 
 <script>
 export default {
-  name: 'TheHeader'
+  name: 'TheHeader',
+  data() {
+    return {
+      navbarIsDisplayed: false
+    }
+  },
+  methods: {
+    toggleNavbar() {
+      this.navbarIsDisplayed = !this.navbarIsDisplayed
+    },
+    closeNavbar() {
+      this.navbarIsDisplayed = false
+    }
+  }
 }
 </script>
 
