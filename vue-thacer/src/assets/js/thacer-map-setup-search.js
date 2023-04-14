@@ -160,3 +160,4 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
 
   map.addLayer(markerClusterGroupCeram)
 }
+
