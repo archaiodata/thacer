@@ -119,10 +119,13 @@ export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) 
 }
 
 export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
+  // create a new leaflet GeoJSON layer
+  let featureLayerCeram = L.geoJSON();
+
   fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
     .then(response => response.json())
     .then(data => {
-      let featureLayerCeram = L.geoJSON(data, {
+      featureLayerCeram = L.geoJSON(data, {
         onEachFeature: function (feature, layer) {
           setCeramLayer(layer);
           markerClusterGroupCeram.addLayer(layer);
@@ -133,9 +136,8 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
         search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram);
         designMarkersCeram(featureLayerCeram);
       });
-
-      return featureLayerCeram;
     });
+  return featureLayerCeram;
 }
 
 export function createMarkerClusterGroupCeram() {
