@@ -29,10 +29,10 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLaye
               }
               document.getElementById('nonloc').innerHTML += [
                 '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
-                obj.properties.ID +
-                '&ANA=8888880&INV=88880">' +
-                label +
-                '</a>'
+                  obj.properties.ID +
+                  '&ANA=8888880&INV=88880">' +
+                  label +
+                  '</a>'
               ]
             }
           })
@@ -147,8 +147,8 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
   let value = layer.feature.properties.secteur_ID
   featureLayerCeram.clearLayers()
   fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       featureLayerCeram.addData(data)
       featureLayerCeram.eachLayer(function (layer) {
         if (layer.feature.properties['secteur_ID'] == value) {

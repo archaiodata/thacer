@@ -40,18 +40,18 @@ export function setCeramLayer(ceramLayer) {
   }
   ceramLayer.bindPopup(
     archimageURL +
-    'Inventaire : ' +
-    identifier +
-    '<br>Identification : ' +
-    ceramLayer.feature.properties.Identification +
-    Type +
-    '<br>Description : ' +
-    ceramLayer.feature.properties.Description +
-    '<br>Bilbiographie : ' +
-    ceramLayer.feature.properties.Biblio +
-    '<br><a href=' +
-    createCeramUrl(ceramLayer, identifier) +
-    '>Fiche complète</a>',
+      'Inventaire : ' +
+      identifier +
+      '<br>Identification : ' +
+      ceramLayer.feature.properties.Identification +
+      Type +
+      '<br>Description : ' +
+      ceramLayer.feature.properties.Description +
+      '<br>Bilbiographie : ' +
+      ceramLayer.feature.properties.Biblio +
+      '<br><a href=' +
+      createCeramUrl(ceramLayer, identifier) +
+      '>Fiche complète</a>',
     {
       maxWidth: 350,
       minWidth: 350,
@@ -65,14 +65,14 @@ export function setCeramLayer(ceramLayer) {
 
 export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
   // create a new leaflet GeoJSON layer
-  const layer = L.geoJSON();
+  const layer = L.geoJSON()
 
   // fetch the data from the API URL using the fetch method
   fetch(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
-    .then(response => response.json()) // parse the response as JSON
-    .then(data => {
+    .then((response) => response.json()) // parse the response as JSON
+    .then((data) => {
       // add the GeoJSON data to the leaflet layer
-      layer.addData(data);
+      layer.addData(data)
 
       // set up the popup and click events for each layer
       layer.eachLayer(function (e) {
@@ -111,33 +111,33 @@ export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) 
         e.on('click', function () {
           search.searchCeramByClick(ceram, markerClusterGroupCeram, map, e)
         })
-      });
-    });
+      })
+    })
 
   // return the leaflet layer
-  return layer;
+  return layer
 }
 
 export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
   // create a new leaflet GeoJSON layer
-  let featureLayerCeram = L.geoJSON();
+  let featureLayerCeram = L.geoJSON()
 
   fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       featureLayerCeram = L.geoJSON(data, {
         onEachFeature: function (feature, layer) {
-          setCeramLayer(layer);
-          markerClusterGroupCeram.addLayer(layer);
+          setCeramLayer(layer)
+          markerClusterGroupCeram.addLayer(layer)
         }
-      });
+      })
 
       featureLayerCeram.on('ready', function () {
-        search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram);
-        designMarkersCeram(featureLayerCeram);
-      });
-    });
-  return featureLayerCeram;
+        search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram)
+        designMarkersCeram(featureLayerCeram)
+      })
+    })
+  return featureLayerCeram
 }
 
 export function createMarkerClusterGroupCeram() {
@@ -170,24 +170,24 @@ function designMarkersCeram(featureLayerCeram) {
 }
 
 export function createFeatureLayerVestiges() {
-  let vestiges = L.featureGroup();
+  let vestiges = L.featureGroup()
 
   // Load GeoJSON data from URL
   fetch(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       // Create a Leaflet GeoJSON layer from the data
-      let layer = L.geoJSON(data);
+      let layer = L.geoJSON(data)
 
       // Add the layer to the feature group
-      vestiges.addLayer(layer);
-    });
+      vestiges.addLayer(layer)
+    })
 
   vestiges.getAttribution = function () {
-    return 'Plan des vestiges antique : MWK TK EfA';
-  };
+    return 'Plan des vestiges antique : MWK TK EfA'
+  }
 
-  return vestiges;
+  return vestiges
 }
 
 export function createImageOverlayKhalil(map) {
@@ -221,9 +221,9 @@ export function createFeatureLayerChronique(markersChronique) {
         },
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {
-            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }),
+            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' })
           })
-        },
+        }
       })
     })
 }
@@ -268,10 +268,10 @@ export function createTileLayerOrthophotoAgora() {
 }
 
 export function createFeatureLayerEchantillonsGeol() {
-  let echantillons = L.featureGroup();
+  let echantillons = L.featureGroup()
   fetch(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       let layer = L.geoJSON(data, {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {
@@ -280,20 +280,20 @@ export function createFeatureLayerEchantillonsGeol() {
               className: 'marker echantillons-geol-marker',
               iconSize: null
             })
-          });
+          })
         }
-      });
-      echantillons.addLayer(layer);
-    });
-  return echantillons;
+      })
+      echantillons.addLayer(layer)
+    })
+  return echantillons
 }
 
 export function createFeatureLayerADelt(map) {
   let ADelt = L.featureGroup()
 
   fetch(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       L.geoJSON(data, {
         onEachFeature: function (feature, layer) {
           layer.bindPopup('ADelt 51 : "' + feature.properties.Texte + '"<br>', {
@@ -310,11 +310,11 @@ export function createFeatureLayerADelt(map) {
               html: feature.properties.Nom_GR,
               className: 'ADelt-dot',
               iconSize: 'null'
-            }),
+            })
           })
         },
         pane: 'markerPane',
-        interactive: true,
+        interactive: true
       }).addTo(ADelt)
     })
 
@@ -340,14 +340,17 @@ export function createFeatureLayerADelt(map) {
 }
 
 export function createFeatureLayerSites() {
-  let sites = L.featureGroup();
+  let sites = L.featureGroup()
 
   fetch(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       L.geoJSON(data, {
         pointToLayer: function (feature, latlng) {
-          let iconUrl = feature.properties.type === 'Atelier' ? 'AmpTha.svg' : 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg';
+          let iconUrl =
+            feature.properties.type === 'Atelier'
+              ? 'AmpTha.svg'
+              : 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg'
           return L.marker(latlng, {
             icon: L.icon({
               iconUrl: iconUrl,
@@ -362,10 +365,10 @@ export function createFeatureLayerSites() {
             autoPan: true,
             closeButton: false,
             autoPanPadding: [5, 5]
-          });
+          })
         }
-      }).addTo(sites);
-    });
+      }).addTo(sites)
+    })
 
-  return sites;
+  return sites
 }

@@ -52,14 +52,11 @@ function createTileLayers() {
     }
   )
 
-  let light = L.tileLayer(
-    'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-    {
-      maxZoom: 20,
-      attribution:
-        'Tiles &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-    }
-  )
+  let light = L.tileLayer('https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution:
+      'Tiles &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  })
 
   return {
     'Carte avec dénivellés': topo,
