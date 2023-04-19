@@ -1,4 +1,5 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
+import L from 'leaflet'
 
 function createCeramUrl(ceramLayer, identifier) {
   return (
