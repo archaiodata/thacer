@@ -132,12 +132,11 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
           markerClusterGroupCeram.addLayer(layer)
         }
       })
-
-      featureLayerCeram.on('ready', function () {
-        search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram)
-        designMarkersCeram(featureLayerCeram)
-      })
     })
+
+  search.setupSearchCeramByText(markerClusterGroupCeram, map)
+  designMarkersCeram(featureLayerCeram)
+
   return featureLayerCeram
 }
 
