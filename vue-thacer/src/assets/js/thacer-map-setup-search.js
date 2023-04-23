@@ -50,7 +50,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
       })
 
     markerClusterGroupCeram.clearLayers()
-    map.removeLayer(markerClusterGroupCeram)
+
     const ceramGeojsonUrl = import.meta.env.VITE_API_URL + 'geojson/ceram.geojson'
     document.getElementById('loading-localised').classList.remove('d-none')
     fetch(ceramGeojsonUrl)

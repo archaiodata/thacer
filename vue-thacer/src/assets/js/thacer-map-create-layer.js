@@ -135,7 +135,7 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
     })
 
   search.setupSearchCeramByText(markerClusterGroupCeram, map)
-  designMarkersCeram(featureLayerCeram)
+  designMarkersCeram(markerClusterGroupCeram)
 
   return featureLayerCeram
 }
@@ -149,8 +149,8 @@ export function createMarkerClusterGroupCeram() {
   })
 }
 
-function designMarkersCeram(featureLayerCeram) {
-  featureLayerCeram.on('layeradd', function (e) {
+function designMarkersCeram(layer) {
+  layer.on('layeradd', function (e) {
     let identifier
     let marker = e.layer,
       feature = marker.feature

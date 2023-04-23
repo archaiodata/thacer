@@ -60,7 +60,7 @@ g path {
 .marker-cluster-medium div,
 .marker-cluster-small div,
 .marker-cluster-large div {
-  background-color: rgba(245, 75, 54, 0.7);
+  background-color: rgba(245, 75, 54, 0.7) !important;
 }
 
 .efa-cluster,
@@ -84,8 +84,8 @@ g path {
 }
 
 .marker {
-  top: -20px;
-  left: -20px;
+  top: -20px !important;
+  left: -20px !important;
   border-radius: 100%;
   border-style: solid;
   width: 40px;
