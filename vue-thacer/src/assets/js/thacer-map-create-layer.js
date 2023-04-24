@@ -163,7 +163,7 @@ function designMarkersCeram(layer) {
       L.divIcon({
         html: identifier,
         className: 'marker ceram-marker',
-        iconSize: 'null'
+        iconSize: [40, 40]
       })
     )
   })
@@ -221,7 +221,7 @@ export function createFeatureLayerChronique(markersChronique) {
         },
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {
-            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' })
+            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: [40, 40] })
           })
         }
       })
@@ -236,7 +236,7 @@ export function createMarkerClusterGroupChronique() {
       return new L.DivIcon({
         html: '<div class="efa-cluster"><span>' + childCount + '</span></div>',
         className: 'efa-cluster',
-        iconSize: new L.Point(40, 40)
+        iconSize: [40, 40]
       })
     },
     spiderfyOnMaxZoom: true,
@@ -278,7 +278,7 @@ export function createFeatureLayerEchantillonsGeol() {
             icon: L.divIcon({
               html: feature.properties.RecNum,
               className: 'marker echantillons-geol-marker',
-              iconSize: null
+              iconSize: [40, 40]
             })
           })
         }
@@ -295,6 +295,15 @@ export function createFeatureLayerADelt(map) {
     .then((response) => response.json())
     .then((data) => {
       L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              html: feature.properties.Nom_GR,
+              className: 'ADelt-dot',
+              iconSize: 0
+            })
+          })
+        },
         onEachFeature: function (feature, layer) {
           layer.bindPopup('ADelt 51 : "' + feature.properties.Texte + '"<br>', {
             maxWidth: 350,
@@ -304,15 +313,7 @@ export function createFeatureLayerADelt(map) {
             autoPanPadding: [5, 5]
           })
         },
-        pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {
-            icon: L.divIcon({
-              html: feature.properties.Nom_GR,
-              className: 'ADelt-dot',
-              iconSize: 'null'
-            })
-          })
-        },
+
         pane: 'markerPane',
         interactive: true
       }).addTo(ADelt)
