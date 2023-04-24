@@ -84,8 +84,8 @@ g path {
 }
 
 .marker {
-  top: -20px !important;
-  left: -20px !important;
+  top: -20px;
+  left: -20px;
   border-radius: 100%;
   border-style: solid;
   width: 40px;
