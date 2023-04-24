@@ -39,9 +39,9 @@ g path {
   width: 98%;
 }
 
-/* modify .leaflet* classe for not overlapping map footer */
-.leaflet-control-zoom {
-  bottom: 30px;
+.leaflet-container {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
 }
 
 /* smaller font for map attribution due to lenghty credits*/
