@@ -3,7 +3,7 @@ import L from 'leaflet'
 
 function createCeramUrl(ceramLayer, identifier) {
   return (
-    'ceram?ID=' +
+    '#/ceram?ID=' +
     ceramLayer.feature.properties.ID +
     '&ANA=THA' +
     ceramLayer.feature.properties.Num_Analyse +
@@ -370,6 +370,5 @@ export function createFeatureLayerSites() {
         }
       }).addTo(sites)
     })
-
   return sites
 }

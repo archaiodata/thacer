@@ -12,6 +12,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
     if (!e.target.value) {
       // Clear filter on submiting an empty field
       document.getElementById('nonloc').innerHTML = []
+
       markerClusterGroupCeram.clearLayers()
       return
     }
@@ -35,6 +36,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
               label = 'Π' + obj.properties.Pi
             } else {
               label = obj.properties.Inv_Fouille
+
             }
             document.getElementById('nonloc').innerHTML += [
               '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
