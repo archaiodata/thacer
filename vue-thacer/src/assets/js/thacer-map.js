@@ -2,9 +2,6 @@ import * as createLayer from '@/assets/js/thacer-map-create-layer'
 
 export function thacerMap() {
   /* global L */
-  L.mapbox.accessToken =
-    'pk.eyJ1IjoianNncm9zIiwiYSI6ImNqOHQ0azNjcDBoYTEycXF1dzB0MzN4cDEifQ.DdPsBcV1XpWefQUPmBg9QA'
-
   const tileLayers = createTileLayers()
 
   const defaultTileLayer = tileLayers['Carte claire']
@@ -55,14 +52,11 @@ function createTileLayers() {
     }
   )
 
-  let light = L.tileLayer(
-    'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-    {
-      maxZoom: 20,
-      attribution:
-        'Tiles &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-    }
-  )
+  let light = L.tileLayer('https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution:
+      'Tiles &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  })
 
   return {
     'Carte avec dénivellés': topo,
@@ -95,6 +89,7 @@ function createOverlays(map) {
     markerClusterGroupCeram,
     map
   )
+
   let khalil = createLayer.createImageOverlayKhalil(map)
   let sigThasos = createLayer.createTileLayerSigThasos()
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
@@ -108,7 +103,6 @@ function createOverlays(map) {
     'Chronique des fouilles': markerClusterGroupChronique,
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
-
     'Echantillons géologiques': echantillonsGeol
   }
 }

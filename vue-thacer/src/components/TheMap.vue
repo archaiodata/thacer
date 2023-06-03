@@ -8,6 +8,10 @@
 import TheMapSearch from '@/components/TheMapSearch.vue'
 import TheMapInsertUnlocalised from '@/components/TheMapInsertUnlocalised.vue'
 import TheMapMainDisplay from '@/components/TheMapMainDisplay.vue'
+import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import 'leaflet.markercluster/dist/leaflet.markercluster.js'
 
 export default {
   name: 'TheMap',

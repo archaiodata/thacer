@@ -1,4 +1,5 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
+import L from 'leaflet'
 
 function createCeramUrl(ceramLayer, identifier) {
   return (
@@ -40,18 +41,18 @@ export function setCeramLayer(ceramLayer) {
   }
   ceramLayer.bindPopup(
     archimageURL +
-    'Inventaire : ' +
-    identifier +
-    '<br>Identification : ' +
-    ceramLayer.feature.properties.Identification +
-    Type +
-    '<br>Description : ' +
-    ceramLayer.feature.properties.Description +
-    '<br>Bilbiographie : ' +
-    ceramLayer.feature.properties.Biblio +
-    '<br><a href=' +
-    createCeramUrl(ceramLayer, identifier) +
-    '>Fiche complète</a>',
+      'Inventaire : ' +
+      identifier +
+      '<br>Identification : ' +
+      ceramLayer.feature.properties.Identification +
+      Type +
+      '<br>Description : ' +
+      ceramLayer.feature.properties.Description +
+      '<br>Bilbiographie : ' +
+      ceramLayer.feature.properties.Biblio +
+      '<br><a href=' +
+      createCeramUrl(ceramLayer, identifier) +
+      '>Fiche complète</a>',
     {
       maxWidth: 350,
       minWidth: 350,
@@ -64,69 +65,77 @@ export function setCeramLayer(ceramLayer) {
 }
 
 export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
-  /* global L */
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
-    .on('ready', function (e) {
-      // function select ceram according to the secteurs ID on the clicked secteur feature
-      e.target.eachLayer(function (layer) {
-        layer.eachLayer(function (e) {
-          let string = ''
-          let biblio = ''
-          if (
-            !(
-              // GTh means "Guide de Thasos"
-              (
-                (layer.feature.properties.GTh == '') |
-                (layer.feature.properties.GTh == 'null') |
-                (layer.feature.properties.GTh == undefined)
-              )
+  // create a new leaflet GeoJSON layer
+  const layer = L.geoJSON()
+
+  // fetch the data from the API URL using the fetch method
+  fetch(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
+    .then((response) => response.json()) // parse the response as JSON
+    .then((data) => {
+      // add the GeoJSON data to the leaflet layer
+      layer.addData(data)
+
+      // set up the popup and click events for each layer
+      layer.eachLayer(function (e) {
+        let string = ''
+        let biblio = ''
+        if (
+          !(
+            // GTh means "Guide de Thasos"
+            (
+              (e.feature.properties.GTh == '') |
+              (e.feature.properties.GTh == 'null') |
+              (e.feature.properties.GTh == undefined)
             )
-          ) {
-            string = ' GTh' + layer.feature.properties.GTh
-          }
-          if (
-            !(
-              (layer.feature.properties.Référenc == '') |
-              (layer.feature.properties.Référenc == 'null') |
-              (layer.feature.properties.Référenc == undefined)
-            )
-          ) {
-            biblio = layer.feature.properties.Référenc
-          }
-          e.bindPopup(layer.feature.properties.Titre + string + '<br>' + biblio, {
-            maxWidth: 300,
-            minWidth: 10,
-            maxHeight: 250,
-            autoPan: true,
-            closeButton: false,
-            autoPanPadding: [0, 0]
-          })
-          // search ceram on click
-          e.on('click', function () {
-            search.searchCeramByClick(ceram, markerClusterGroupCeram, map, layer)
-          })
+          )
+        ) {
+          string = ' GTh' + e.feature.properties.GTh
+        }
+        if (
+          !(
+            (e.feature.properties.Référenc == '') |
+            (e.feature.properties.Référenc == 'null') |
+            (e.feature.properties.Référenc == undefined)
+          )
+        ) {
+          biblio = e.feature.properties.Référenc
+        }
+        e.bindPopup(e.feature.properties.Titre + string + '<br>' + biblio, {
+          maxWidth: 300,
+          minWidth: 10,
+          maxHeight: 250,
+          autoPan: true,
+          closeButton: false,
+          autoPanPadding: [0, 0]
+        })
+        // search ceram on click
+        e.on('click', function () {
+          search.searchCeramByClick(ceram, markerClusterGroupCeram, map, e)
         })
       })
     })
+
+  // return the leaflet layer
+  return layer
 }
 
 export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
-  let featureLayerCeram = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-    .on('ready', function (e) {
-      e.target.eachLayer(function (layer) {
-        setCeramLayer(layer)
+  // create a new leaflet GeoJSON layer
+  let featureLayerCeram = L.geoJSON()
 
-        markerClusterGroupCeram.addLayer(layer)
+  fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      featureLayerCeram = L.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          setCeramLayer(layer)
+          markerClusterGroupCeram.addLayer(layer)
+        }
       })
     })
 
-  search.setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram)
-
-  designMarkersCeram(featureLayerCeram)
+  search.setupSearchCeramByText(markerClusterGroupCeram, map)
+  designMarkersCeram(markerClusterGroupCeram)
 
   return featureLayerCeram
 }
@@ -140,8 +149,8 @@ export function createMarkerClusterGroupCeram() {
   })
 }
 
-function designMarkersCeram(featureLayerCeram) {
-  featureLayerCeram.on('layeradd', function (e) {
+function designMarkersCeram(layer) {
+  layer.on('layeradd', function (e) {
     let identifier
     let marker = e.layer,
       feature = marker.feature
@@ -154,16 +163,25 @@ function designMarkersCeram(featureLayerCeram) {
       L.divIcon({
         html: identifier,
         className: 'marker ceram-marker',
-        iconSize: 'null'
+        iconSize: [40, 40]
       })
     )
   })
 }
 
 export function createFeatureLayerVestiges() {
-  let vestiges = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
+  let vestiges = L.featureGroup()
+
+  // Load GeoJSON data from URL
+  fetch(import.meta.env.VITE_API_URL + 'geojson/vestiges.geojson')
+    .then((res) => res.json())
+    .then((data) => {
+      // Create a Leaflet GeoJSON layer from the data
+      let layer = L.geoJSON(data)
+
+      // Add the layer to the feature group
+      vestiges.addLayer(layer)
+    })
 
   vestiges.getAttribution = function () {
     return 'Plan des vestiges antique : MWK TK EfA'
@@ -188,22 +206,25 @@ export function createImageOverlayKhalil(map) {
 }
 
 export function createFeatureLayerChronique(markersChronique) {
-  L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
-    .on('layeradd', function (e) {
-      e.target.eachLayer(function (layer) {
-        layer.on('click', function () {
-          window.open(
-            'https://chronique.efa.gr/?kroute=report&id=' + layer.feature.properties.ID,
-            '_blank'
-          )
-        })
-        markersChronique.addLayer(layer)
+  fetch(import.meta.env.VITE_API_URL + 'geojson/chronique.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          layer.on('click', function () {
+            window.open(
+              'https://chronique.efa.gr/?kroute=report&id=' + feature.properties.ID,
+              '_blank'
+            )
+          })
+          markersChronique.addLayer(layer)
+        },
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: [40, 40] })
+          })
+        }
       })
-
-      let marker = e.layer
-      marker.setIcon(L.divIcon({ html: 'EfA', className: 'marker EFA-marker', iconSize: 'null' }))
     })
 }
 
@@ -215,7 +236,7 @@ export function createMarkerClusterGroupChronique() {
       return new L.DivIcon({
         html: '<div class="efa-cluster"><span>' + childCount + '</span></div>',
         className: 'efa-cluster',
-        iconSize: new L.Point(40, 40)
+        iconSize: [40, 40]
       })
     },
     spiderfyOnMaxZoom: true,
@@ -247,95 +268,107 @@ export function createTileLayerOrthophotoAgora() {
 }
 
 export function createFeatureLayerEchantillonsGeol() {
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
-    .on('layeradd', function (e) {
-      let marker = e.layer,
-        feature = marker.feature
-      marker.setIcon(
-        L.divIcon({
-          html: feature.properties.RecNum,
-          className: 'marker echantillons-geol-marker',
-          iconSize: 'null'
-        })
-      )
+  let echantillons = L.featureGroup()
+  fetch(import.meta.env.VITE_API_URL + 'geojson/echantillonsgeol.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      let layer = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              html: feature.properties.RecNum,
+              className: 'marker echantillons-geol-marker',
+              iconSize: [40, 40]
+            })
+          })
+        }
+      })
+      echantillons.addLayer(layer)
     })
+  return echantillons
 }
 
 export function createFeatureLayerADelt(map) {
-  let ADelt = L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
-    .on('ready', function (e) {
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup('ADelt 51 : "' + layer.feature.properties.Texte + '"<br>', {
-          maxWidth: 350,
-          maxHeight: 550,
-          autoPan: true,
-          closeButton: false,
-          autoPanPadding: [5, 5]
-        })
-      })
+  let ADelt = L.featureGroup()
+
+  fetch(import.meta.env.VITE_API_URL + 'geojson/ADelt51.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              html: feature.properties.Nom_GR,
+              className: 'ADelt-dot',
+              iconSize: 0
+            })
+          })
+        },
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('ADelt 51 : "' + feature.properties.Texte + '"<br>', {
+            maxWidth: 350,
+            maxHeight: 550,
+            autoPan: true,
+            closeButton: false,
+            autoPanPadding: [5, 5]
+          })
+        },
+
+        pane: 'markerPane',
+        interactive: true
+      }).addTo(ADelt)
     })
 
-  ADelt.on('layeradd', function (e) {
-    let marker = e.layer,
-      feature = marker.feature
-    marker.setIcon(
-      L.divIcon({
-        html: feature.properties.Nom_GR,
-        className: 'ADelt-dot',
-        iconSize: 'null'
-      })
-    )
+  ADelt.on('add', function () {
+    map.on('zoomend', show_hide_labels)
+    show_hide_labels()
   })
 
-  let show_label_zoom = 13 // zoom level threshold for showing/hiding labels
   function show_hide_labels() {
     let cur_zoom = map.getZoom()
-    if (cur_zoom <= show_label_zoom) {
-      map.removeLayer(ADelt)
-    } else if (cur_zoom > show_label_zoom) {
-      map.addLayer(ADelt)
+    if (cur_zoom <= 13) {
+      ADelt.eachLayer(function (layer) {
+        map.removeLayer(layer)
+      })
+    } else if (cur_zoom > 13) {
+      ADelt.eachLayer(function (layer) {
+        map.addLayer(layer)
+      })
     }
   }
-
-  map.on('zoomend', show_hide_labels)
-  show_hide_labels()
 
   return ADelt
 }
 
 export function createFeatureLayerSites() {
-  return L.mapbox
-    .featureLayer()
-    .loadURL(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
-    .on('layeradd', function (e) {
-      if (e.layer.feature.properties.type == 'Atelier') {
-        e.layer.setIcon(
-          L.icon({
-            iconUrl: 'AmpTha.svg',
-            iconSize: [20, 50]
-          })
-        )
-      } else {
-        e.layer.setIcon(
-          L.icon({
-            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg',
-            iconSize: [15, 35]
-          })
-        )
-      }
+  let sites = L.featureGroup()
 
-      e.target.eachLayer(function (layer) {
-        layer.bindPopup(layer.feature.properties.Nom + ': ' + layer.feature.properties.desc, {
-          maxWidth: 350,
-          maxHeight: 550,
-          autoPan: true,
-          closeButton: false,
-          autoPanPadding: [5, 5]
-        })
-      })
+  fetch(import.meta.env.VITE_API_URL + 'geojson/sites.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          let iconUrl =
+            feature.properties.type === 'Atelier'
+              ? 'AmpTha.svg'
+              : 'https://upload.wikimedia.org/wikipedia/commons/8/84/Maki-castle-15.svg'
+          return L.marker(latlng, {
+            icon: L.icon({
+              iconUrl: iconUrl,
+              iconSize: feature.properties.type === 'Atelier' ? [20, 50] : [15, 35]
+            })
+          })
+        },
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(feature.properties.Nom + ': ' + feature.properties.desc, {
+            maxWidth: 350,
+            maxHeight: 550,
+            autoPan: true,
+            closeButton: false,
+            autoPanPadding: [5, 5]
+          })
+        }
+      }).addTo(sites)
     })
+  return sites
 }

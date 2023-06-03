@@ -2,67 +2,79 @@ import { isObject, notifyProgrammaticError } from '@/assets/js/utils.js'
 import { setCeramLayer } from '@/assets/js/thacer-map-create-layer'
 import { mapToRealKeyName } from '@/assets/js/key-mapping'
 
-export function setupSearchCeramByText(markerClusterGroupCeram, map, featureLayerCeram) {
-  let filterInput = document.getElementById('filter-input')
-  filterInput.addEventListener('keyup', function (e) {
-    if (e.keyCode == 13) {
-      let inputSearchString = e.target.value.trim().toLowerCase()
+export function setupSearchCeramByText(markerClusterGroupCeram, map) {
+  /* global L */
+  const filterInput = document.getElementById('filter-input')
+  filterInput.addEventListener('keyup', (e) => {
+    if (e.keyCode !== 13) {
+      return
+    }
+    if (!e.target.value) {
+      // Clear filter on submiting an empty field
       document.getElementById('nonloc').innerHTML = []
 
-      document.getElementById('loading-unlocalised').classList.remove('d-none')
-      fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-        .then((r) => r.json())
-        .then((json) => {
-          Object.keys(json.features).forEach((k) => {
-            let obj = json.features[k]
-
-            // Adding current ceramObject only if unlocalised and passing input search string :
-            if (
-              obj.properties.x == 0 &&
-              doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
-            ) {
-              let label
-              if (obj.properties.Pi != null) {
-                label = 'Π' + obj.properties.Pi
-              } else {
-                label = obj.properties.Inv_Fouille
-              }
-              document.getElementById('nonloc').innerHTML += [
-                '<a class="unlocalised-tag px-1 m-0 border border-white" href="/#/ceram?ID=' +
-                  obj.properties.ID +
-                  '&ANA=8888880&INV=88880">' +
-                  label +
-                  '</a>'
-              ]
-            }
-          })
-
-          document.getElementById('loading-unlocalised').classList.add('d-none')
-        })
-
       markerClusterGroupCeram.clearLayers()
-      map.removeLayer(markerClusterGroupCeram)
-      featureLayerCeram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson') // je ne sais pourquoi j'avais mis ça là, déjà fait plus haut mais sinon map.addlayer ne marche pas
-
-      document.getElementById('loading-localised').classList.remove('d-none')
-      featureLayerCeram
-        .setFilter((e) => {
-          // Adding current ceramObject only if localised and passing input search string :
-          return (
-            e.properties.x != 0 &&
-            doesCeramObjectPassesInputSearchString(e?.properties, inputSearchString)
-          )
-        })
-        .on('ready', function (e) {
-          e.target.eachLayer(function (layer) {
-            setCeramLayer(layer)
-            markerClusterGroupCeram.addLayer(layer)
-          })
-          document.getElementById('loading-localised').classList.add('d-none')
-        })
-
-      map.addLayer(markerClusterGroupCeram)
+      return
     }
+    const inputSearchString = e.target.value.trim().toLowerCase()
+    document.getElementById('nonloc').innerHTML = []
+
+    document.getElementById('loading-unlocalised').classList.remove('d-none')
+    fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+      .then((r) => r.json())
+      .then((json) => {
+        Object.keys(json.features).forEach((k) => {
+          let obj = json.features[k]
+
+          // Adding current ceramObject only if unlocalised and passing input search string :
+          if (
+            obj.properties.x == 0 &&
+            doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
+          ) {
+            let label
+            if (obj.properties.Pi != null) {
+              label = 'Π' + obj.properties.Pi
+            } else {
+              label = obj.properties.Inv_Fouille
+
+            }
+            document.getElementById('nonloc').innerHTML += [
+              '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
+                obj.properties.ID +
+                '&ANA=8888880&INV=88880">' +
+                label +
+                '</a>'
+            ]
+          }
+        })
+
+        document.getElementById('loading-unlocalised').classList.add('d-none')
+      })
+
+    markerClusterGroupCeram.clearLayers()
+
+    const ceramGeojsonUrl = import.meta.env.VITE_API_URL + 'geojson/ceram.geojson'
+    document.getElementById('loading-localised').classList.remove('d-none')
+    fetch(ceramGeojsonUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const geojsonLayer = L.geoJSON(data, {
+          filter: (e) => {
+            return (
+              e.properties.x != 0 &&
+              doesCeramObjectPassesInputSearchString(e?.properties, inputSearchString)
+            )
+          },
+          onEachFeature: (feature, layer) => {
+            setCeramLayer(layer)
+          }
+        })
+
+        markerClusterGroupCeram.clearLayers()
+        markerClusterGroupCeram.addLayer(geojsonLayer)
+        map.addLayer(markerClusterGroupCeram)
+        document.getElementById('loading-localised').classList.add('d-none')
+      })
   })
 }
 
@@ -145,16 +157,16 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
   map.removeLayer(markerClusterGroupCeram)
   markerClusterGroupCeram.clearLayers()
   let value = layer.feature.properties.secteur_ID
-  featureLayerCeram.loadURL(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
-  featureLayerCeram
-    .setFilter(function (feature) {
-      // Searching / Filtering for "click search" takes place here :
-      return feature.properties['secteur_ID'] == value
-    })
-    .on('ready', function (e) {
-      e.target.eachLayer(function (layer) {
-        setCeramLayer(layer)
-        markerClusterGroupCeram.addLayer(layer)
+  featureLayerCeram.clearLayers()
+  fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+    .then((response) => response.json())
+    .then((data) => {
+      featureLayerCeram.addData(data)
+      featureLayerCeram.eachLayer(function (layer) {
+        if (layer.feature.properties['secteur_ID'] == value) {
+          setCeramLayer(layer)
+          markerClusterGroupCeram.addLayer(layer)
+        }
       })
     })
 

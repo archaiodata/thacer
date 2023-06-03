@@ -15,8 +15,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
-
 <style>
 a.unlocalised-tag {
   border-radius: 10%;
@@ -25,5 +23,8 @@ a.unlocalised-tag {
   color: white;
   background: #f54b36;
   font-size: 10px;
+}
+.leaflet-container a {
+  color: white;
 }
 </style>
