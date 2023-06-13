@@ -32,11 +32,10 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
             doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
           ) {
             let label
-            if (obj.properties.Pi != null) {
+            if (obj.properties.Pi) {
               label = 'Π' + obj.properties.Pi
             } else {
-              label = obj.properties.Inv_Fouille
-
+              label = obj.properties.ID
             }
             document.getElementById('nonloc').innerHTML += [
               '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
@@ -152,7 +151,7 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
 
   return true
 }
-
+// When clicking sector select items with equivalent  secteur_ID
 export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, map, layer) {
   map.removeLayer(markerClusterGroupCeram)
   markerClusterGroupCeram.clearLayers()

@@ -97,6 +97,12 @@ g path {
 }
 
 .ceram-marker {
+  border-radius: 20%;
+  border-style: solid;
+  text-align: center;
+  line-height: 11px;
+  color: white;
+  font-size: 11px;
   border-color: #f54b36;
   background: #f54b36;
 }
