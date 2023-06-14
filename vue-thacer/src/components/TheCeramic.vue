@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section class="p-5 bg-body-secondary">
+    <section class="px-4 py-2 bg-body-secondary">
       <div v-if="loadingStatusTextAndArchimageData === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading data...</span>
@@ -13,7 +13,7 @@
         <div class="alert alert-warning" role="alert">Cet élément n'a pas été trouvé</div>
       </div>
       <div v-else>
-        <TheCeramicText :ceramTextData="ceramTextData"></TheCeramicText>
+        <TheCeramicText :ceramData="ceramData"></TheCeramicText>
       </div>
     </section>
 
@@ -31,7 +31,7 @@
       </div>
     </section>
 
-    <section class="pb-5 px-5 bg-light">
+    <section v-if="ceramArchimageData?.archimageImageUrl" class="pb-5 px-5 bg-light">
       <div v-if="loadingStatusTextAndArchimageData === 'loading'" class="text-center">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading data...</span>
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <section class="pb-5 px-5 bg-light">
+    <section v-if="ceramData?.Num_Analyse" class="pb-5 px-5 bg-light">
       <TheCeramicChart></TheCeramicChart>
     </section>
   </main>
@@ -74,39 +74,43 @@ export default {
       loadingStatusImagesUrls: 'loading',
       loadingStatusTextAndArchimageData: 'loading',
       imageUrlArrayList: null,
+      ceramData: null,
       ceramTextData: null,
       ceramArchimageData: null
     }
   },
   mounted() {
-    const INV = this.$route.query.INV
-    const ANA = this.$route.query.ANA
-    fetch(`${import.meta.env.VITE_API_URL}ceram.php?INV=${INV}&ANA=${ANA}`)
-      .then((response) => response.json())
-      .then((imageUrlArrayList) => {
-        if (isObject(imageUrlArrayList)) {
-          this.imageUrlArrayList = imageUrlArrayList
-          this.loadingStatusImagesUrls = 'loaded'
-        } else {
-          notifyProgrammaticError(
-            `Error, imageUrlArrayList is not an object : ${imageUrlArrayList}`
-          )
-          this.loadingStatusImagesUrls = 'error'
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        this.loadingStatusImagesUrls = 'error'
-      })
-
+    // Fetch item data
     fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
       .then((response) => response.json())
       .then((ceramGeojson) => {
         const id = this.$route.query.ID
         const ceramProperties = this.findCeramObjectProperties(id, ceramGeojson)
+
         if (ceramProperties) {
-          this.setCeramTextValues(ceramProperties)
+          this.ceramData = ceramProperties
           this.setCeramArchimageValues(ceramProperties)
+
+          const INV = this.ceramData.Inv_Fouille
+          const ANA = 'THA' + this.ceramData.Num_Analyse
+
+          fetch(`${import.meta.env.VITE_API_URL}ceram.php?INV=${INV}&ANA=${ANA}`)
+            .then((response) => response.json())
+            .then((imageUrlArrayList) => {
+              if (isObject(imageUrlArrayList)) {
+                this.imageUrlArrayList = imageUrlArrayList
+                this.loadingStatusImagesUrls = 'loaded'
+              } else {
+                notifyProgrammaticError(
+                  `Error, imageUrlArrayList is not an object : ${imageUrlArrayList}`
+                )
+                this.loadingStatusImagesUrls = 'error'
+              }
+            })
+            .catch((error) => {
+              console.error(error)
+              this.loadingStatusImagesUrls = 'error'
+            })
           this.loadingStatusTextAndArchimageData = 'loaded'
         } else {
           this.loadingStatusTextAndArchimageData = 'not_found'
@@ -120,51 +124,19 @@ export default {
   methods: {
     findCeramObjectProperties(id, ceramGeojson) {
       const features = ceramGeojson['features']
+      console.log(
+        //See if it could be better like this
+        ceramGeojson['features'].filter((feature) => feature.properties.ID == id)[0].properties
+      )
       for (let i = 0; i < features.length; i++) {
-        if (features[i].properties.ID === id) {
+        if (features[i].properties.ID == id) {
           return features[i].properties
         }
       }
       return null
     },
-    setCeramTextValues(ceramProperties) {
-      if (!ceramProperties) {
-        return
-      }
 
-      this.ceramTextData = {}
-
-      this.ceramTextData.identification = ceramProperties.Identification
-
-      this.ceramTextData.inventaires = ''
-      if (ceramProperties.Pi) {
-        this.ceramTextData.inventaires = ceramProperties.Pi + 'Π'
-      }
-      if (ceramProperties.Inv_Fouille) {
-        this.ceramTextData.inventaires += ' ' + ceramProperties.Inv_Fouille
-      }
-      if (ceramProperties.Num_Analyse) {
-        this.ceramTextData.inventaires += ' - échantillon : ' + ceramProperties.Num_Analyse
-      }
-
-      this.ceramTextData.familleCategorieType = ''
-      if (ceramProperties.Famille) {
-        this.ceramTextData.familleCategorieType = 'Famille : ' + ceramProperties.Famille
-      }
-      if (ceramProperties.Catégorie) {
-        this.ceramTextData.familleCategorieType += ' Catégorie : ' + ceramProperties.Catégorie
-      }
-      if (ceramProperties.Type) {
-        this.ceramTextData.familleCategorieType += +' type : ' + ceramProperties.Type
-      }
-
-      this.ceramTextData.description = 'Description : ' + ceramProperties.Description
-
-      this.ceramTextData.biblio = ''
-      if (ceramProperties.Biblio) {
-        this.ceramTextData.biblio = ' Publication : ' + ceramProperties.Biblio
-      }
-    },
+    // Archimage
     setCeramArchimageValues(ceramProperties) {
       if (!ceramProperties) {
         return

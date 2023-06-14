@@ -1,67 +1,59 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
 import L from 'leaflet'
 
-function createCeramUrl(ceramLayer, identifier) {
+function createCeramUrl(ceramLayer) {
   return (
     '#/ceram?ID=' +
     ceramLayer.feature.properties.ID +
     '&ANA=THA' +
     ceramLayer.feature.properties.Num_Analyse +
     '&INV=' +
-    identifier
+    ceramLayer.feature.properties.Inv_Fouille
   )
 }
 
 export function setCeramLayer(ceramLayer) {
-  let archimageURL
-  let Type
-  let identifier
+  let popup = ''
 
   ceramLayer.setOpacity(0.8)
-  if (ceramLayer.feature.properties.Archimage == undefined) {
-    archimageURL = 'Archimage non disponible<br>'
-  } else {
-    archimageURL =
+  if (ceramLayer.feature.properties.Archimage) {
+    popup =
       "<img src='https://archimage.efa.gr/action.php?kroute=image_preview_public&id=" +
       ceramLayer.feature.properties.Archimage +
       "&type=2&ext=.jpg' /><br>"
   }
-  if (ceramLayer.feature.properties.Type == undefined) {
-    Type = ''
-  } else {
-    Type = '<br>Type : ' + ceramLayer.feature.properties.Type
+  if (ceramLayer.feature.properties.Identification) {
+    popup = popup + ceramLayer.feature.properties.Identification + '<br>'
   }
-  if (ceramLayer.feature.properties.Inv_Fouille == null) {
-    identifier = ''
-  } else {
-    identifier = ceramLayer.feature.properties.Inv_Fouille
+  if (ceramLayer.feature.properties.Forme) {
+    popup = popup + ceramLayer.feature.properties.Forme + '<br>'
   }
-  if (ceramLayer.feature.properties.Pi !== null) {
-    identifier = ceramLayer.feature.properties.Pi + 'Π'
+  if (ceramLayer.feature.properties.Type) {
+    popup = popup + 'Type : ' + ceramLayer.feature.properties.Type + '<br>'
   }
-  ceramLayer.bindPopup(
-    archimageURL +
-      'Inventaire : ' +
-      identifier +
-      '<br>Identification : ' +
-      ceramLayer.feature.properties.Identification +
-      Type +
-      '<br>Description : ' +
-      ceramLayer.feature.properties.Description +
-      '<br>Bilbiographie : ' +
-      ceramLayer.feature.properties.Biblio +
-      '<br><a href=' +
-      createCeramUrl(ceramLayer, identifier) +
-      '>Fiche complète</a>',
-    {
-      maxWidth: 350,
-      minWidth: 350,
-      maxHeight: 550,
-      autoPan: true,
-      closeButton: true,
-      autoPanPadding: [5, 5]
-    }
-  )
+  if (ceramLayer.feature.properties.Inv_Fouille) {
+    popup = popup + 'inv : ' + ceramLayer.feature.properties.Inv_Fouille + '<br>'
+  }
+  if (ceramLayer.feature.properties.Pi) {
+    popup = popup + 'Π' + ceramLayer.feature.properties.Pi + '<br>'
+  }
+  if (ceramLayer.feature.properties.Description) {
+    popup = popup + ceramLayer.feature.properties.Description + '<br>'
+  }
+  if (ceramLayer.feature.properties.Biblio) {
+    popup = popup + ceramLayer.feature.properties.Biblio + '<br>'
+  }
+  if (ceramLayer.feature.properties.Publication) {
+    popup = popup + ceramLayer.feature.properties.Publication + '<br>'
+  }
+  ceramLayer.bindPopup(popup + '<a href=' + createCeramUrl(ceramLayer) + '>Fiche</a>', {
+    maxWidth: 350,
+    minWidth: 350,
+    maxHeight: 550,
+    autoPan: true,
+    closeButton: true,
+    autoPanPadding: [5, 5]
+  })
 }
 
 export function createFeatureLayerSecteurs(ceram, markerClusterGroupCeram, map) {
@@ -145,7 +137,8 @@ export function createMarkerClusterGroupCeram() {
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
     zoomToBoundsOnClick: true,
-    spiderfyDistanceMultiplier: 2
+    spiderfyDistanceMultiplier: 1.5,
+    spiderLegPolylineOptions: { weight: 1, color: '#fff', opacity: 0.1 }
   })
 }
 
@@ -154,16 +147,16 @@ function designMarkersCeram(layer) {
     let identifier
     let marker = e.layer,
       feature = marker.feature
-    if (feature.properties.Pi == undefined) {
-      identifier = feature.properties.Inv_Fouille
+    if (feature.properties.Pi) {
+      identifier = 'Π' + feature.properties.Pi
     } else {
-      identifier = feature.properties.Pi + 'Π'
+      identifier = feature.properties.ID
     }
     marker.setIcon(
       L.divIcon({
         html: identifier,
-        className: 'marker ceram-marker',
-        iconSize: [40, 40]
+        className: 'ceram-marker',
+        iconSize: 'auto'
       })
     )
   })
@@ -177,7 +170,9 @@ export function createFeatureLayerVestiges() {
     .then((res) => res.json())
     .then((data) => {
       // Create a Leaflet GeoJSON layer from the data
-      let layer = L.geoJSON(data)
+      let layer = L.geoJSON(data, {
+        style: { color: 'grey' }
+      })
 
       // Add the layer to the feature group
       vestiges.addLayer(layer)

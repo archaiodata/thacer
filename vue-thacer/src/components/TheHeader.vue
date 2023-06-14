@@ -21,7 +21,6 @@
             <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
-            <p class="text-secondary">Une remarque? une question? Contactez nous</p>
             <h4 class="text-white">Contacts</h4>
             <p class="text-secondary">Une remarque? une question? Contactez nous</p>
             <p class="text-secondary">

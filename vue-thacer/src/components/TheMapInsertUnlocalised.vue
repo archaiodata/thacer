@@ -16,15 +16,10 @@ export default {
 </script>
 
 <style>
-a.unlocalised-tag {
-  border-radius: 10%;
-  border-style: solid;
-  border-color: #f54b36;
+#nonloc a {
+  font-size: 11px;
   color: white;
+  text-decoration: none;
   background: #f54b36;
-  font-size: 10px;
-}
-.leaflet-container a {
-  color: white;
 }
 </style>
