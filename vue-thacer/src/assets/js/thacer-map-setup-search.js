@@ -31,11 +31,8 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
             obj.properties.x == 0 &&
             doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
           ) {
-            let label
-            if (obj.properties.Pi) {
-              label = 'Π' + obj.properties.Pi
-            } else {
-              label = obj.properties.ID
+            let label = obj.properties.Pi? 'Π' + obj.properties.Pi : obj.properties.ID
+            
             }
             document.getElementById('nonloc').innerHTML += [
               '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
