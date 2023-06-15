@@ -13,9 +13,17 @@ export const keyMapping = {
   Famille: ['famille', 'family'],
   Catégorie: ['catégorie', 'categorie', 'category'],
   Type: ['type'],
-  Identification: ['identification'],
-  Description: ['description'],
-  Biblio: ['biblio', 'bibliography', 'bibliographie'],
+  Identification: ['identification', 'forme', 'shape'],
+  Description: ['description, texte'],
+  Biblio: [
+    'biblio',
+    'bibliography',
+    'bibliographie',
+    'références',
+    'référence',
+    'publications',
+    'publication'
+  ],
   Période: ['période', 'periode', 'period'],
   x: ['x'],
   y: ['y']

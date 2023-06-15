@@ -2,14 +2,7 @@ import * as search from '@/assets/js/thacer-map-setup-search'
 import L from 'leaflet'
 
 function createCeramUrl(ceramLayer) {
-  return (
-    '#/ceram?ID=' +
-    ceramLayer.feature.properties.ID +
-    '&ANA=THA' +
-    ceramLayer.feature.properties.Num_Analyse +
-    '&INV=' +
-    ceramLayer.feature.properties.Inv_Fouille
-  )
+  return '#/ceram?ID=' + ceramLayer.feature.properties.ID
 }
 
 export function setCeramLayer(ceramLayer) {
@@ -115,7 +108,7 @@ export function createFeatureLayerCeram(markerClusterGroupCeram, map) {
   // create a new leaflet GeoJSON layer
   let featureLayerCeram = L.geoJSON()
 
-  fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+  fetch(import.meta.env.VITE_API_URL + 'index.php?CERAM')
     .then((response) => response.json())
     .then((data) => {
       featureLayerCeram = L.geoJSON(data, {

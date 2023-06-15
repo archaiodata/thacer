@@ -49,7 +49,7 @@
     </section>
 
     <section v-if="ceramData?.Num_Analyse" class="pb-5 px-5 bg-light">
-      <TheCeramicChart></TheCeramicChart>
+      <TheCeramicChart :ceramData="ceramData"></TheCeramicChart>
     </section>
   </main>
 </template>
@@ -81,7 +81,7 @@ export default {
   },
   mounted() {
     // Fetch item data
-    fetch(import.meta.env.VITE_API_URL + '/geojson/ceram.geojson')
+    fetch(import.meta.env.VITE_API_URL + '/index.php?CERAM')
       .then((response) => response.json())
       .then((ceramGeojson) => {
         const id = this.$route.query.ID
@@ -91,8 +91,8 @@ export default {
           this.ceramData = ceramProperties
           this.setCeramArchimageValues(ceramProperties)
 
-          const INV = this.ceramData.Inv_Fouille
-          const ANA = 'THA' + this.ceramData.Num_Analyse
+          const INV = this.ceramData.ID
+          const ANA = this.ceramData.Num_Analyse ? this.ceramData.Num_Analyse : ''
 
           fetch(`${import.meta.env.VITE_API_URL}ceram.php?INV=${INV}&ANA=${ANA}`)
             .then((response) => response.json())
@@ -124,10 +124,10 @@ export default {
   methods: {
     findCeramObjectProperties(id, ceramGeojson) {
       const features = ceramGeojson['features']
-      console.log(
-        //See if it could be better like this
-        ceramGeojson['features'].filter((feature) => feature.properties.ID == id)[0].properties
-      )
+
+      //See if it could be better like this
+      // ceramGeojson['features'].filter((feature) => feature.properties.ID == id)[0].properties
+
       for (let i = 0; i < features.length; i++) {
         if (features[i].properties.ID == id) {
           return features[i].properties

@@ -100,6 +100,12 @@ import { xrfResultsThasos } from '@/assets/js/xrf-results-thasos'
 
 export default {
   name: 'TheCeramicChart',
+  props: {
+    ceramData: {
+      type: [Object, null],
+      default: null
+    }
+  },
   data() {
     return {
       loadingStatus: 'loading',
@@ -110,7 +116,7 @@ export default {
     }
   },
   mounted() {
-    this.ANA = this.$route.query.ANA
+    this.ANA = this.ceramData.Num_Analyse
     this.buildChart()
   },
   methods: {
