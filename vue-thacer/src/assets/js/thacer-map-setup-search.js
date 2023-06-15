@@ -20,7 +20,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
     document.getElementById('nonloc').innerHTML = []
 
     document.getElementById('loading-unlocalised').classList.remove('d-none')
-    fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+    fetch(import.meta.env.VITE_API_URL + 'index.php?CERAM')
       .then((r) => r.json())
       .then((json) => {
         Object.keys(json.features).forEach((k) => {
@@ -31,9 +31,8 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
             obj.properties.x == 0 &&
             doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
           ) {
-            let label = obj.properties.Pi? 'Π' + obj.properties.Pi : obj.properties.ID
-            
-            }
+            let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID
+
             document.getElementById('nonloc').innerHTML += [
               '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
                 obj.properties.ID +
@@ -49,7 +48,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
 
     markerClusterGroupCeram.clearLayers()
 
-    const ceramGeojsonUrl = import.meta.env.VITE_API_URL + 'geojson/ceram.geojson'
+    const ceramGeojsonUrl = import.meta.env.VITE_API_URL + 'index.php?CERAM'
     document.getElementById('loading-localised').classList.remove('d-none')
     fetch(ceramGeojsonUrl)
       .then((response) => response.json())
@@ -118,16 +117,15 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
   if (searchItemSingleSplit.length === 1) {
     const searchItemValue = searchItemSingleSplit[0]
 
-    const isValueContainedInIdentification =
-      Boolean(ceramObject['Identification']) &&
-      ceramObject['Identification'].toLowerCase().includes(searchItemValue)
+    const isValueContainedInIdentification = ceramObject['Identification']
+      ?.toLowerCase()
+      .includes(searchItemValue)
 
-    const isValueEqualsPi =
-      Boolean(ceramObject['Pi']) && ceramObject['Pi'].toLowerCase() === searchItemValue
+    const isValueEqualsPi = ceramObject['Pi'] === searchItemValue
 
-    const isValueContainedInDescription =
-      Boolean(ceramObject['Description']) &&
-      ceramObject['Description'].toLowerCase().includes(searchItemValue)
+    const isValueContainedInDescription = ceramObject['Description']
+      ?.toLowerCase()
+      .includes(searchItemValue)
 
     return isValueContainedInIdentification || isValueEqualsPi || isValueContainedInDescription
   }
@@ -154,7 +152,7 @@ export function searchCeramByClick(featureLayerCeram, markerClusterGroupCeram, m
   markerClusterGroupCeram.clearLayers()
   let value = layer.feature.properties.secteur_ID
   featureLayerCeram.clearLayers()
-  fetch(import.meta.env.VITE_API_URL + 'geojson/ceram.geojson')
+  fetch(import.meta.env.VITE_API_URL + 'index.php?CERAM')
     .then((response) => response.json())
     .then((data) => {
       featureLayerCeram.addData(data)

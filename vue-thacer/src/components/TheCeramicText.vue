@@ -4,8 +4,18 @@
     <p class="lead text-muted m-0">{{ ceramInv }}</p>
     <ul>
       <div v-for="(value, name, index) in ceramData" :key="index">
-        <div v-if="value && name != 'ID' && name != 'Pi' && name != 'x' && name != 'y'">
-          {{ name }}
+        <div
+          v-if="
+            value &&
+            name != 'ID' &&
+            name != 'Pi' &&
+            name != 'x' &&
+            name != 'y' &&
+            name != 'secteur_ID'
+          "
+        >
+          <strong>{{ name === 'Num_Analyse' ? 'Echantillon' : name }}</strong>
+
           :
           {{ value }}
         </div>

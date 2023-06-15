@@ -17,22 +17,24 @@ $result = ['PHOTO' => [], 'THA_MACRO_PHOTO' => [], 'Profils' => [],];
 $INV = $_GET['INV'];
 $ANA = $_GET['ANA'];
 
-$dir = 'IMAGES/PHOTO/*'.$INV.'[Π_ -.]*{jpg,jpeg,JPG,gif,png}';
+$dir = 'IMAGES/PHOTO/*' . $INV . '[Π_ -.]*{jpg,jpeg,JPG,gif,png}';
 $files = glob($dir, GLOB_BRACE);
 foreach ($files as $image) {
-    $result['PHOTO'][] = 'https://thacer.archaiodata.com/API/'.$image;
+    $result['PHOTO'][] = 'https://thacer.archaiodata.com/API/' . $image;
 }
 
-$dir = 'IMAGES/THA_MACRO_PHOTO/*'.$ANA.'*.{jpg,jpeg,JPG,gif,png}';
-$files = glob($dir, GLOB_BRACE);
-foreach ($files as $image) {
-    $result['THA_MACRO_PHOTO'][] = 'https://thacer.archaiodata.com/API/'.$image;
+if ($ANA != '') {
+    $dir = 'IMAGES/THA_MACRO_PHOTO/*' . $ANA . '*.{jpg,jpeg,JPG,gif,png}';
+    $files = glob($dir, GLOB_BRACE);
+    foreach ($files as $image) {
+        $result['THA_MACRO_PHOTO'][] = 'https://thacer.archaiodata.com/API/' . $image;
+    }
 }
 
-$dir = 'IMAGES/Profils/*'.$INV.'[Π_ -.]*{jpg,jpeg,JPG,gif,png}';
+$dir = 'IMAGES/Profils/*' . $INV . '[Π_ -.]*{jpg,jpeg,JPG,gif,png}';
 $files = glob($dir, GLOB_BRACE);
 foreach ($files as $image) {
-    $result['Profils'][] = 'https://thacer.archaiodata.com/API/'.$image;
+    $result['Profils'][] = 'https://thacer.archaiodata.com/API/' . $image;
 }
 
 header("Content-Type: application/json");
