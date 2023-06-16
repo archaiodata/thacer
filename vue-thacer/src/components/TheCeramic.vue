@@ -94,7 +94,7 @@ export default {
           const INV = this.ceramData.ID
           const ANA = this.ceramData.Num_Analyse ? this.ceramData.Num_Analyse : ''
 
-          fetch(`${import.meta.env.VITE_API_URL}ceram.php?INV=${INV}&ANA=${ANA}`)
+          fetch(`${import.meta.env.VITE_API_URL}index.php?INV=${INV}&ANA=${ANA}`)
             .then((response) => response.json())
             .then((imageUrlArrayList) => {
               if (isObject(imageUrlArrayList)) {
