@@ -1,10 +1,6 @@
 import * as search from '@/assets/js/thacer-map-setup-search'
 import L from 'leaflet'
 
-function createCeramUrl(ceramLayer) {
-  return '#/ceram?ID=' + ceramLayer.feature.properties.ID
-}
-
 export function setCeramLayer(ceramLayer) {
   let popup = ''
 
@@ -15,6 +11,11 @@ export function setCeramLayer(ceramLayer) {
       ceramLayer.feature.properties.Archimage +
       "&type=2&ext=.jpg' /><br>"
   }
+  popup =
+    popup +
+    '<a class="text-decoration-none text-secondary " href=#/ceram?ID=' +
+    ceramLayer.feature.properties.ID +
+    '>'
   if (ceramLayer.feature.properties.Identification) {
     popup = popup + ceramLayer.feature.properties.Identification + '<br>'
   }
@@ -39,12 +40,12 @@ export function setCeramLayer(ceramLayer) {
   if (ceramLayer.feature.properties.Publication) {
     popup = popup + ceramLayer.feature.properties.Publication + '<br>'
   }
-  ceramLayer.bindPopup(popup + '<a href=' + createCeramUrl(ceramLayer) + '>Fiche</a>', {
+  ceramLayer.bindPopup(popup + '</a>', {
     maxWidth: 350,
     minWidth: 350,
     maxHeight: 550,
     autoPan: true,
-    closeButton: true,
+    closeButton: false,
     autoPanPadding: [5, 5]
   })
 }

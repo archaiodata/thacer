@@ -29,6 +29,10 @@ g path {
   padding: 2px;
   line-height: 1.2;
 }
+.leaflet-popup-content a:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
 
 .leaflet-popup-tip-container {
   height: 40px;
