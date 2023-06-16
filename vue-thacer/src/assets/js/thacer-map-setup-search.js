@@ -28,7 +28,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
 
           // Adding current ceramObject only if unlocalised and passing input search string :
           if (
-            obj.properties.x != '' &&
+            obj.geometry.coordinates[0] === 0 &&
             doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
           ) {
             let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID
@@ -56,7 +56,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
         const geojsonLayer = L.geoJSON(data, {
           filter: (e) => {
             return (
-              e.properties.x != 0 &&
+              e.geometry.coordinates[0] !== 0 &&
               doesCeramObjectPassesInputSearchString(e?.properties, inputSearchString)
             )
           },
@@ -113,13 +113,15 @@ const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) 
 function isSearchItemSingleFound(searchItemSingle, ceramObject) {
   const searchItemSingleSplit = searchItemSingle.split(':')
 
-  // Search without key will hit three fields: Identification, Pi, Description :
+  // Search without key will hit fields: Identification, Pi, Description and collection:
   if (searchItemSingleSplit.length === 1) {
     const searchItemValue = searchItemSingleSplit[0]
 
     const isValueContainedInIdentification = ceramObject['Identification']
       ?.toLowerCase()
       .includes(searchItemValue)
+
+    const isValueContainedInForme = ceramObject['Forme']?.toLowerCase().includes(searchItemValue)
 
     const isValueEqualsPi = ceramObject['Pi'] === searchItemValue
 
@@ -133,6 +135,7 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
 
     return (
       isValueContainedInIdentification ||
+      isValueContainedInForme ||
       isValueEqualsPi ||
       isValueContainedInDescription ||
       isValueEqualsCollection
