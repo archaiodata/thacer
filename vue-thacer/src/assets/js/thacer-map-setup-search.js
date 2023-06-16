@@ -28,7 +28,7 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
 
           // Adding current ceramObject only if unlocalised and passing input search string :
           if (
-            obj.properties.x == 0 &&
+            obj.properties.x != '' &&
             doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
           ) {
             let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID

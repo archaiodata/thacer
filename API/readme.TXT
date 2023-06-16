@@ -42,6 +42,24 @@ Response:
 -----------------
 return all pottery items in Geojson format
 
+Request example for images:
+----------------
+https://thacer.archaiodata.com/API/?INV=YAN3038&ANA=THA25
+
+    // Return a json object with 3 lists of image urls. Example :
+// {
+//    "PHOTO":[
+//        "https:\/\/thacer.archaiodata.com\/API/IMAGES\/PHOTO\/YAN3038.JPG",
+//        "https:\/\/thacer.archaiodata.com\/API/IMAGES\/PHOTO\/YAN3038_02.JPG",
+//        "https:\/\/thacer.archaiodata.com\/API/IMAGES\/PHOTO\/YAN3038_03.JPG"
+//    ],
+//    "THA_MACRO_PHOTO":[
+//        "https:\/\/thacer.archaiodata.com\/API/IMAGES\/THA_MACRO_PHOTO\/THA25_xpl_1.25x.JPG"
+//    ],
+//    "Profils":[
+//    ]
+//}
+
 
 
 Errors
