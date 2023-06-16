@@ -34,9 +34,9 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
             let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID
 
             document.getElementById('nonloc').innerHTML += [
-              '<a class="unlocalised-tag px-1 m-0 border border-white" href="ceram?ID=' +
+              '<a class="unlocalised-tag px-1 m-0 border border-white" href="#/ceram?ID=' +
                 obj.properties.ID +
-                '&ANA=8888880&INV=88880">' +
+                '">' +
                 label +
                 '</a>'
             ]
@@ -127,7 +127,16 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
       ?.toLowerCase()
       .includes(searchItemValue)
 
-    return isValueContainedInIdentification || isValueEqualsPi || isValueContainedInDescription
+    const isValueEqualsCollection = ceramObject['collection']
+      ?.toLowerCase()
+      .includes(searchItemValue)
+
+    return (
+      isValueContainedInIdentification ||
+      isValueEqualsPi ||
+      isValueContainedInDescription ||
+      isValueEqualsCollection
+    )
   }
   // Search with key :
   // (More than 2 elements would mean that there was 2 or more colons in the searchItemSingle.
