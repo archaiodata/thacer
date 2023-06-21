@@ -22,7 +22,7 @@ export default defineConfig(({ command }) => {
     config.server = {
       proxy: {
         '/proxys_replacement_key_for_api_path_in_dev': {
-          target: 'http://thacer.archaiodata.com/API/',
+          target: 'https://thacer.archaiodata.com/API/',
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/proxys_replacement_key_for_api_path_in_dev/, '')
