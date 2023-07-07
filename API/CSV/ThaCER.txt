@@ -50,26 +50,6 @@ Contexte IIe siècle ap. J.-C.",,,24.712668539,40.775762066
 "YAN3531",,"YAN3531",,"THA62","179",,,"FINE","ESB1","EAA74?","bol",,,,24.712668539,40.775762066
 "YAN3532",,"YAN3532",,"THA63","179",,,"FINE","ESB2","EAA70?","bol",,,,24.712668539,40.775762066
 "YAN3533",,"YAN3533",,"THA64","179",,,"FINE","ESB","EAA74?","bol",,,,24.712668539,40.775762066
-"7997","5196",,"8735",,"177","1969",,"tablette",,,"tablette","tablette inscrite",,,24.712005703,40.775824662
-"7998","5172",,"2901",,"177","1969",,"stockage",,"à reliefs","pithos","fragment de panse avec rosace en relief",,,24.712005703,40.775824662
-"7999","5147",,"8747",,"177","1969",,"CO",,,"trépied","trépied à reliefs estampés à la roulette, fragment, argile, la course de biges au chien et au trépied",,,24.712005703,40.775824662
-"8000","2692",,"8744",,"27","1960",,"stockage",,"à reliefs","pithos","pithos à reliefs estampés à la roulette, fragment, argile, la dispute du trépied",,,24.715039152,40.780367769
-"8001","3930",,"8832",,"27","1965",,"fine","orientalisant",,"plat","fragment avec motif de remplissage",,,24.715039152,40.780367769
-"8002","3934",,"8832",,"27","1965",,"fine","orientalisant",,"plat","fragment avec motif de remplissage",,,24.715039152,40.780367769
-"8003","3994","65 0656","8842",,"27","1965",,"fine","orientalisant",,"plat","fragment avec motifs de remplissage",,,24.715039152,40.780367769
-"8004","3976",,"8839",,"27","1965",,"fine","orientalisant",,"amphore","fragment avec motif de remplissage",,,24.715039152,40.780367769
-"8005","3935",,"8833",,"27","1965",,"fine","orientalisant",,"plat","fragment avec personnage",,,24.715039152,40.780367769
-"8006","3931",,"8833",,"27","1965",,"fine","orientalisant",,"plat","fragment avec personnage",,,24.715039152,40.780367769
-"8007","3958",,"8839",,"27","1965",,"fine","orientalisant",,"amphore","fragment avec motif de remplissage",,,24.715039152,40.780367769
-"8008","2691",,"8740",,"27","1960",,"stockage",,"à reliefs","pithos","pithos à reliefs estampés à la roulette, fragment, argile, la dispute du trépied, le départ d'Amphiaraos",,,24.715039152,40.780367769
-"8009","3938",,"55494",,"27","1965",,"fine","orientalisant",,"plat","Plat thasien, orientalisant avec tête féminine",,,24.715039152,40.780367769
-"8010","819",,"8827",,"33","1954",,"stockage",,"à reliefs","pithos","fragment de panse, bige en relief",,,24.713260675,40.779968965
-"8012","2433",,"1433",,"57","1957",,"fine","FN",,,"Décor : motif géométrique motif végétal motif animalier",,,24.714813516,40.779886375
-"8013","2085",,"2854",,"57","1958",,"fine","cycladique","plat à bobine","plat","Décor : Bellérophon sur Pégase, Chimère. Cf aussi archimage 338244",,,24.714813516,40.779886375
-"8014","2191",,"16219",,"57","1959",,"fine","orientalisant","à bobine","plat","motifs orientalisants, oiseau, panthère",,,24.714813516,40.779886375
-"8015","2407",,,,"57","1957",,"fine","cycladique",,"plat","fragment de bord avec fil de chiens",,,24.714813516,40.779886375
-"8016","2198",,"8841",,"57","1959",,"fine","orientalisant",,"plat","motifs orientalisants",,,24.714813516,40.779886375
-"8017","2057",,"2852",,"102","1958",,"fine","orientalisant",,"plat","cavalier, chevaux et fil de felins",,,24.719882893,40.778453198
 "8018","2168",,,,"515",,,"CW","PCW",,"pot","Pot entier excepté une partie de la lèvre et une anse. Le vase n’a pas été utilisé pour la cuisson et laisse apparaître une pâte orangée mi-fine avec de nombreuses inclusions blanches. Le profil globulaire diffère par un col étroit mais prononcé. 
 Nécropole de Patargia sans autre précision.",,,24.704241265,40.774524229
 "8020","2167",,,,"515",,,"CW","PCW",,"pot","Pot entier retrouvé avec le couvercle. Le profil est proche du précédent mais la paroi du col n’est pas verticale mais recourbée vers l’extérieur. Aux endroits où les traces de suie sont moins denses on remarque une pâte orangée aux inclusions blanches.
