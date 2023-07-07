@@ -1,0 +1,77 @@
+"Corpus","ID","Pi","Inventaire","Archimage","Num_Analyse","secteur_ID","annee","Famille","Catégorie","Type","Forme","Description","Bibliographie","Période","x","y"
+"GROS2014","ASA05_141_026",,,,,86,"2005","Amphore de transport","Thasienne",,"Amphore","Trois fragments dont deux jointifs du col et de la base d’une amphore. Le sommet de l’anse élevé ainsi que la stratigraphie incitent à attribuer une date basse dans le courant du Ier siècle av. J.-C. sinon le Ier siècle ap. J.-C.","GROS 2014, fig. 2","Contexte fin Ier av. - deb Ier siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","AOA73_548",,"AOA73/548",,,42,"1973","Amphore de transport","Cos?","Dressel 2/4","Amphore","Fragments du col et des anses bifides d'une amphore peut-être de Cos.","GROS 2014, fig. 3","Haut-Empire",24.712389776,40.780123861
+"GROS2014","YAN3682",,"YAN72/3682",,,179,"1972","Amphore de transport","Crètoise",,"Amphore","La partie supérieure d’une amphore type crétoise 4. La pâte est fine recouverte d’un engobe crème. Il ne s’agit pas du type le plus courant des amphores crétoises","GROS 2014, fig. 4","Contexte IIe siècle ap. J.-C.",24.712646138,40.775654691
+"GROS2014","ASA07_041_039",,,,,86,,"Amphore de transport",,"Proto LRA2","Amphore","Quatre fragments du bord, du col et de l’épaule avec les deux anses de section ovale préservées. Pâte fine au cœur orangé rose et la surface pâle.","GROS 2014, fig. 5","Contexte du milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","ASA97_028_326",,,,,86,,"Amphore de transport",,"MRA7","Amphore","Deux fragments jointifs de la lèvre, du col et du départ d’une anse.","GROS 2014, fig. 6","Contexte du milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","ASA05_017_007",,,,,86,,"Amphore de transport",,"MRA5","Amphore","Deux fragments jointifs de la lèvre à l’épaule dont les anses sont préservées. Le sommet d’une des anses porte le monogramme X.","GROS 2014, fig. 7","Contexte du milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","AOA72_2091+72_2092",,"AOA72/2091+72/2092",,,42,,"Amphore de transport",,"LRA10","Amphore","Deux fragments du col, des anses et du fond, pâte rouge micacée à fins dégraissants.","GROS 2014, fig. 8",,24.712389776,40.780123861
+"GROS2014","AOA72_2439",,"AOA72/2439",,,42,"1972","Fine","Bol à relief","attique","Bol","Fragments de bol à reliefs attique avec scène de chasse.","GROS 2014, fig. 9","Hellénistique",24.712389776,40.780123861
+"GROS2014","YAN3589",,"YAN72/3589",,,179,"1972","Fine","cnidienne",,"Bol","Large fragment d’une coupe carénée préservée au tiers. La pâte orangée grise à cœur avec de nombreux dégraissants blancs. Contrairement à la série des coupes cnidiennes la partie basse est très peu inclinée.","GROS 2014, fig. 10","Contexte du IIe siècle ap. J.-C",24.712646138,40.775654691
+"GROS2014","AOA73_625",,"AOA73/625",,,42,"1973","Fine","plat éphésien",,"Plat","Trois fragments de plat « éphésien » à rebord en amande . Pâte fine grise pâle (pinkish gray 7.5YR6/2) contenant de rares minuscules inclusions micacées argentées. Le revêtement noir est écaillé par endroit. Des traces de recollage indiquent que des fragments sont manquants ou ont été prélevés.
+Peut-être le seul individu connu à Thasos de cette production qui est largement diffusée en Grèce .","GROS 2014, fig. 11","Contexte Ier ap. J.-C. ?",24.712389776,40.780123861
+"GROS2014","Pi659","659",,,,515,,"Fine","proto ESB",,"Assiette","Assiette complète identifiée par Hayes comme un exemplaire d’ESC type L6 . Les caractéristiques de la pâte et du revêtement évoquent cependant l’ESB. Provenance incertaine, nécropole de Patargia ?","GROS 2014, fig. 12",,24.704399978,40.774637964
+"GROS2014","C8_18",,,,,,,"Fine","sigillée italique",,"Assiette","Large fragment de la lèvre d’une assiette. Pâte fine orange brun claire (light red 2.5YR6/6), revêtement rouge orangé (red 10YR4/8). Provient des anciennes fouilles sans contexte précis.","GROS 2014, fig. 13",,,
+"GROS2014","Pi960","960",,,,,,"Fine","sigillée gauloise",,"Bol","Fragment de panse à décors en relief de rinceau alternant colombe à tête réflexe et imbrications. Pâte fine rouge claire (red 2.5YR5/6), revêtement rouge orangé (red 10YR4/6) sans inclusion visible excepté une blanche tendre de 2mm de diamètre (microfossile ?). Il s’agit probablement d’une sigillée Sud gauloise de Lezoux ou de la Graufesenque , coupe type Dragendorff forme 37 courante à la fin du Ier siècle et la première moitié du second .","GROS 2014, fig. 14",,,
+"GROS2014","C8_4",,,,,,,"Fine","ESB1","forme V","Bol","Trois fragments jointifs de la lèvre et de la panse d’un bol forme V de Hayes . La paroi externe de la panse porte le graffito AEV.","GROS 2014, fig. 15",,,
+"GROS2014","AOA72_2263",,"AOA72/2263",,,42,,"Fine","ESB2",,"Coupe","Large fragment présentant le profil complet d’une coupe ESB2. 
+Cf. ATLANTE II form 60, p.64, pl. XIV, AGORA XXXII shape VI, n°350, p. 155 (60-80 ap. J. C.)","GROS 2014, fig. 16",,24.712389776,40.780123861
+"GROS2014","C8_10",,,,,,,"Fine","sigillée pontique",,"Bol","Deux fragments jointifs de bol avec un bord au profil en arabesque. Pâte fine orange clair (reddish yellow 5YR7/8) sans inclusion visible. Le revêtement est inégal et fluctue dans les tons orange rouge et brun (2.5YR6/8)","GROS 2014, fig. 17",,,
+"GROS2014","ASA05_005_081",,,,,86,,"Fine","ESC","H1","Jatte","Seize fragments jointifs constituant le tiers d’une jatte forme H1.","GROS 2014, fig. 18","Contexte du milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","ASA05_005_088",,,,,86,,"Fine","ESC","H3","Bol","Large fragment de bol à collerette forme H3, première moitié du IIIe siècle ap. J. C.","GROS 2014, fig. 18","Contexte milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","YAN3564",,"YAN72/3564",,,179,,"Fine",,,"Bol","Six fragments d’un canthare préservé au deux tiers. Le revêtement recouvre la totalité du vase excepté à de rares endroits sur la base. Le décor à la barbotine combine virgules et gouttes sur la partie supérieure de la panse. Une anse verticale à poucier est préservée.","GROS 2014, fig. 19",,24.712646138,40.775654691
+"GROS2014","AOA73_714",,"AOA73/714",,,42,,"Fine",,,"Jatte","Dix fragments jointifs constituant la moitié d’une jatte à lèvre en marli légèrement montante et à deux anses horizontales tressées. Les parois convexes reposent sur un fond plat légèrement bombé. Le revêtement vitrifié partiellement préservé recouvrait l’ensemble du vase excepté une partie de la surface de pose.","GROS 2014, fig. 20",,24.712389776,40.780123861
+"GROS2014","AOA72_2195",,"AOA72/2195",,,42,,"Fine","sigillée claire d'Asie Mineure",,"Assiette","Fragment de fond d’une d’assiette avec légère base annulaire, sur la face interne décors à la roulette et deux sillons","GROS 2014, fig. 21",,24.712389776,40.780123861
+"GROS2014","AOA73_1075",,"AOA73/1075",,,42,,"Fine","Attique",,"Coupe","Un fragment du bord et de la panse d’une coupe carénée. Une anse tenon légèrement en relief est appliquée au milieu de la partie verticale. Pâte orange à revêtement rouge du sommet à peu après la carène, rehaussé de spirales blanches.","GROS 2014, fig. 22",,24.712389776,40.780123861
+"GROS2014","ASA97_076_002",,,,,86,,"Fine","ARS","50","Assiette","Deux fragments jointifs de la lèvre et de la panse d’un plat en sigillée africaine C. L’épaisseur de la paroi peut être un indice pour placer cet exemplaire tardivement dans la série a.","GROS 2014, fig. 23","Contexte milieu du IIIe siècle ap. J.-C.",24.712860242,40.779244788
+"GROS2014","YAN3037",,"YAN72/3037",,"THA24",179,,"FINE","ESB","H3","bol","Large fragment d'une base annulaire de bol forme H3.",,,24.712646138,40.775654691
+"GROS2014","YAN3038",,"YAN72/3038",,"THA25",179,,"FINE","ESB","H3","bol","Large fragment d'une base annulaire de bol forme H3.",,,24.712646138,40.775654691
+"GROS2014","YAN3045",,"YAN72/3045",,"THA26",179,,"FINE","ESA","H3","bol","Fragment d'une base annulaire de bol forme H3.",,,24.712646138,40.775654691
+"GROS2014","YAN3046",,"YAN72/3046",,"THA27",179,,"FINE","ESB","H3","bol","Fragment d'une base annulaire de bol forme H3.",,,24.712646138,40.775654691
+"GROS2014","YAN3053",,"YAN72/3053",,"THA28",179,,"FINE","ESB","H3","bol","Bol à collerette forme H3.
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3055",,"YAN72/3055",,"THA29",179,,"FINE","ESB?","H3","bol","Large fragment de la lèvre et de la panse d'un bol à collerette ESC. 6",,,24.712646138,40.775654691
+"GROS2014","YAN3075",,"YAN72/3075",,"THA30",179,,"FINE","ESC","H3","bol","Large fragment de la lèvre et de la panse d'un bol à collerette ESC.",,,24.712646138,40.775654691
+"GROS2014","YAN3078",,"YAN72/3078",,"THA31",179,,"FINE","ESC","H3","bol","Large fragment de la lèvre et de la panse d'un bol à collerette ESC.",,,24.712646138,40.775654691
+"GROS2014","YAN3081",,"YAN72/3081",,"THA32",179,,"FINE","PONT","L19","bol","Un large fragment de la lèvre
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3102",,"YAN72/3102",,"THA33",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3108",,"YAN72/3108",,"THA34",179,,"FINE","ESB","EAA60s","coupelle",,,,24.712646138,40.775654691
+"GROS2014","YAN3111",,"YAN72/3111",,"THA35",179,,"FINE","ESB","EAA60L","coupelle",,,,24.712646138,40.775654691
+"GROS2014","YAN3114",,"YAN72/3114",,"THA36",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3122",,"YAN72/3122",,"THA38",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3128",,"YAN72/3128",,"THA39",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3140",,"YAN72/3140",,"THA40",179,,"FINE","ESC","L19","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3149",,"YAN72/3149",,"THA41",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3159",,"YAN72/3159",,"THA42",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3166",,"YAN72/3166",,"THA43",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3168",,"YAN72/3168",,"THA44",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3170",,"YAN72/3170",,"THA45",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3173",,"YAN72/3173",,"THA46",179,,"FINE","ESC","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3246",,"YAN72/3246",,"THA47",179,,"FINE","ESB","L28?","jatte","Un large fragment de la lèvre et de la panse d’une jatte H1 
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3375",,"YAN72/3375",,"THA48",179,,"FINE","ESA","H3","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3401",,"YAN72/3401",,"THA49",179,,"FINE","ESB?","H5=3400","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3444",,"YAN72/3444",,"THA50",179,,"FINE","ESB","EAA80","coupelle",,,,24.712646138,40.775654691
+"GROS2014","YAN3448",,"YAN72/3448",,"THA51",179,,"FINE","ESB","EAA80","coupelle",,,,24.712646138,40.775654691
+"GROS2014","YAN3511",,"YAN72/3511",,"THA52",179,,"FINE","PONT","I","assiette","Un fragment de la lèvre.
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3512",,"YAN72/3512",,"THA53",179,,"FINE","PONT","I","assiette","Un fragment de la lèvre.
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3515",,"YAN72/3515",,"THA54",179,,"FINE","PONT","L19","bol","Un large fragment de la lèvre et de la panse.
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3517",,"YAN72/3517",,"THA55",179,,"FINE","PONT","L19","bol","Un fragment de la lèvre
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3518",,"YAN72/3518",,"THA56",179,,"FINE","PONT","L19","bol","Un large fragment de la lèvre et de la panse. 
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3520",,"YAN72/3520",,"THA57",179,,"FINE","PONT","L19","bol","Un large fragment de la lèvre et de la panse. 
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3521",,"YAN72/3521",,"THA58",179,,"FINE","PONT","L19","bol","Un large fragment de la lèvre et de la panse. 
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3523",,"YAN72/3523",,"THA59",179,,"FINE","PONT","I","assiette","Un fragment de la lèvre.
+Contexte IIe siècle ap. J.-C.",,,24.712646138,40.775654691
+"GROS2014","YAN3524",,"YAN72/3524",,"THA60",179,,"FINE","PONT","L19","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3525",,"YAN72/3525",,"THA61",179,,"FINE","PONT","L19","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3531",,"YAN72/3531",,"THA62",179,,"FINE","ESB1","EAA74?","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3532",,"YAN72/3532",,"THA63",179,,"FINE","ESB2","EAA70?","bol",,,,24.712646138,40.775654691
+"GROS2014","YAN3533",,"YAN72/3533",,"THA64",179,,"FINE","ESB","EAA74?","bol",,,,24.712646138,40.775654691
