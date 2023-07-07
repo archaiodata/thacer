@@ -15,7 +15,7 @@
             </p>
             <p>
               <router-link :to="{ name: 'biblio' }" class="text-white" @click="closeNavbar"
-                >Sources bibliographiques</router-link
+                >Corpus intégrés et bibliographie</router-link
               >
             </p>
             <p class="text-white">&copy; ThaCER et contributeurs AC AT CW FB JJM JK JSG MFP MP</p>

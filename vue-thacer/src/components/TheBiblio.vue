@@ -11,38 +11,53 @@
       </div>
       <div v-else>
         <div class="zotero-entries">
-          <h2>Sources</h2>
+          <h2>Corpus intégrés et bibliographie</h2>
           <p>
-            Les céramiques répertoriées dans ThaCER sont celles publiées par les principaux
-            collaborateurs du projet. A cet ensemble s'ajoutent de façon systématique l'intégralité
-            du catalogue des publications suivantes. La mise à jour de ces références est liée à
-            l'évolution de la collection Zotero "ThaCER".
+            Le programme a pour objectif de référencer les céramiques publiées découvertes sur le
+            sol de Thasos. L'intégration des céramique est organisée par corpus qui correspondent
+            généralement au catalogue d'une publication.
           </p>
-          <a href="https://www.zotero.org/groups/5022130/thacer/library"
-            >www.zotero.org/groups/5022130/thacer/library</a
+          <p>
+            Les exemplaires de chaque corpus peuvent être recherchés en entrant le nom du corpus
+            ci-dessous en gras dans la barre de recherche.
+          </p>
+          <p>
+            La bibliographie est maintenue à jour collaborativement sur Zoter par le groupe
+            "ThaCER".
+            <a href="https://www.zotero.org/groups/5022130/thacer/library"
+              >www.zotero.org/groups/5022130/thacer/library</a
+            >
+          </p>
+          <h3>Corpus intégrés :</h3>
+
+          <div v-for="entry in biblioZotero" :key="entry.key">
+            <div v-if="entry.data.collections == 'QK8TC6JE'">
+              <strong>{{ entry.data.shortTitle }}</strong> {{ entry.data.creators?.[0].firstName }}
+              {{ entry.data.creators?.[0].lastName }} <i>{{ entry.data.title }}</i
+              >,
+              {{ entry.data.date }}
+              <p>{{ entry.data.abstractNote }}</p>
+            </div>
+          </div>
+
+          <h3>En cours d'intégration :</h3>
+          <div v-for="entry in biblioZotero" :key="entry.key">
+            <div v-if="entry.data.collections == 'JVX4B9VP'">
+              <strong>{{ entry.data.shortTitle }}</strong> {{ entry.data.creators?.[0].firstName }}
+              {{ entry.data.creators?.[0].lastName }} <i>{{ entry.data.title }}</i
+              >,
+              {{ entry.data.date }}
+              <p>{{ entry.data.abstractNote }}</p>
+            </div>
+          </div>
+          <h3>Bibliographie :</h3>
+          <iframe
+            src="https://api.zotero.org/groups/5022130/items?format=bib"
+            width="100%"
+            height="450"
+            frameborder="0"
           >
-          <h3>Publications intégrées :</h3>
-          <ul>
-            <li v-for="entry in biblioZotero" :key="entry.key">
-              <p v-if="entry.data.collections == 'QK8TC6JE'">
-                {{ entry.data.creators?.[0].firstName }} {{ entry.data.creators?.[0].lastName }}
-                <i>{{ entry.data.title }}</i
-                >,
-                {{ entry.data.date }}
-              </p>
-            </li>
-          </ul>
-          <h3>Publications en cours d'intégration :</h3>
-          <ul>
-            <li v-for="entry in biblioZotero" :key="entry.key">
-              <p v-if="entry.data.collections == 'JVX4B9VP'">
-                {{ entry.data.creators?.[0].firstName }} {{ entry.data.creators?.[0].lastName }}
-                <i>{{ entry.data.title }}</i
-                >,
-                {{ entry.data.date }}
-              </p>
-            </li>
-          </ul>
+          </iframe>
         </div>
       </div>
     </section>
@@ -65,7 +80,7 @@ export default {
       .then((response) => response.json())
       .then((biblioZotero) => {
         this.biblioZotero = biblioZotero.sort((a, b) => {
-          if (a.data.creators?.[0].lastName < b.data.creators?.[0].lastName) {
+          if (a.data.shortTitle < b.data.shortTitle) {
             return -1
           }
         })
