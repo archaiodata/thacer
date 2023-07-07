@@ -13,7 +13,7 @@ export function setCeramLayer(ceramLayer) {
   }
   popup =
     popup +
-    '<a class="text-decoration-none text-secondary " href=#/ceram?ID=' +
+    '<a class="text-decoration-none text-secondary" target="_blank" href=#/ceram?ID=' +
     ceramLayer.feature.properties.ID +
     '>'
   if (ceramLayer.feature.properties.Identification) {
