@@ -120,7 +120,7 @@ if (isset($_GET['GTh'])) {
                     # Remove x and y fields from properties (optional)
                     unset($properties[x]);
                     unset($properties[y]);
-                    $properties['collection'] = basename($filepath, ".txt");
+                    $properties['Corpus'] = basename($filepath, ".txt");
                     $feature = array(
                         'type' => 'Feature',
                         'geometry' => array(

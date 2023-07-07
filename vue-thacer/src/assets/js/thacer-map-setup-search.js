@@ -113,7 +113,7 @@ const doesCeramObjectPassesInputSearchString = (ceramObject, inputSearchString) 
 function isSearchItemSingleFound(searchItemSingle, ceramObject) {
   const searchItemSingleSplit = searchItemSingle.split(':')
 
-  // Search without key will hit fields: Identification, Pi, Description and collection:
+  // Search without key will hit fields: Identification, Pi, Description and Corpus:
   if (searchItemSingleSplit.length === 1) {
     const searchItemValue = searchItemSingleSplit[0]
 
@@ -129,9 +129,7 @@ function isSearchItemSingleFound(searchItemSingle, ceramObject) {
       ?.toLowerCase()
       .includes(searchItemValue)
 
-    const isValueEqualsCollection = ceramObject['collection']
-      ?.toLowerCase()
-      .includes(searchItemValue)
+    const isValueEqualsCollection = ceramObject['Corpus']?.toLowerCase().includes(searchItemValue)
 
     return (
       isValueContainedInIdentification ||
