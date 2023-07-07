@@ -179,19 +179,19 @@ export function createFeatureLayerVestiges() {
   return vestiges
 }
 
-export function createImageOverlayKhalil(map) {
-  let KhalilimageBounds = [
+export function createImageOverlayKahil(map) {
+  let KahilimageBounds = [
     [40.768370395, 24.699482062],
     [40.781060633, 24.716708757]
   ] // SWNE
 
   map.on('overlayadd', function (eo) {
-    if (eo.name === 'Plan Khalil 1954') {
-      map.fitBounds(KhalilimageBounds)
+    if (eo.name === 'Plan Kahil 1954') {
+      map.fitBounds(KahilimageBounds)
     }
   })
 
-  return L.imageOverlay(import.meta.env.VITE_API_URL + 'IMAGES/1685.png', KhalilimageBounds)
+  return L.imageOverlay('Plan_Kahil_1954.png', KahilimageBounds)
 }
 
 export function createFeatureLayerChronique(markersChronique) {
