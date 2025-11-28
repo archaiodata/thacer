@@ -10,9 +10,7 @@ export function thacerMap() {
 
   const controlledOverlays = createOverlays(map)
 
-  L.control
-    .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
-    .addTo(map)
+  L.control.layers(tileLayers, controlledOverlays, { collapsed: true, sortLayers: true }).addTo(map)
 
   L.control
     .zoom({
@@ -95,6 +93,28 @@ function createOverlays(map) {
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
+  // ArcGIS FeatureLayer (external portal) - toggled in overlays control
+  // This uses the helper in thacer-map-create-layer.js which requests GeoJSON
+  // with outSR=4326 and can populate a marker cluster.
+  let markerClusterGroupArcgis = createLayer.createMarkerClusterGroupCeram()
+  // NOTE: the ArcGIS MapServer/4 layer URL (without proxy) — keep as-is or
+  // change to your preferred instance. We expect a proxy prefix to be used
+  // so the browser can reach it through the server-side proxy.
+  createLayer.createFeatureLayerArcgis({
+    layerUrl:
+      'https://ops.arxaiologikoktimatologio.gov.gr/arcgis/rest/services/Portal/SimpleGeometriesPortal/MapServer/4',
+    proxyPath: '/arcgisproxyportal/proxy.ashx?',
+    outFields: '*',
+    markerClusterGroup: markerClusterGroupArcgis,
+    onEachFeature: function (feature, layer) {
+      const p = feature.properties || {}
+      const title = p.FIRST_NAME || p.ID || ''
+      let html = `<strong>${title}</strong>`
+      if (p.FIRST_FOREAS) html += `<br/>${p.FIRST_FOREAS}`
+      layer.bindPopup(html, { maxWidth: 300 })
+    }
+  })
+
   // Finally, return the list of overlays which will be hid-able/show-able in the control
   return {
     'Vestiges antiques': vestiges.addTo(map), // Display on by default,
@@ -104,5 +124,7 @@ function createOverlays(map) {
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
     'Echantillons géologiques': echantillonsGeol
+    ,
+    'Portal POI (ArcGIS)': markerClusterGroupArcgis
   }
 }

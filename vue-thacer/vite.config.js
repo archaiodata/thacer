@@ -27,6 +27,17 @@ export default defineConfig(({ command }) => {
           secure: false,
           rewrite: (path) => path.replace(/^\/proxys_replacement_key_for_api_path_in_dev/, '')
         },
+          // Forward ArcGIS proxy requests to the remote host so the client can
+          // call the same relative path used in production. This avoids needing
+          // an embedded token for development.
+          '/arcgisproxyportal': {
+            target: 'https://ops.arxaiologikoktimatologio.gov.gr',
+            changeOrigin: true,
+            secure: true,
+            ws: false,
+            // keep the '/arcgisproxyportal' prefix when forwarding
+            rewrite: (path) => path.replace(/^\/arcgisproxyportal/, '/arcgisproxyportal')
+          },
         cors: false
       }
     }
