@@ -103,7 +103,7 @@ if (isset($_GET['GTh'])) {
         }
     }
     // Requête vers l'API Heurist pour obtenir les données de céramiques
-    $url = "https://heurist.huma-num.fr/h6-alpha/api/records?db=THASOS_CERAMIQUE";
+    $url = "https://heurist.huma-num.fr/h7-alpha/api/records?db=THASOS_CERAMIQUE&w=a&q=";
 
     $heuristData = file_get_contents($url);
     $dataArray = json_decode($heuristData, true);
@@ -163,6 +163,9 @@ if (isset($_GET['GTh'])) {
             }
             if (isset($record['details']['1108'])) {
                 $properties['Inventaire'] = current($record['details']['1108']);
+            }
+            if (isset($record['details']['1109'])) {
+                $properties['Archimage'] = current($record['details']['1109']);
             }
             if (isset($record['details']['1111'])) {
                 $properties['Provenance'] = current($record['details']['1111']);
