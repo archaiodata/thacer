@@ -359,6 +359,8 @@ export function createFeatureLayerArcgis(options) {
     markerClusterGroup = null,
     pointToLayer = null,
     onEachFeature = null,
+    // bbox: [xmin, ymin, xmax, ymax] in lon/lat (WGS84)
+    bbox = null,
     // Optional ArcGIS token. NOTE: embedding a token in client-side code
     // exposes it to users; prefer a server-side proxy that stores the token.
     token = null
@@ -372,6 +374,15 @@ export function createFeatureLayerArcgis(options) {
   let arcgisQuery = `${layerUrl}/query?where=${encodeURIComponent(where)}&outFields=${encodeURIComponent(
     outFields
   )}&outSR=4326&f=geojson`
+
+  // If a bbox is provided, restrict the query to that envelope. Bbox should
+  // be an array [xmin, ymin, xmax, ymax] in lon/lat (EPSG:4326). We use an
+  // envelope geometry which the ArcGIS REST API accepts as
+  // "xmin,ymin,xmax,ymax" with geometryType=esriGeometryEnvelope.
+  if (bbox && Array.isArray(bbox) && bbox.length === 4) {
+    const env = `${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}`
+    arcgisQuery += `&geometry=${encodeURIComponent(env)}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects`
+  }
 
   // If a token is provided, append it as a query parameter. Prefer server-side
   // proxy for token management; this is only for quick client-side testing.
