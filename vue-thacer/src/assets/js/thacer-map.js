@@ -122,10 +122,19 @@ function createOverlays(map) {
     },
     onEachFeature: function (feature, layer) {
       const p = feature.properties || {}
+      // Try common ID property names used by ArcGIS layers
+      const fid = p.ID || p.OBJECTID || p.id || p.ObjectID || p.OBJECTID_1 || ''
       const title = p.FIRST_NAME || p.ID || ''
-      let html = `<strong>${title}</strong>`
-      if (p.FIRST_FOREAS) html += `<br/>${p.FIRST_FOREAS}`
-      layer.bindPopup(html, { maxWidth: 300 })
+      if (fid) {
+        const url = `https://www.arxaiologikoktimatologio.gov.gr/el/monuments_info?id=${encodeURIComponent(
+          fid
+        )}&type=Monument`
+        const html = `<strong>${title}</strong><br/><a class="text-decoration-none" target="_blank" rel="noopener" href="${url}">Αρχαιολογικό Κτηματολόγιο</a>`
+        layer.bindPopup(html, { maxWidth: 300 })
+      } else {
+        // Fallback text when no id is present
+        layer.bindPopup('Αρχαιολογικό Κτηματολόγιο', { maxWidth: 300 })
+      }
     }
   })
 
