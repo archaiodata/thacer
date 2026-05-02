@@ -7,6 +7,14 @@
       placeholder="Recherche. Exemples : plat id:9130 invFouille:Indéterminé"
     />
 
+    <input
+      id="filter-sector"
+      type="text"
+      name="sector"
+      placeholder="Recherche secteur (ex: Evraiocastro)"
+      style="margin-top:6px"
+    />
+
     <div id="loading-localised" class="d-none loading-text m-2 mt-3">
       <div class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>
