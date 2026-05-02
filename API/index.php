@@ -103,7 +103,7 @@ if (isset($_GET['GTh'])) {
         }
     }
     // Requête vers l'API Heurist pour obtenir les données de céramiques
-    $url = "https://heurist.huma-num.fr/h7-alpha/api/records?db=THASOS_CERAMIQUE&w=a&q=";
+    $url = "https://heurist.huma-num.fr/h7-alpha/api/records?db=THASOS_CERAMIQUE&w=a&q=[{\"t\":\"118\"}]";
 
     $heuristData = file_get_contents($url);
     $dataArray = json_decode($heuristData, true);
@@ -188,12 +188,21 @@ if (isset($_GET['GTh'])) {
                     ? $periodeMapping[current($record['details']['1120'])]
                     : "Inconnue";
             }
+            // Coordonnées stockées en WKT dans le champ géographique '28'
+            $lng = 0;
+            $lat = 0;
+            if (isset($record['details']['28'])) {
+                $geoDetail = current($record['details']['28']);
+                if (isset($geoDetail['geo']['wkt'])) {
+                    if (preg_match('/POINT\s*\(\s*([\-\d.]+)\s+([\-\d.]+)\s*\)/i', $geoDetail['geo']['wkt'], $wktMatch)) {
+                        $lng = (float) $wktMatch[1];
+                        $lat = (float) $wktMatch[2];
+                    }
+                }
+            }
             $geometry = array(
                 'type' => 'Point',
-                'coordinates' => array(
-                    isset($record['details']['1121']) ? current($record['details']['1121']) : 0,
-                    isset($record['details']['1122']) ? current($record['details']['1122']) : 0
-                )
+                'coordinates' => array($lng, $lat)
             );
 
             // Créer l'entrée Feature pour ce record
