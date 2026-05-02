@@ -40,7 +40,7 @@ export function setCeramLayer(ceramLayer) {
 
   ceramLayer.bindPopup(popup + '</a>', {
     maxWidth: 350,
-    minWidth: 350,
+    minWidth: 350, 
     maxHeight: 550,
     autoPan: true,
     closeButton: false,
@@ -338,4 +338,178 @@ export function createFeatureLayerSites() {
       }).addTo(sites)
     })
   return sites
+}
+
+// Fetch an ArcGIS FeatureLayer (MapServer/<id>) via its query endpoint and
+// convert to a Leaflet layer. The ArcGIS service may be behind a proxy;
+// provide `proxyPath` if needed (for example `/arcgisproxyportal/proxy.ashx?`).
+// Options:
+//  - layerUrl: required. e.g. 'https://.../MapServer/4'
+//  - proxyPath: optional prefix used to proxy the request
+//  - where: optional ArcGIS WHERE clause (default: '1=1')
+//  - outFields: optional fields (default: '*')
+//  - markerClusterGroup: optional L.MarkerClusterGroup to add points to
+//  - pointToLayer / onEachFeature: optional handlers passed to L.geoJSON
+export function createFeatureLayerArcgis(options) {
+  const {
+    layerUrl,
+    proxyPath = import.meta.env.VITE_ARCGIS_PROXY || '',
+    where = '1=1',
+    outFields = '*',
+    markerClusterGroup = null,
+    pointToLayer = null,
+    onEachFeature = null,
+    // bbox: [xmin, ymin, xmax, ymax] in lon/lat (WGS84)
+    bbox = null,
+    // Optional ArcGIS token. NOTE: embedding a token in client-side code
+    // exposes it to users; prefer a server-side proxy that stores the token.
+    token = null
+  } = options || {}
+
+  if (!layerUrl) {
+    console.error('createFeatureLayerArcgis: missing layerUrl')
+    return L.featureGroup()
+  }
+
+  let arcgisQuery = `${layerUrl}/query?where=${encodeURIComponent(where)}&outFields=${encodeURIComponent(
+    outFields
+  )}&outSR=4326&f=geojson`
+
+  // If a bbox is provided, restrict the query to that envelope. Bbox should
+  // be an array [xmin, ymin, xmax, ymax] in lon/lat (EPSG:4326). We use an
+  // envelope geometry which the ArcGIS REST API accepts as
+  // "xmin,ymin,xmax,ymax" with geometryType=esriGeometryEnvelope.
+  if (bbox && Array.isArray(bbox) && bbox.length === 4) {
+    const env = `${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}`
+    arcgisQuery += `&geometry=${encodeURIComponent(env)}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects`
+  }
+
+  // If a token is provided, append it as a query parameter. Prefer server-side
+  // proxy for token management; this is only for quick client-side testing.
+  if (token) {
+    arcgisQuery += `&token=${encodeURIComponent(token)}`
+  }
+  const url = proxyPath ? `${proxyPath}${arcgisQuery}` : arcgisQuery
+
+  // Helpful debug: show the full URL we will fetch so devs can inspect network
+  // requests and adjust `proxyPath` (which may need to be an absolute URL).
+  // Example proxy usage (absolute):
+  // 'https://ops.arxaiologikoktimatologio.gov.gr/arcgisproxyportal/proxy.ashx?'
+  console.debug('ArcGIS query URL:', url)
+
+  const layerGroup = L.featureGroup()
+
+  // Paginated fetch to bypass `maxRecordCount` (commonly 1000).
+  // We request pages with `resultOffset` and `resultRecordCount`.
+  ;(async function loadAllPages() {
+    // small helper to build proxied URLs
+    const buildProxied = (raw) => (proxyPath ? `${proxyPath}${raw}` : raw)
+
+    // Try to fetch layer metadata first. If the layer is point-only but the
+    // parent MapServer exposes polygon sibling layers, auto-load those polygons
+    // so the client view matches the remote portal.
+    try {
+      const metaRes = await fetch(buildProxied(`${layerUrl}?f=json`))
+      if (metaRes && metaRes.ok) {
+        const layerMeta = await metaRes.json()
+        const autoLoadPolygons = options.autoLoadSiblingPolygons !== false
+        if (autoLoadPolygons && layerMeta && layerMeta.geometryType === 'esriGeometryPoint') {
+          const parentUrl = layerUrl.replace(/\/(\d+)$/, '')
+          if (parentUrl !== layerUrl) {
+            try {
+              const parentMetaRes = await fetch(buildProxied(`${parentUrl}?f=json`))
+              if (parentMetaRes && parentMetaRes.ok) {
+                const parentMeta = await parentMetaRes.json()
+                const polygonLayers = (parentMeta.layers || []).filter(
+                  (l) => l.geometryType === 'esriGeometryPolygon'
+                )
+                for (const pl of polygonLayers) {
+                  try {
+                    const purl = `${parentUrl}/${pl.id}/query?where=1%3D1&outFields=${encodeURIComponent(
+                      outFields
+                    )}&outSR=4326&f=geojson`
+                    const pres = await fetch(buildProxied(purl))
+                    if (pres && pres.ok) {
+                      const pdata = await pres.json()
+                      L.geoJSON(pdata, {
+                        style: options.polygonStyle || { color: '#3388ff', weight: 1, fillOpacity: 0.2 },
+                        onEachFeature: function (feature, layer) {
+                          if (onEachFeature) {
+                            onEachFeature(feature, layer)
+                          }
+                          layerGroup.addLayer(layer)
+                        }
+                      })
+                    }
+                  } catch (e) {
+                    console.debug('Failed to load sibling polygon layer', pl.id, e)
+                  }
+                }
+              }
+            } catch (e) {
+              console.debug('Failed to fetch parent MapServer metadata', e)
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.debug('Could not fetch layer metadata:', e)
+    }
+    const pageSize = options.pageSize || 1000
+    let offset = 0
+    try {
+      let lastCount = 0
+      do {
+        const pageUrl = `${url}&resultOffset=${offset}&resultRecordCount=${pageSize}`
+        console.debug('Fetching ArcGIS page:', pageUrl)
+
+        const res = await fetch(pageUrl)
+        if (!res.ok) {
+          let txt = ''
+          try {
+            txt = await res.text()
+          } catch (e) {
+            txt = '<unable to read response body>'
+          }
+          const msg = `ArcGIS query failed: ${res.status} ${res.statusText} - ${txt}`
+          throw new Error(msg)
+        }
+
+        const geojson = await res.json()
+        if (!geojson || !geojson.type) {
+          console.error('ArcGIS query returned unexpected payload', geojson)
+          break
+        }
+
+        const features = geojson.features || []
+        if (features.length === 0) {
+          // no more features
+          break
+        }
+
+        // create a layer for this page and add features. onEachFeature will
+        // handle adding to markerClusterGroup if provided.
+        L.geoJSON(geojson, {
+          pointToLayer: pointToLayer || undefined,
+          onEachFeature: function (feature, layer) {
+            if (onEachFeature) {
+              onEachFeature(feature, layer)
+            }
+            if (markerClusterGroup && layer instanceof L.Marker) {
+              markerClusterGroup.addLayer(layer)
+            } else {
+              layerGroup.addLayer(layer)
+            }
+          }
+        })
+
+        lastCount = features.length
+        offset += lastCount
+      } while (lastCount === pageSize)
+    } catch (err) {
+      console.error('Error loading ArcGIS FeatureLayer:', err)
+    }
+  })()
+
+  return layerGroup
 }

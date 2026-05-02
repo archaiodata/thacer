@@ -10,9 +10,7 @@ export function thacerMap() {
 
   const controlledOverlays = createOverlays(map)
 
-  L.control
-    .layers(tileLayers, controlledOverlays, { collapsed: false, sortLayers: true })
-    .addTo(map)
+  L.control.layers(tileLayers, controlledOverlays, { collapsed: true, sortLayers: true }).addTo(map)
 
   L.control
     .zoom({
@@ -95,6 +93,51 @@ function createOverlays(map) {
   let orthophotoAgora = createLayer.createTileLayerOrthophotoAgora()
   let echantillonsGeol = createLayer.createFeatureLayerEchantillonsGeol()
 
+  // ArcGIS FeatureLayer (external portal) - toggled in overlays control
+  // For Ktimatologio we do NOT want clustering; use a simple FeatureGroup
+  // and custom marker icons instead.
+  let markerClusterGroupArcgis = L.featureGroup()
+  // NOTE: the ArcGIS MapServer/4 layer URL (without proxy) — keep as-is or
+  // change to your preferred instance. We expect a proxy prefix to be used
+  // so the browser can reach it through the server-side proxy.
+  createLayer.createFeatureLayerArcgis({
+    layerUrl:
+      'https://ops.arxaiologikoktimatologio.gov.gr/arcgis/rest/services/Portal/SimpleGeometriesPortal/MapServer/0',
+    proxyPath: '/arcgisproxyportal/proxy.ashx?',
+    outFields: '*',
+    // provide the feature group so markers are added into it (no clustering)
+    markerClusterGroup: markerClusterGroupArcgis,
+    // Limit ArcGIS queries to the approximate envelope of Thasos island
+    // [xmin, ymin, xmax, ymax] (lon/lat)
+    bbox: [24.4, 40.5, 24.9, 40.9],
+    // Use the requested icon for point markers
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {
+        icon: L.icon({
+             iconUrl: '/deam-logo-solo.svg',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        })
+      })
+    },
+    onEachFeature: function (feature, layer) {
+      const p = feature.properties || {}
+      // Try common ID property names used by ArcGIS layers
+      const fid = p.ID || p.OBJECTID || p.id || p.ObjectID || p.OBJECTID_1 || ''
+      const title = p.FIRST_NAME || p.ID || ''
+      if (fid) {
+        const url = `https://www.arxaiologikoktimatologio.gov.gr/el/monuments_info?id=${encodeURIComponent(
+          fid
+        )}&type=Monument`
+        const html = `<strong>${title}</strong><br/><a class="text-decoration-none" target="_blank" rel="noopener" href="${url}">Αρχαιολογικό Κτηματολόγιο</a>`
+        layer.bindPopup(html, { maxWidth: 300 })
+      } else {
+        // Fallback text when no id is present
+        layer.bindPopup('Αρχαιολογικό Κτηματολόγιο', { maxWidth: 300 })
+      }
+    }
+  })
+
   // Finally, return the list of overlays which will be hid-able/show-able in the control
   return {
     'Vestiges antiques': vestiges.addTo(map), // Display on by default,
@@ -103,6 +146,7 @@ function createOverlays(map) {
     'Chronique des fouilles': markerClusterGroupChronique,
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
-    'Echantillons géologiques': echantillonsGeol
+    'Echantillons géologiques': echantillonsGeol,
+    // 'Ktimatologio': markerClusterGroupArcgis
   }
 }

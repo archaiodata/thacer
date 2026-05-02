@@ -1,5 +1,5 @@
 <template>
-  <h4>Graphique</h4>
+  <h4>Analyses chimiques XRF</h4>
   <div class="card">
     <!-- Display x y selectors -->
     <div class="row">
@@ -7,7 +7,7 @@
         <table id="SearchTable" class="table table-striped">
           <tbody>
             <tr id="tr0" class="condline">
-              <td class="">Thasos analyses XRF</td>
+              <td class="">Projection bidimensionnelle</td>
               <td class="">X :</td>
               <td id="td_selx" class="">
                 <select
@@ -157,7 +157,7 @@ export default {
       let scatterChartDs = {
         datasets: [
           {
-            label: 'Current sample',
+            label: 'échantillon sélectionné',
             pointBackgroundColor: 'rgba(1, 1, 0, 0.1)',
             borderColor: 'red',
             data: [
@@ -168,7 +168,7 @@ export default {
             ]
           },
           {
-            label: 'all samples',
+            label: 'tous les échantillons',
             data: output2
           },
           {
@@ -222,7 +222,7 @@ export default {
       let scatterChartData = {
         datasets: [
           {
-            label: 'Current sample',
+            label: 'échantillon sélectionné',
             pointBackgroundColor: 'rgba(1, 1, 0, 0.1)',
             borderColor: 'red',
             data: [
@@ -233,7 +233,7 @@ export default {
             ]
           },
           {
-            label: 'all samples',
+            label: 'tous les échantillons',
             data: output2
           },
           {

@@ -16,55 +16,29 @@ export function setupSearchCeramByText(markerClusterGroupCeram, map) {
     }
 
     const inputSearchString = e.target.value.trim().toLowerCase()
-    // Récupérer les données depuis le cache
-    const cachedData = JSON.parse(sessionStorage.getItem('ceramData'))
-
-    // Traiter les objets non localisés
-    document.getElementById('nonloc').innerHTML = []
-    document.getElementById('loading-unlocalised').classList.remove('d-none')
-
-    Object.keys(cachedData.features).forEach((k) => {
-      let obj = cachedData.features[k]
-
-      // Ajouter les objets céramiques seulement s'ils ne sont pas localisés et passent le filtre
-      if (
-        obj.geometry.coordinates[0] === 0 &&
-        doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
-      ) {
-        let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID
-
-        document.getElementById('nonloc').innerHTML +=
-          '<a class="unlocalised-tag px-1 m-0 border border-white" href="#/ceram?ID=' +
-          obj.properties.ID +
-          '">' +
-          label +
-          '</a>'
-      }
+    // Try sector-name search first; if handled, do not run the generic text search
+    handleSectorNameSearch(inputSearchString, markerClusterGroupCeram, map).then((handled) => {
+      if (handled) return
+      performCeramTextSearch(inputSearchString, markerClusterGroupCeram, map)
     })
-
-    document.getElementById('loading-unlocalised').classList.add('d-none')
-
-    // Traiter les objets localisés
-    markerClusterGroupCeram.clearLayers()
-    document.getElementById('loading-localised').classList.remove('d-none')
-
-    const geojsonLayer = L.geoJSON(cachedData, {
-      filter: (e) => {
-        return (
-          e.geometry.coordinates[0] !== 0 &&
-          doesCeramObjectPassesInputSearchString(e?.properties, inputSearchString)
-        )
-      },
-      onEachFeature: (feature, layer) => {
-        setCeramLayer(layer)
-      }
-    })
-    markerClusterGroupCeram.clearLayers()
-    markerClusterGroupCeram.addLayer(geojsonLayer)
-    map.addLayer(markerClusterGroupCeram)
-    document.getElementById('loading-localised').classList.add('d-none')
-    designMarkersCeram(markerClusterGroupCeram)
   })
+
+  // Sector-specific search box
+  const sectorInput = document.getElementById('filter-sector')
+  if (sectorInput) {
+    sectorInput.addEventListener('keyup', (e) => {
+      if (e.keyCode !== 13) return
+      const q = e.target.value ? e.target.value.trim().toLowerCase() : ''
+      if (!q) {
+        // clear results
+        document.getElementById('nonloc').innerHTML = []
+        markerClusterGroupCeram.clearLayers()
+        return
+      }
+      // Directly handle sector search (no fallback)
+      handleSectorNameSearch(q, markerClusterGroupCeram, map)
+    })
+  }
 }
 
 // This function will be launched for each ceramObject.
@@ -199,4 +173,174 @@ export function designMarkersCeram(layer) {
       })
     )
   })
+}
+
+// ---- Helpers for sector-name search and original text search ----
+// Perform the original ceram text search (extracted for reuse)
+function performCeramTextSearch(inputSearchString, markerClusterGroupCeram, map) {
+  // Récupérer les données depuis le cache
+  const cachedData = JSON.parse(sessionStorage.getItem('ceramData'))
+
+  // Traiter les objets non localisés
+  document.getElementById('nonloc').innerHTML = []
+  document.getElementById('loading-unlocalised').classList.remove('d-none')
+
+  Object.keys(cachedData.features).forEach((k) => {
+    let obj = cachedData.features[k]
+
+    // Ajouter les objets céramiques seulement s'ils ne sont pas localisés et passent le filtre
+    if (
+      obj.geometry.coordinates[0] === 0 &&
+      doesCeramObjectPassesInputSearchString(obj.properties, inputSearchString)
+    ) {
+      let label = obj.properties.Pi ? 'Π' + obj.properties.Pi : obj.properties.ID
+
+      document.getElementById('nonloc').innerHTML +=
+        '<a class="unlocalised-tag px-1 m-0 border border-white" href="#/ceram?ID=' +
+        obj.properties.ID +
+        '">' +
+        label +
+        '</a>'
+    }
+  })
+
+  document.getElementById('loading-unlocalised').classList.add('d-none')
+
+  // Traiter les objets localisés
+  markerClusterGroupCeram.clearLayers()
+  document.getElementById('loading-localised').classList.remove('d-none')
+
+  const geojsonLayer = L.geoJSON(cachedData, {
+    filter: (e) => {
+      return (
+        e.geometry.coordinates[0] !== 0 &&
+        doesCeramObjectPassesInputSearchString(e?.properties, inputSearchString)
+      )
+    },
+    onEachFeature: (feature, layer) => {
+      setCeramLayer(layer)
+    }
+  })
+  markerClusterGroupCeram.clearLayers()
+  markerClusterGroupCeram.addLayer(geojsonLayer)
+  map.addLayer(markerClusterGroupCeram)
+  document.getElementById('loading-localised').classList.add('d-none')
+  designMarkersCeram(markerClusterGroupCeram)
+}
+
+// Load secteurs geojson once (cached in module variable)
+let _sectorsCache = null
+// Layer used to highlight matched sectors (so we can remove it between searches)
+let _sectorHighlightLayer = null
+async function loadSectors() {
+  if (_sectorsCache) return _sectorsCache
+  try {
+    const res = await fetch(import.meta.env.VITE_API_URL + 'geojson/secteurs.geojson')
+    if (!res.ok) return null
+    const data = await res.json()
+    _sectorsCache = data
+    return data
+  } catch (e) {
+    console.error('Failed to load secteurs.geojson', e)
+    return null
+  }
+}
+
+// If input matches sector titles, show ceram entries in those sectors.
+// Returns true if handled (i.e. sector-match found and displayed), false otherwise.
+async function handleSectorNameSearch(inputSearchString, markerClusterGroupCeram, map) {
+  if (!inputSearchString || inputSearchString.length < 2) return false
+  const sectors = await loadSectors()
+  if (!sectors || !sectors.features) return false
+
+  const q = inputSearchString.toLowerCase()
+  const matched = sectors.features.filter((f) => (f.properties?.Titre || '').toLowerCase().includes(q))
+  if (!matched || matched.length === 0) return false
+
+  // get secteur_ID values
+  const ids = matched.map((m) => m.properties?.secteur_ID).filter((v) => v !== undefined)
+  if (ids.length === 0) return false
+
+  // Now filter ceramData by secteur_ID in ids
+  const data = JSON.parse(sessionStorage.getItem('ceramData'))
+  if (!data) return false
+
+  const filteredData = {
+    ...data,
+    features: data.features.filter((feature) => ids.includes(feature.properties['secteur_ID']))
+  }
+
+  // Show non-localised matching entries
+  document.getElementById('nonloc').innerHTML = []
+  document.getElementById('loading-unlocalised').classList.remove('d-none')
+  filteredData.features.forEach((f) => {
+    if (f.geometry && f.geometry.coordinates && f.geometry.coordinates[0] === 0) {
+      const label = f.properties.Pi ? 'Π' + f.properties.Pi : f.properties.ID
+      document.getElementById('nonloc').innerHTML +=
+        '<a class="unlocalised-tag px-1 m-0 border border-white" href="#/ceram?ID=' + f.properties.ID + '">' +
+        label +
+        '</a>'
+    }
+  })
+  document.getElementById('loading-unlocalised').classList.add('d-none')
+
+  // Show localized ones
+  const featureLayer = L.geoJSON(filteredData, {
+    onEachFeature: (feature, layer) => {
+      setCeramLayer(layer)
+    }
+  })
+
+  markerClusterGroupCeram.clearLayers()
+  markerClusterGroupCeram.addLayer(featureLayer)
+  map.addLayer(markerClusterGroupCeram)
+  designMarkersCeram(markerClusterGroupCeram)
+
+  // Highlight matched sectors on the map and open their popup(s).
+  // Remove previous highlight layer if present.
+  if (_sectorHighlightLayer) {
+    try {
+      map.removeLayer(_sectorHighlightLayer)
+    } catch (e) {
+      /* ignore */
+    }
+    _sectorHighlightLayer = null
+  }
+
+  try {
+    _sectorHighlightLayer = L.geoJSON(matched, {
+      style: options => ({ color: '#ff7800', weight: 2, fillOpacity: 0.05 }),
+      onEachFeature: function (feature, layer) {
+        const title = feature.properties?.Titre || 'Secteur'
+        const sid = feature.properties?.Référenc || ''
+        const ref = feature.properties?.Référenc || ''
+        const popupHtml = `<strong>${title}</strong>${sid ? '<br/>' + ref : ''}`
+        layer.bindPopup(popupHtml)
+      }
+    })
+    _sectorHighlightLayer.addTo(map)
+    // open popups for all added sector layers
+    _sectorHighlightLayer.eachLayer(function (lyr) {
+      try {
+        lyr.openPopup()
+      } catch (e) {
+        /* ignore */
+      }
+    })
+    // Fit map to the bounds of matched sectors (with padding).
+    try {
+      const bounds = _sectorHighlightLayer.getBounds()
+      if (bounds && bounds.isValid && bounds.isValid()) {
+        // limit max zoom when fitting to small areas
+        const currentMaxZoom = map.getMaxZoom ? map.getMaxZoom() : 20
+        map.fitBounds(bounds, { padding: [20, 20], maxZoom: Math.min(18, currentMaxZoom) })
+      }
+    } catch (e) {
+      console.debug('Could not fit bounds to matched sectors', e)
+    }
+  } catch (e) {
+    console.debug('Failed to render sector highlight', e)
+  }
+
+  return true
 }
