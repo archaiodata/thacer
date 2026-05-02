@@ -147,6 +147,6 @@ function createOverlays(map) {
     'Plan SIG agora': sigThasos,
     'Orthophoto agora EfA': orthophotoAgora,
     'Echantillons géologiques': echantillonsGeol,
-    'Ktimatologio': markerClusterGroupArcgis
+    // 'Ktimatologio': markerClusterGroupArcgis
   }
 }
